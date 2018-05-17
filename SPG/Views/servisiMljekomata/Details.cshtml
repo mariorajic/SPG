@@ -1,0 +1,42 @@
+﻿@model SPG.servisi_mljekomata
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>servisi_mljekomata</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.datum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.datum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.troskovi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.troskovi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.mljekomati.lokacija)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.mljekomati.lokacija)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

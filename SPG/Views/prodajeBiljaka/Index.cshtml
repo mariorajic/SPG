@@ -1,0 +1,45 @@
+﻿@model IEnumerable<SPG.prodaje_biljaka>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.kolicina)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.profit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.biljke.naziv)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.kolicina)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.profit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.biljke.naziv)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

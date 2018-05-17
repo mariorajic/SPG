@@ -1,0 +1,66 @@
+﻿@model SPG.radnje_stroja
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>radnje_stroja</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.naziv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.naziv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.datum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.datum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.trosak)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.trosak)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.profit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.profit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.strojevi.naziv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.strojevi.naziv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tip_radnje_stroja1.naziv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tip_radnje_stroja1.naziv)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

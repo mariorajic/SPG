@@ -1,0 +1,57 @@
+﻿@model IEnumerable<SPG.oranice>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.naziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dimenzije)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.stanje_tla1.stanje)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.parcele.koordinate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.vrste_tla.vrsta)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.naziv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dimenzije)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.stanje_tla1.stanje)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.parcele.koordinate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.vrste_tla.vrsta)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,64 @@
+﻿@model SPG.oranice
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>oranice</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.naziv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.naziv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dimenzije)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dimenzije)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.stanje_tla1.stanje)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.stanje_tla1.stanje)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.parcele.koordinate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.parcele.koordinate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.vrste_tla.vrsta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vrste_tla.vrsta)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

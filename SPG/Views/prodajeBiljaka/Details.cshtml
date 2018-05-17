@@ -1,0 +1,42 @@
+﻿@model SPG.prodaje_biljaka
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>prodaje_biljaka</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.kolicina)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.kolicina)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.profit)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.profit)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.biljke.naziv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.biljke.naziv)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

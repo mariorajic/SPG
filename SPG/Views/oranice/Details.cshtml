@@ -1,0 +1,58 @@
+﻿@model SPG.oranice
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>oranice</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.naziv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.naziv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dimenzije)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dimenzije)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.stanje_tla1.stanje)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.stanje_tla1.stanje)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.parcele.koordinate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.parcele.koordinate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.vrste_tla.vrsta)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.vrste_tla.vrsta)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
