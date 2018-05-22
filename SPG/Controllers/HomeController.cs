@@ -25,7 +25,7 @@ namespace SPG.Controllers
 
         public ActionResult Login()
         {
-
+            ViewBag.NoNavbar = true;
             if (Session["id"] != null)
             {
                 return View("Index");
@@ -44,6 +44,7 @@ namespace SPG.Controllers
 
         public ActionResult Register()
         {
+            ViewBag.NoNavbar = true;
             if (Session["id"] != null)
             {
                 return View("Index");
@@ -57,7 +58,9 @@ namespace SPG.Controllers
         [HttpPost]
         public ActionResult Register(gospodarstva gospodarstva)
         {
-            if(ModelState.IsValid)
+            ViewBag.NoNavbar = true;
+
+            if (ModelState.IsValid)
             {
                 if (!db.gospodarstva.Any(g => g.email == gospodarstva.email))
                 {
@@ -77,6 +80,7 @@ namespace SPG.Controllers
 
         public ActionResult About()
         {
+            ViewBag.NoNavbar = true;
             ViewBag.Message = "Your application description page.";
 
             return View();
@@ -92,6 +96,8 @@ namespace SPG.Controllers
         [HttpPost]
         public ActionResult Login(gospodarstva login)
         {
+            ViewBag.NoNavbar = true;
+
             var usr = db.gospodarstva.Where(g => g.email == login.email && g.lozinka == login.lozinka).FirstOrDefault();
                if (usr == null)
                 {

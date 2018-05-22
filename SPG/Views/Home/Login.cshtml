@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Home Page";
+    
 }
 
 <div class="row flex-center">
@@ -9,10 +10,12 @@
     <div class="col-12 col-lg-6 row flex-center flex-column">
 
         <img src="~/Content/img/logo.png" alt="Sustav za poljoprivredna gospodarstva">
+        
         @if (ViewBag.Message != null)
         {
             <h6 class="font-italic">@ViewBag.Message</h6>
         }
+
         @{
             using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "pi-form my-4 col-10 col-lg-6" }))
             {
