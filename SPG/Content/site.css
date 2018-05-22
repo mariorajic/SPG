@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 0px;
+    padding-top: 0;
     padding-bottom: 20px;
 }
 
@@ -29,15 +29,15 @@ textarea {
     justify-content: center;
     align-items: center;
 }
-li{
+
+li {
     margin-right: 30px;
 }
+
 .nav1 a {
-   
     text-decoration: none;
     color: black !important;
     border-bottom: 1px solid;
-
 }
 
 .active {
@@ -46,37 +46,7 @@ li{
     border: 1px solid black;
     border-bottom: 0px;
 }
-/* Form */
-.pi-form input {
-    border: none;
-    border-radius: 0;
-    text-align: center;
-    font-size: 0.9rem;
-    font-style: italic;
-}
 
-.pi-form .form-group {
-    border-bottom: 1px solid black;
-}
-
-.pi-form label {
-    margin-bottom: 0;
-}
-
-.pi-form .form-control {
-    border: none;
-    border-radius: 0;
-    text-align: center;
-    font-size: 0.9rem;
-}
-
-
-
-
-.form-links a {
-    font-size: 0.8rem;
-    color: dimgrey;
-}
 .nav1 {
     background-color: transparent;
     text-decoration-color: black !important;

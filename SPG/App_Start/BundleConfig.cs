@@ -26,7 +26,7 @@ namespace SPG
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/form.css",
-                      "~/COntent/font-awesome.min.css"));
+                      "~/Content/font-awesome.min.css"));
         }
     }
 }
