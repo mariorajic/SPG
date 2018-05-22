@@ -9,9 +9,70 @@ namespace SPG.Controllers
 {
     public class HomeController : Controller
     {
+        private Entities db = new Entities();
+
         public ActionResult Index()
         {
-            return View();
+            if (Session["id"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+
+        public ActionResult Login()
+        {
+
+            if (Session["id"] != null)
+            {
+                return View("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction("Login", "Home");
+        }
+
+        public ActionResult Register()
+        {
+            if (Session["id"] != null)
+            {
+                return View("Index");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Register(gospodarstva gospodarstva)
+        {
+            if(ModelState.IsValid)
+            {
+                if (!db.gospodarstva.Any(g => g.email == gospodarstva.email))
+                {
+                    db.gospodarstva.Add(gospodarstva);
+                    db.SaveChanges();
+                    ModelState.Clear();
+                    ViewBag.Message = "Uspješno ste se registrirali. Molimo prijavite se.";
+                    return View("Login");
+                }
+                else
+                {
+                    ViewBag.Message = "Unijeli ste postojeću email adresu.";
+                    return View();
+                }
+            } return View();
         }
 
         public ActionResult About()
@@ -31,23 +92,20 @@ namespace SPG.Controllers
         [HttpPost]
         public ActionResult Login(gospodarstva login)
         {
-           
-            /*string s1 = "Select email,lozinka from [dbo].[gospodarstva] where email=@Email and lozinka=@Lozinka ";
-            SqlCommand sqlcomm = new SqlCommand(s1);
-            sqlcomm.Parameters.AddWithValue("@Email", login.Email);
-            sqlcomm.Parameters.AddWithValue("@Lozinka", login.Lozinka);
-            SqlDataReader sdr = dbCtrl.executeSdr(sqlcomm);
-            if (sdr.Read())
-            {
-                Session["id"] = login.Id.ToString();
-                return RedirectToAction("Welcome");
-            }
-            else
-            {
-                ViewData["Message"] = "Unijeli ste pogrešne podatke.";
-            }*/
+            var usr = db.gospodarstva.Where(g => g.email == login.email && g.lozinka == login.lozinka).FirstOrDefault();
+               if (usr == null)
+                {
+                    ViewBag.Message = "Unijeli ste pogrešne podatke!";
+                    return View();
+                }
+                else
+                {
+                Session["id"] = usr.id;
+                ViewBag.Message = "Uspješno ste se prijavili.";
+                return RedirectToAction("Index", "Home");
 
-            return View();
+                }
+            
         }
     }
 }

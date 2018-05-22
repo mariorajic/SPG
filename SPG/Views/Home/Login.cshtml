@@ -1,0 +1,39 @@
+﻿@model SPG.gospodarstva
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row flex-center">
+
+    <div class="col-12 col-lg-6 row flex-center flex-column">
+
+        <img src="~/Content/img/logo.png" alt="Sustav za poljoprivredna gospodarstva">
+        @if (ViewBag.Message != null)
+        {
+            <h6 class="font-italic">@ViewBag.Message</h6>
+        }
+        @{
+            using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "pi-form my-4 col-10 col-lg-6" }))
+            {
+            <div class="form-group row my-3">
+                <label class="col-2 flex-center"><i class="fa fa-user"></i></label>
+                @Html.EditorFor(model => model.email, new { htmlAttributes = new { placeholder = "Unesite email.", @class = "form-control col-10" } })
+                @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group row my-3">
+                <label class="col-2 flex-center"><i class="fa fa-lock"></i></label>
+                @Html.EditorFor(model => model.lozinka, new { htmlAttributes = new { placeholder = "Unesite lozinku.", @class = "form-control col-10" } })
+                @Html.ValidationMessageFor(model => model.lozinka, "", new { @class = "text-danger" })
+            </div>
+                <button type="submit" class="my-3">Prijava</button>
+                <div class="form-links d-flex justify-content-between my-3">
+                    <a href="#">Zaboravili ste lozinku?</a>
+                    <a href="@Url.Action("Register", null, new {area = string.Empty, controller = "Home"}, Request.Url.Scheme)">
+                        <span>Registracija</span>
+                    </a>
+                </div>
+            }
+        }
+    </div>
+</div>

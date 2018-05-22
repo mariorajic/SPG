@@ -37,7 +37,6 @@ namespace SPG
         public string kontakt { get; set; }
 
         public Nullable<int> id_zadruge { get; set; }
-
         [Required(ErrorMessage = "Morate ispuniti email.")]
         [StringLength(70)]
         [DataType(DataType.EmailAddress)]
