@@ -1,0 +1,34 @@
+﻿/* Form */
+.pi-form input {
+    border: none;
+    border-radius: 0;
+    text-align: center;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+.pi-form .form-group {
+    border-bottom: 1px solid black;
+}
+
+.pi-form label {
+    margin-bottom: 0;
+}
+
+.pi-form .form-control {
+    border: none;
+    border-radius: 0;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.pi-form button {
+    width: 100%;
+    background: transparent;
+    border: 1px solid black;
+}
+
+.form-links a {
+    font-size: 0.8rem;
+    color: dimgrey;
+}

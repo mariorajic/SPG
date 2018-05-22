@@ -24,7 +24,9 @@ namespace SPG
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/form.css",
+                      "~/COntent/font-awesome.min.css"));
         }
     }
 }
