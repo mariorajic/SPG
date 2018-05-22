@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 0px;
     padding-bottom: 20px;
 }
 
@@ -29,16 +29,23 @@ textarea {
     justify-content: center;
     align-items: center;
 }
-
-a {
+li{
+    margin-right: 30px;
+}
+.nav1 a {
+   
     text-decoration: none;
-    color: dimgrey;
+    color: black !important;
+    border-bottom: 1px solid;
+
 }
 
-    a:hover {
-        text-decoration: none !important;
-        color: black !important;
-    }
+.active {
+    text-decoration: none !important;
+    color: black !important;
+    border: 1px solid black;
+    border-bottom: 0px;
+}
 /* Form */
 .pi-form input {
     border: none;
@@ -63,13 +70,14 @@ a {
     font-size: 0.9rem;
 }
 
-.pi-form button {
-    width: 100%;
-    background: transparent;
-    border: 1px solid black;
-}
+
+
 
 .form-links a {
     font-size: 0.8rem;
     color: dimgrey;
+}
+.nav1 {
+    background-color: transparent;
+    text-decoration-color: black !important;
 }
