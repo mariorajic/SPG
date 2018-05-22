@@ -11,7 +11,8 @@ namespace SPG
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class gospodarstva
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,11 +23,28 @@ namespace SPG
         }
     
         public int id { get; set; }
+
+        [Required(ErrorMessage = "Morate ispuniti ime.")]
+        [StringLength(40, MinimumLength =3)]
         public string ime { get; set; }
+
+        [Required(ErrorMessage = "Morate ispuniti prezime.")]
+        [StringLength(40, MinimumLength = 2)]
         public string prezime { get; set; }
+
+        [Required(ErrorMessage = "Morate ispuniti kontakt podatke.")]
+        [DataType(DataType.PhoneNumber)]
         public string kontakt { get; set; }
+
         public Nullable<int> id_zadruge { get; set; }
+
+        [Required(ErrorMessage = "Morate ispuniti email.")]
+        [StringLength(70)]
+        [DataType(DataType.EmailAddress)]
         public string email { get; set; }
+
+        [Required(ErrorMessage = "Morate ispuniti lozinku.")]
+        [DataType(DataType.Password)]
         public string lozinka { get; set; }
     
         public virtual zadruge zadruge { get; set; }
