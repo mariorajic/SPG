@@ -8,18 +8,12 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    @if (ViewBag.NoNavbar==null)
-    {
-        Html.RenderPartial("Navbar");
-    }
-    else
-    {
-        Html.RenderPartial("LoggedOutNavbar");
-    }
+    @Html.Partial("Navbar");
+   
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
+        <footer class="flex-center">
             <p>&copy; @DateTime.Now.Year - SPG</p>
         </footer>
     </div>

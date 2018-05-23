@@ -25,10 +25,9 @@ namespace SPG.Controllers
 
         public ActionResult Login()
         {
-            ViewBag.NoNavbar = true;
             if (Session["id"] != null)
             {
-                return View("Index");
+                return RedirectToAction("Index");
             }
             else
             {

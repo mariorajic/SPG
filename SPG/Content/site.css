@@ -30,24 +30,30 @@ textarea {
     align-items: center;
 }
 
-li {
-    margin-right: 30px;
-}
-
-.nav1 a {
-    text-decoration: none;
-    color: black !important;
-    border-bottom: 1px solid;
-}
-
-.active {
+a {
     text-decoration: none !important;
     color: black !important;
-    border: 1px solid black;
-    border-bottom: 0px;
 }
 
 .nav1 {
     background-color: transparent;
     text-decoration-color: black !important;
 }
+
+.nav1 li {
+  border-bottom: 1px solid black;  
+}
+
+.nav1 li:hover {
+   background: rgba(0, 0, 0, 0.1);
+}
+
+.nav1 li + li{
+    margin-left: 20px;
+}
+
+.active {
+    border: 1px solid black;
+}
+
+
