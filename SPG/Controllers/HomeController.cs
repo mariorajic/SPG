@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using SPG;
 
 namespace SPG.Controllers
@@ -11,53 +12,46 @@ namespace SPG.Controllers
     {
         private Entities db = new Entities();
 
+        [Authorize]
         public ActionResult Index()
         {
-            if (Session["id"] != null)
-            {
                 return View();
-            }
-            else
-            {
-                return RedirectToAction("Login");
-            }
         }
+
 
         public ActionResult Login()
         {
-            if (Session["id"] != null)
+            if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
-            else
+            if (TempData["shortMessage"] != null)
             {
-                return View();
+                ViewBag.Message = TempData["shortMessage"].ToString();
             }
+            return View();
         }
 
+        [Authorize]
         public ActionResult Logout()
         {
-            Session.Abandon();
+            FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Home");
         }
 
         public ActionResult Register()
         {
-            ViewBag.NoNavbar = true;
-            if (Session["id"] != null)
+            if (User.Identity.IsAuthenticated)
             {
-                return View("Index");
+                return RedirectToAction("Index", "Home");
             }
-            else
-            {
-                return View();
-            }
+            return View();
         }
 
+        [ValidateAntiForgeryToken]
         [HttpPost]
         public ActionResult Register(gospodarstva gospodarstva)
         {
-            ViewBag.NoNavbar = true;
 
             if (ModelState.IsValid)
             {
@@ -66,51 +60,54 @@ namespace SPG.Controllers
                     db.gospodarstva.Add(gospodarstva);
                     db.SaveChanges();
                     ModelState.Clear();
-                    ViewBag.Message = "Uspješno ste se registrirali. Molimo prijavite se.";
-                    return View("Login");
+                    TempData["shortMessage"] = "Uspješno ste se registrirali. Molimo prijavite se.";
+                    return RedirectToAction("Login");
                 }
                 else
                 {
                     ViewBag.Message = "Unijeli ste postojeću email adresu.";
                     return View();
                 }
-            } return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.NoNavbar = true;
-            ViewBag.Message = "Your application description page.";
-
+            }
             return View();
         }
 
+
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
+            return View();
+        }
+        
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
-
             return View();
         }
 
         [HttpPost]
-        public ActionResult Login(gospodarstva login)
+        [ValidateAntiForgeryToken]
+        public ActionResult Login(gospodarstva login, string returnUrl)
         {
-            ViewBag.NoNavbar = true;
-
             var usr = db.gospodarstva.Where(g => g.email == login.email && g.lozinka == login.lozinka).FirstOrDefault();
-               if (usr == null)
+            if (usr != null)
+            {
+                FormsAuthentication.SetAuthCookie(usr.email, false);
+                if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                 {
-                    ViewBag.Message = "Unijeli ste pogrešne podatke!";
-                    return View();
+                    return Redirect(returnUrl);
                 }
                 else
                 {
-                Session["id"] = usr.id;
-                ViewBag.Message = "Uspješno ste se prijavili.";
-                return RedirectToAction("Index", "Home");
-
+                    return RedirectToAction("Index");
                 }
-            
+            }
+            else
+            {
+                ModelState.AddModelError("", "Netočan email ili lozinka.");
+                return View();
+            }
         }
+
     }
 }

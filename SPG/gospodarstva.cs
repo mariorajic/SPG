@@ -25,7 +25,7 @@ namespace SPG
         public int id { get; set; }
 
         [Required(ErrorMessage = "Morate ispuniti ime.")]
-        [StringLength(40, MinimumLength =3)]
+        [StringLength(40, MinimumLength =2)]
         public string ime { get; set; }
 
         [Required(ErrorMessage = "Morate ispuniti prezime.")]
