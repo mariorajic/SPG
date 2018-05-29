@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
 using SPG;
@@ -57,6 +58,7 @@ namespace SPG.Controllers
             {
                 if (!db.gospodarstva.Any(g => g.email == gospodarstva.email))
                 {
+                    gospodarstva.lozinka = Crypto.SHA256(gospodarstva.lozinka);
                     db.gospodarstva.Add(gospodarstva);
                     db.SaveChanges();
                     ModelState.Clear();
@@ -89,7 +91,8 @@ namespace SPG.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(gospodarstva login, string returnUrl)
         {
-            var usr = db.gospodarstva.Where(g => g.email == login.email && g.lozinka == login.lozinka).FirstOrDefault();
+            var hashedLozinka = Crypto.SHA256(login.lozinka);
+            var usr = db.gospodarstva.Where(g => g.email == login.email && g.lozinka == hashedLozinka).FirstOrDefault();
             if (usr != null)
             {
                 FormsAuthentication.SetAuthCookie(usr.email, false);

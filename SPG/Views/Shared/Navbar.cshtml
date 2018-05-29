@@ -9,32 +9,32 @@
                     @Html.ActionLink("O projektu", "About", "Home", new { }, new { @Class = "nav-link" })
                 </li>
                 @if (!User.Identity.IsAuthenticated)
-                {
-                    <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Login" ? "active" : "")">
-                        @Html.ActionLink("Prijava", "Login", "Home", new { }, new { @Class = "nav-link" })
-                    </li>
-                    <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Register" ? "active" : "")">
-                        @Html.ActionLink("Registracija", "Register", "Home", new { }, new { @Class = "nav-link" })
-                    </li>
-                }
-                else
-                {
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Farme </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Oranice</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Strojevi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Mljekomati</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Ostalo</a>
-                    </li>
-                }
+    {
+            <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Login" ? "active" : "")">
+                @Html.ActionLink("Prijava", "Login", "Home", new { }, new { @Class = "nav-link" })
+            </li>
+            <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Register" ? "active" : "")">
+                @Html.ActionLink("Registracija", "Register", "Home", new { }, new { @Class = "nav-link" })
+            </li>
+}
+else
+{
+            <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Parcele" ? "active" : "")">
+                @Html.ActionLink("Parcele", "Index", "parcele", new { }, new { @Class = "nav-link" })
+            </li>
+            <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Mljekomati" ? "active" : "")">
+                @Html.ActionLink("Mljekomati", "Index", "mljekomati", new { }, new { @Class = "nav-link" })
+            </li>
+            <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Strojevi" ? "active" : "")">
+                @Html.ActionLink("Strojevi", "Index", "strojevi", new { }, new { @Class = "nav-link" })
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Troskovi?</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Ostalo</a>
+            </li>
+}
             </ul>
             @if (User.Identity.IsAuthenticated)
             {
