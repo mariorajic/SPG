@@ -56,16 +56,21 @@ a {
     border: 1px solid black;
 }
 
-#mi{ 
+#mi {
     padding-left: 20 px;
     padding-right: 20 px;
-  
 }
-#prvi {
+
+.left p {
+    padding-left: 50px;
+}
+.right p{
+    padding-right: 50px;
+}
+.left {
     border-right: 2px solid black;
 }
-#drugi{
-    padding-left: 70px;
+
+#mi img{
+    max-height: 200px;
 }
-
-
