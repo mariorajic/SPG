@@ -91,11 +91,12 @@ namespace SPG.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(gospodarstva login, string returnUrl)
         {
+            
             var hashedLozinka = Crypto.SHA256(login.lozinka);
             var usr = db.gospodarstva.Where(g => g.email == login.email && g.lozinka == hashedLozinka).FirstOrDefault();
             if (usr != null)
             {
-                FormsAuthentication.SetAuthCookie(usr.email, false);
+                FormsAuthentication.SetAuthCookie(usr.id.ToString(), false);
                 if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                 {
                     return Redirect(returnUrl);

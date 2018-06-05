@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using System.Security.Claims;
 using SPG;
 
 namespace SPG.Controllers
@@ -49,8 +51,11 @@ namespace SPG.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,id_korisnika,koordinate,dimenzije,id_grada,lokacija")] parcele parcele)
+        public ActionResult Create([Bind(Include = "id,koordinate,dimenzije,id_grada,lokacija")] parcele parcele)
         {
+
+            parcele.id_korisnika = Int32.Parse(User.Identity.Name);
+
             if (ModelState.IsValid)
             {
                 db.parcele.Add(parcele);
