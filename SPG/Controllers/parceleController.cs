@@ -15,11 +15,14 @@ namespace SPG.Controllers
     public class parceleController : Controller
     {
         private Entities db = new Entities();
-
+        
         // GET: parcele
         public ActionResult Index()
         {
-            var parcele = db.parcele.Include(p => p.gospodarstva).Include(p => p.gradovi);
+            int userid = Int32.Parse(User.Identity.Name);
+
+            var parcele = db.parcele.Include(p => p.gospodarstva).Include(p => p.gradovi)
+                .Where(p => p.id_korisnika == userid);
             return View(parcele.ToList());
         }
 
