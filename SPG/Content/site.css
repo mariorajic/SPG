@@ -55,5 +55,16 @@ a {
 .active {
     border: 1px solid black;
 }
+#mi{ 
+    padding-left: 20 px;
+    padding-right: 20 px;
+  
+}
+#prvi {
+    border-right: 2px solid black;
+}
+#drugi{
+    padding-left: 70px;
+}
 
 
