@@ -1,57 +1,156 @@
-﻿@model IEnumerable<SPG.parcele>
-
-@{
+﻿@{
     ViewBag.Title = "Index";
+    IEnumerable<parcele> parcele = ViewData["Parcele"] as IEnumerable<parcele>;
+    IEnumerable<farme> farme = ViewData["Farme"] as IEnumerable<farme>;
+    IEnumerable<oranice> oranice = ViewData["Oranice"] as IEnumerable<oranice>;
 }
+<h2>Parcele</h2>
 
-<h2>Index</h2>
+<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Parcele</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">Farme</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Oranice</a>
+    </li>
+</ul>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.koordinate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dimenzije)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.lokacija)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.gospodarstva.ime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.gradovi.ime)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.koordinate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dimenzije)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.lokacija)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.gospodarstva.ime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.gradovi.ime)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
-
-</table>
+<div class="tab-content" id="pills-tabContent">
+    <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+        <p>
+            @Html.ActionLink("Create New", "Create", "parcele")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    Koordinate
+                </th>
+                <th>
+                    Dimenzije
+                </th>
+                <th>
+                    Lokacija
+                </th>
+                <th>
+                    Ime korisnika
+                </th>
+                <th>
+                    Grad
+                </th>
+                <th></th>
+            </tr>
+            @foreach (var item in parcele)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.koordinate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.dimenzije)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.lokacija)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.gospodarstva.ime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.gradovi.ime)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+        <p>
+            @Html.ActionLink("Create New", "Create", "farme")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    Naziv
+                </th>
+                <th>
+                    Koordinate
+                </th>
+                <th>
+                </th>
+            </tr>
+            @foreach (var item in farme)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.naziv)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.parcele.koordinate)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "farme", new { id = item.id }) |
+                        @Html.ActionLink("Details", "Details", "farme", new { id = item.id }) |
+                        @Html.ActionLink("Delete", "Delete", "farme", new { id = item.id })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+        <p>
+            @Html.ActionLink("Create New", "Create", "oranice")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    Naziv
+                </th>
+                <th>
+                    Dimenzije
+                </th>
+                <th>
+                    Stanje tla
+                </th>
+                <th>
+                    Vrsta tla
+                </th>
+                <th>
+                    Koordinate
+                </th>
+                <th>
+                </th>
+            </tr>
+            @foreach (var item in oranice)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.naziv)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.dimenzije)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.stanje_tla1.stanje)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.vrste_tla.vrsta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.parcele.koordinate)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "oranice", new { id = item.id }) |
+                        @Html.ActionLink("Details", "Details", "oranice", new { id = item.id }) |
+                        @Html.ActionLink("Delete", "Delete", "oranice", new { id = item.id })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

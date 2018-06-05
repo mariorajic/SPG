@@ -12,6 +12,7 @@ using SPG;
 
 namespace SPG.Controllers
 {
+    [Authorize]
     public class parceleController : Controller
     {
         private Entities db = new Entities();
@@ -23,7 +24,11 @@ namespace SPG.Controllers
 
             var parcele = db.parcele.Include(p => p.gospodarstva).Include(p => p.gradovi)
                 .Where(p => p.id_korisnika == userid);
-            return View(parcele.ToList());
+            ViewData["Parcele"] = parcele.ToList();
+            ViewData["Farme"] = db.farme.Where(f => f.parcele.id_korisnika == userid).ToList();
+            ViewData["Oranice"] = db.oranice.Where(f => f.parcele.id_korisnika == userid).ToList(); ;
+
+            return View();
         }
 
         // GET: parcele/Details/5

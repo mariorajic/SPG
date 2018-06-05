@@ -52,9 +52,10 @@ a {
     margin-left: 20px;
 }
 
-.active {
+.nav1 .active {
     border: 1px solid black;
 }
+
 #mi{ 
     padding-left: 20 px;
     padding-right: 20 px;

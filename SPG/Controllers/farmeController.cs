@@ -58,7 +58,7 @@ namespace SPG.Controllers
             }
 
             ViewBag.id_parcele = new SelectList(db.parcele, "id", "koordinate", farme.id_parcele);
-            return View(farme);
+            return View(parcele);
         }
 
         // GET: farme/Edit/5
