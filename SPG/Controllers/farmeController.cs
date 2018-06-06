@@ -17,8 +17,9 @@ namespace SPG.Controllers
         // GET: farme
         public ActionResult Index()
         {
-            var farme = db.farme.Include(f => f.parcele);
-            return View(farme.ToList());
+            /*var farme = db.farme.Include(f => f.parcele);
+            return View(farme.ToList());*/
+            return RedirectToAction("Index", "parcele");
         }
 
         // GET: farme/Details/5
@@ -29,7 +30,8 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             farme farme = db.farme.Find(id);
-            if (farme == null)
+            var userId = Int32.Parse(User.Identity.Name);
+            if (farme == null || farme.parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
@@ -39,7 +41,8 @@ namespace SPG.Controllers
         // GET: farme/Create
         public ActionResult Create()
         {
-            ViewBag.id_parcele = new SelectList(db.parcele, "id", "koordinate");
+            int userId = Int32.Parse(User.Identity.Name);
+            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "koordinate");
             return View();
         }
 
@@ -54,11 +57,11 @@ namespace SPG.Controllers
             {
                 db.farme.Add(farme);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "parcele");
             }
-
-            ViewBag.id_parcele = new SelectList(db.parcele, "id", "koordinate", farme.id_parcele);
-            return View(parcele);
+            var userId = Int32.Parse(User.Identity.Name);
+            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "koordinate");
+            return View();
         }
 
         // GET: farme/Edit/5
@@ -69,11 +72,12 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             farme farme = db.farme.Find(id);
-            if (farme == null)
+            var userId = Int32.Parse(User.Identity.Name);
+            if (farme == null || farme.parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
-            ViewBag.id_parcele = new SelectList(db.parcele, "id", "koordinate", farme.id_parcele);
+            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "koordinate");
             return View(farme);
         }
 
@@ -88,9 +92,10 @@ namespace SPG.Controllers
             {
                 db.Entry(farme).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "parcele");
             }
-            ViewBag.id_parcele = new SelectList(db.parcele, "id", "koordinate", farme.id_parcele);
+            var userId = Int32.Parse(User.Identity.Name);
+            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "koordinate");
             return View(farme);
         }
 
@@ -102,7 +107,8 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             farme farme = db.farme.Find(id);
-            if (farme == null)
+            var userId = Int32.Parse(User.Identity.Name);
+            if (farme == null || farme.parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
@@ -117,7 +123,7 @@ namespace SPG.Controllers
             farme farme = db.farme.Find(id);
             db.farme.Remove(farme);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "parcele");
         }
 
         protected override void Dispose(bool disposing)

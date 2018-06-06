@@ -4,13 +4,12 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Detalji o oranici</h2>
 
 <div>
-    <h4>oranice</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
+        <dt  class="text-capitalize">
             @Html.DisplayNameFor(model => model.naziv)
         </dt>
 
@@ -18,7 +17,7 @@
             @Html.DisplayFor(model => model.naziv)
         </dd>
 
-        <dt>
+        <dt  class="text-capitalize">
             @Html.DisplayNameFor(model => model.dimenzije)
         </dt>
 
@@ -27,14 +26,14 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.stanje_tla1.stanje)
+            Stanje tla
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.stanje_tla1.stanje)
         </dd>
 
-        <dt>
+        <dt  class="text-capitalize">
             @Html.DisplayNameFor(model => model.parcele.koordinate)
         </dt>
 
@@ -43,7 +42,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.vrste_tla.vrsta)
+            Vrsta tla
         </dt>
 
         <dd>
@@ -53,6 +52,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Uredi", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Nazad na listu", "Index", "parcele")
 </p>

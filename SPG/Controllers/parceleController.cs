@@ -20,13 +20,13 @@ namespace SPG.Controllers
         // GET: parcele
         public ActionResult Index()
         {
-            int userid = Int32.Parse(User.Identity.Name);
+            int userId = Int32.Parse(User.Identity.Name);
 
             var parcele = db.parcele.Include(p => p.gospodarstva).Include(p => p.gradovi)
-                .Where(p => p.id_korisnika == userid);
+                .Where(p => p.id_korisnika == userId);
             ViewData["Parcele"] = parcele.ToList();
-            ViewData["Farme"] = db.farme.Where(f => f.parcele.id_korisnika == userid).ToList();
-            ViewData["Oranice"] = db.oranice.Where(f => f.parcele.id_korisnika == userid).ToList(); ;
+            ViewData["Farme"] = db.farme.Where(f => f.parcele.id_korisnika == userId).ToList();
+            ViewData["Oranice"] = db.oranice.Where(f => f.parcele.id_korisnika == userId).ToList(); ;
 
             return View();
         }
@@ -39,7 +39,8 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             parcele parcele = db.parcele.Find(id);
-            if (parcele == null)
+            var userId = Int32.Parse(User.Identity.Name);
+            if (parcele == null || parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
@@ -49,7 +50,6 @@ namespace SPG.Controllers
         // GET: parcele/Create
         public ActionResult Create()
         {
-            ViewBag.id_korisnika = new SelectList(db.gospodarstva, "id", "ime");
             ViewBag.id_grada = new SelectList(db.gradovi, "id", "ime");
             return View();
         }
@@ -84,7 +84,8 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             parcele parcele = db.parcele.Find(id);
-            if (parcele == null)
+            var userId = Int32.Parse(User.Identity.Name);
+            if (parcele == null || parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
@@ -98,8 +99,10 @@ namespace SPG.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,id_korisnika,koordinate,dimenzije,id_grada,lokacija")] parcele parcele)
+        public ActionResult Edit([Bind(Include = "id,koordinate,dimenzije,id_grada,lokacija")] parcele parcele)
         {
+            parcele.id_korisnika = Int32.Parse(User.Identity.Name);
+
             if (ModelState.IsValid)
             {
                 db.Entry(parcele).State = EntityState.Modified;
@@ -119,7 +122,8 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             parcele parcele = db.parcele.Find(id);
-            if (parcele == null)
+            var userId = Int32.Parse(User.Identity.Name);
+            if (parcele == null || parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
             }

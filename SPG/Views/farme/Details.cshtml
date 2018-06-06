@@ -4,13 +4,12 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Detalji o farmi</h2>
 
 <div>
-    <h4>farme</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
+        <dt class="text-capitalize">
             @Html.DisplayNameFor(model => model.naziv)
         </dt>
 
@@ -18,7 +17,7 @@
             @Html.DisplayFor(model => model.naziv)
         </dd>
 
-        <dt>
+        <dt class="text-capitalize">
             @Html.DisplayNameFor(model => model.parcele.koordinate)
         </dt>
 
@@ -29,6 +28,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Uredi", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Nazad na listu", "Index", "parcele")
 </p>

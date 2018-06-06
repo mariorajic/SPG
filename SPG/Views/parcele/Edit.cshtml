@@ -1,32 +1,23 @@
 ﻿@model SPG.parcele
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "uredi parcelu";
 }
 
-<h2>Edit</h2>
-
+<h2>Uredi parcelu</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>parcele</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.id_korisnika, "id_korisnika", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("id_korisnika", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.id_korisnika, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.koordinate, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.koordinate, htmlAttributes: new { @class = "control-label col-md-2 text-capitalize" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.koordinate, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.koordinate, "", new { @class = "text-danger" })
@@ -34,7 +25,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.dimenzije, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.dimenzije, htmlAttributes: new { @class = "control-label col-md-2  text-capitalize" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.dimenzije, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.dimenzije, "", new { @class = "text-danger" })
@@ -42,7 +33,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.id_grada, "id_grada", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.id_grada, "Grad", htmlAttributes: new { @class = "control-label col-md-2 text-capitalize" })
             <div class="col-md-10">
                 @Html.DropDownList("id_grada", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.id_grada, "", new { @class = "text-danger" })
@@ -50,7 +41,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.lokacija, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.lokacija, htmlAttributes: new { @class = "control-label col-md-2 text-capitalize" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.lokacija, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.lokacija, "", new { @class = "text-danger" })
@@ -66,7 +57,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Nazad na listu", "Index")
 </div>
 
 @section Scripts {

@@ -22,10 +22,10 @@ else
             <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Parcele" ? "active" : "")">
                 @Html.ActionLink("Parcele", "Index", "parcele", new { }, new { @Class = "nav-link" })
             </li>
-            <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Mljekomati" ? "active" : "")">
+            <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "mljekomati" ? "active" : "")">
                 @Html.ActionLink("Mljekomati", "Index", "mljekomati", new { }, new { @Class = "nav-link" })
             </li>
-            <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "Strojevi" ? "active" : "")">
+            <li class="nav-item @(ViewContext.RouteData.Values["Action"].ToString() == "strojevi" ? "active" : "")">
                 @Html.ActionLink("Strojevi", "Index", "strojevi", new { }, new { @Class = "nav-link" })
             </li>
             <li class="nav-item">

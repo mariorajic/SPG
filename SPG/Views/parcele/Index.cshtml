@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Parcele";
     IEnumerable<parcele> parcele = ViewData["Parcele"] as IEnumerable<parcele>;
     IEnumerable<farme> farme = ViewData["Farme"] as IEnumerable<farme>;
     IEnumerable<oranice> oranice = ViewData["Oranice"] as IEnumerable<oranice>;
@@ -21,7 +21,7 @@
 <div class="tab-content" id="pills-tabContent">
     <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
         <p>
-            @Html.ActionLink("Create New", "Create", "parcele")
+            @Html.ActionLink("Nova parcela", "Create", "parcele")
         </p>
         <table class="table">
             <tr>
@@ -35,12 +35,11 @@
                     Lokacija
                 </th>
                 <th>
-                    Ime korisnika
-                </th>
-                <th>
                     Grad
                 </th>
-                <th></th>
+                <th>
+                    Akcije
+                </th>
             </tr>
             @foreach (var item in parcele)
             {
@@ -55,15 +54,12 @@
                         @Html.DisplayFor(modelItem => item.lokacija)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.gospodarstva.ime)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.gradovi.ime)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.id }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                        @Html.ActionLink("Uredi", "Edit", new { id = item.id }) |
+                        @Html.ActionLink("Detalji", "Details", new { id = item.id }) |
+                        @Html.ActionLink("Izbrisi", "Delete", new { id = item.id })
                     </td>
                 </tr>
             }
@@ -71,7 +67,7 @@
     </div>
     <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
         <p>
-            @Html.ActionLink("Create New", "Create", "farme")
+            @Html.ActionLink("Nova farma", "Create", "farme")
         </p>
         <table class="table">
             <tr>
@@ -82,6 +78,7 @@
                     Koordinate
                 </th>
                 <th>
+                    Akcije
                 </th>
             </tr>
             @foreach (var item in farme)
@@ -94,9 +91,9 @@
                         @Html.DisplayFor(modelItem => item.parcele.koordinate)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", "farme", new { id = item.id }) |
-                        @Html.ActionLink("Details", "Details", "farme", new { id = item.id }) |
-                        @Html.ActionLink("Delete", "Delete", "farme", new { id = item.id })
+                        @Html.ActionLink("Uredi", "Edit", new { id = item.id, controller = "farme" }) |
+                        @Html.ActionLink("Detalji", "Details", new { id = item.id, controller = "farme" }) |
+                        @Html.ActionLink("Izbrisi", "Delete", new { id = item.id, controller = "farme" })
                     </td>
                 </tr>
             }
@@ -104,7 +101,7 @@
     </div>
     <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
         <p>
-            @Html.ActionLink("Create New", "Create", "oranice")
+            @Html.ActionLink("Nova oranica", "Create", "oranice")
         </p>
         <table class="table">
             <tr>
@@ -124,6 +121,7 @@
                     Koordinate
                 </th>
                 <th>
+                    Akcije
                 </th>
             </tr>
             @foreach (var item in oranice)
@@ -145,9 +143,9 @@
                         @Html.DisplayFor(modelItem => item.parcele.koordinate)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", "oranice", new { id = item.id }) |
-                        @Html.ActionLink("Details", "Details", "oranice", new { id = item.id }) |
-                        @Html.ActionLink("Delete", "Delete", "oranice", new { id = item.id })
+                        @Html.ActionLink("Uredi", "Edit", new { id = item.id, controller = "oranice" }) |
+                        @Html.ActionLink("Detalji", "Details", new { id = item.id, controller = "oranice" }) |
+                        @Html.ActionLink("Izbrisi", "Delete", new { id = item.id, controller = "oranice" })
                     </td>
                 </tr>
             }

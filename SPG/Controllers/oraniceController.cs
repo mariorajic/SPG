@@ -17,8 +17,9 @@ namespace SPG.Controllers
         // GET: oranice
         public ActionResult Index()
         {
-            var oranice = db.oranice.Include(o => o.stanje_tla1).Include(o => o.parcele).Include(o => o.vrste_tla);
-            return View(oranice.ToList());
+            /*var oranice = db.oranice.Include(o => o.stanje_tla1).Include(o => o.parcele).Include(o => o.vrste_tla);
+            return View(oranice.ToList());*/
+            return RedirectToAction("Index", "parcele");
         }
 
         // GET: oranice/Details/5
@@ -29,7 +30,8 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             oranice oranice = db.oranice.Find(id);
-            if (oranice == null)
+            var userId = Int32.Parse(User.Identity.Name);
+            if (oranice == null || oranice.parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
@@ -39,8 +41,9 @@ namespace SPG.Controllers
         // GET: oranice/Create
         public ActionResult Create()
         {
+            int userId = Int32.Parse(User.Identity.Name);
             ViewBag.stanje_tla = new SelectList(db.stanje_tla, "id", "stanje");
-            ViewBag.id_parcele = new SelectList(db.parcele, "id", "koordinate");
+            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "koordinate");
             ViewBag.vrsta_tla = new SelectList(db.vrste_tla, "id", "vrsta");
             return View();
         }
@@ -56,11 +59,11 @@ namespace SPG.Controllers
             {
                 db.oranice.Add(oranice);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "parcele");
             }
-
+            var userId = Int32.Parse(User.Identity.Name);
             ViewBag.stanje_tla = new SelectList(db.stanje_tla, "id", "stanje", oranice.stanje_tla);
-            ViewBag.id_parcele = new SelectList(db.parcele, "id", "koordinate", oranice.id_parcele);
+            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "koordinate");
             ViewBag.vrsta_tla = new SelectList(db.vrste_tla, "id", "vrsta", oranice.vrsta_tla);
             return View(oranice);
         }
@@ -73,12 +76,13 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             oranice oranice = db.oranice.Find(id);
-            if (oranice == null)
+            var userId = Int32.Parse(User.Identity.Name);
+            if (oranice == null || oranice.parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
             ViewBag.stanje_tla = new SelectList(db.stanje_tla, "id", "stanje", oranice.stanje_tla);
-            ViewBag.id_parcele = new SelectList(db.parcele, "id", "koordinate", oranice.id_parcele);
+            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "koordinate");
             ViewBag.vrsta_tla = new SelectList(db.vrste_tla, "id", "vrsta", oranice.vrsta_tla);
             return View(oranice);
         }
@@ -94,10 +98,11 @@ namespace SPG.Controllers
             {
                 db.Entry(oranice).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "parcele");
             }
+            var userId = Int32.Parse(User.Identity.Name);
             ViewBag.stanje_tla = new SelectList(db.stanje_tla, "id", "stanje", oranice.stanje_tla);
-            ViewBag.id_parcele = new SelectList(db.parcele, "id", "koordinate", oranice.id_parcele);
+            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "koordinate");
             ViewBag.vrsta_tla = new SelectList(db.vrste_tla, "id", "vrsta", oranice.vrsta_tla);
             return View(oranice);
         }
@@ -110,7 +115,8 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             oranice oranice = db.oranice.Find(id);
-            if (oranice == null)
+            var userId = Int32.Parse(User.Identity.Name);
+            if (oranice == null || oranice.parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
@@ -125,7 +131,7 @@ namespace SPG.Controllers
             oranice oranice = db.oranice.Find(id);
             db.oranice.Remove(oranice);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "parcele");
         }
 
         protected override void Dispose(bool disposing)
