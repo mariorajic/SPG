@@ -11,11 +11,14 @@ namespace SPG
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class radnje_stroja
     {
         public int id { get; set; }
         public string naziv { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
         public System.DateTime datum { get; set; }
         public string trosak { get; set; }
         public string profit { get; set; }

@@ -10,14 +10,20 @@ using SPG;
 
 namespace SPG.Controllers
 {
+    [Authorize]
     public class strojeviController : Controller
     {
         private Entities db = new Entities();
-
+        public int DobaviID()
+        {
+            int IdUsera = Int32.Parse(User.Identity.Name);
+            return IdUsera;
+        }
         // GET: strojevi
         public ActionResult Index()
         {
-            var strojevi = db.strojevi.Include(s => s.parcele);
+            int userId = DobaviID();
+            var strojevi = db.strojevi.Include(s => s.parcele).Where(s => s.parcele.id_korisnika == userId);
             return View(strojevi.ToList());
         }
 
@@ -29,7 +35,8 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             strojevi strojevi = db.strojevi.Find(id);
-            if (strojevi == null)
+            var userId = DobaviID();
+            if (strojevi == null || strojevi.parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
@@ -39,7 +46,8 @@ namespace SPG.Controllers
         // GET: strojevi/Create
         public ActionResult Create()
         {
-            ViewBag.id_parcele = new SelectList(db.parcele, "id", "koordinate");
+            int userId = DobaviID();
+            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "koordinate");
             return View();
         }
 
@@ -64,16 +72,17 @@ namespace SPG.Controllers
         // GET: strojevi/Edit/5
         public ActionResult Edit(int? id)
         {
+            int userId = DobaviID();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             strojevi strojevi = db.strojevi.Find(id);
-            if (strojevi == null)
+            if (strojevi == null || strojevi.parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
-            ViewBag.id_parcele = new SelectList(db.parcele, "id", "koordinate", strojevi.id_parcele);
+            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "koordinate", strojevi.id_parcele);
             return View(strojevi);
         }
 
@@ -97,12 +106,13 @@ namespace SPG.Controllers
         // GET: strojevi/Delete/5
         public ActionResult Delete(int? id)
         {
+            int userId = DobaviID();
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             strojevi strojevi = db.strojevi.Find(id);
-            if (strojevi == null)
+            if (strojevi == null || strojevi.parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
             }

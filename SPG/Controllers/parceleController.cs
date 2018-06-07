@@ -15,13 +15,17 @@ namespace SPG.Controllers
     [Authorize]
     public class parceleController : Controller
     {
+        public int DobaviID()
+        {
+            int IdUsera = Int32.Parse(User.Identity.Name);
+            return IdUsera;
+        }
         private Entities db = new Entities();
         
         // GET: parcele
         public ActionResult Index()
         {
-            int userId = Int32.Parse(User.Identity.Name);
-
+            var userId = DobaviID();
             var parcele = db.parcele.Include(p => p.gospodarstva).Include(p => p.gradovi)
                 .Where(p => p.id_korisnika == userId);
             ViewData["Parcele"] = parcele.ToList();
@@ -39,7 +43,7 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             parcele parcele = db.parcele.Find(id);
-            var userId = Int32.Parse(User.Identity.Name);
+            var userId = DobaviID();
             if (parcele == null || parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
@@ -62,7 +66,7 @@ namespace SPG.Controllers
         public ActionResult Create([Bind(Include = "id,koordinate,dimenzije,id_grada,lokacija")] parcele parcele)
         {
 
-            parcele.id_korisnika = Int32.Parse(User.Identity.Name);
+            parcele.id_korisnika = DobaviID();
 
             if (ModelState.IsValid)
             {
@@ -84,7 +88,7 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             parcele parcele = db.parcele.Find(id);
-            var userId = Int32.Parse(User.Identity.Name);
+            var userId = DobaviID();
             if (parcele == null || parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
@@ -101,7 +105,7 @@ namespace SPG.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,koordinate,dimenzije,id_grada,lokacija")] parcele parcele)
         {
-            parcele.id_korisnika = Int32.Parse(User.Identity.Name);
+            parcele.id_korisnika = DobaviID();
 
             if (ModelState.IsValid)
             {
@@ -122,7 +126,7 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             parcele parcele = db.parcele.Find(id);
-            var userId = Int32.Parse(User.Identity.Name);
+            var userId = DobaviID();
             if (parcele == null || parcele.id_korisnika != userId)
             {
                 return HttpNotFound();

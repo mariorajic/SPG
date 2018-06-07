@@ -11,7 +11,8 @@ namespace SPG
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class strojevi
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,6 +23,8 @@ namespace SPG
     
         public int id { get; set; }
         public string naziv { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
         public System.DateTime datum_kupovine { get; set; }
         public string trosak { get; set; }
         public string vrijednost { get; set; }

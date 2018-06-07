@@ -4,14 +4,11 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
+<h3>Jeste li sigurni da želite izbrisati ovaj stroj?</h3>
 <div>
-    <h4>strojevi</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
+        <dt class="text-capitalize">
             @Html.DisplayNameFor(model => model.naziv)
         </dt>
 
@@ -19,7 +16,7 @@
             @Html.DisplayFor(model => model.naziv)
         </dd>
 
-        <dt>
+        <dt class="text-capitalize">
             @Html.DisplayNameFor(model => model.datum_kupovine)
         </dt>
 
@@ -27,7 +24,7 @@
             @Html.DisplayFor(model => model.datum_kupovine)
         </dd>
 
-        <dt>
+        <dt class="text-capitalize">
             @Html.DisplayNameFor(model => model.trosak)
         </dt>
 
@@ -35,7 +32,7 @@
             @Html.DisplayFor(model => model.trosak)
         </dd>
 
-        <dt>
+        <dt class="text-capitalize">
             @Html.DisplayNameFor(model => model.vrijednost)
         </dt>
 
@@ -43,7 +40,7 @@
             @Html.DisplayFor(model => model.vrijednost)
         </dd>
 
-        <dt>
+        <dt class="text-capitalize">
             @Html.DisplayNameFor(model => model.parcele.koordinate)
         </dt>
 
@@ -53,12 +50,13 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            <input type="submit" value="Izbriši" class="btn btn-default" /> |
+            @Html.ActionLink("Nazad na listu", "Index")
         </div>
     }
 </div>

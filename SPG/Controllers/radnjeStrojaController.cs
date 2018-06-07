@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -39,7 +40,8 @@ namespace SPG.Controllers
         // GET: radnjeStroja/Create
         public ActionResult Create()
         {
-            ViewBag.id_stroja = new SelectList(db.strojevi, "id", "naziv");
+            int userId = Int32.Parse(User.Identity.Name);
+            ViewBag.id_stroja = new SelectList(db.strojevi.Where(p => p.parcele.id_korisnika == userId), "id", "naziv");
             ViewBag.tip_radnje_stroja = new SelectList(db.tip_radnje_stroja, "id", "naziv");
             return View();
         }
@@ -53,15 +55,37 @@ namespace SPG.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (Url.RequestContext.RouteData.Values["id"] != null )
+                {
+                    /* Sad trenutacno neki hajvan moze ručno ukucat url /radnjeStroja/Create/7 i tako dodat radnju na stroj koji nije njegov
+                     * pa bi valjalo ako mozes to napravit.. ja sam eto dole probo al izgleda da ta varijabla idStroja nije null iako bi trebala
+                     bit */
+                    int userId = Int32.Parse(User.Identity.Name);
+                    string x = Url.RequestContext.RouteData.Values["id"].ToString();
+                    int Ajdi = Int32.Parse(x);
+                    // mislim da u ovom grmu lezi zec  
+                    var idStroja = db.strojevi.Where(p => p.parcele.id_korisnika == userId && p.id == 2).FirstOrDefault();
+                    // 
+                    if (idStroja == null)
+                    {
+                        return HttpNotFound();
+                    }
+
+                    radnje_stroja.id_stroja = Ajdi;
+                }
                 db.radnje_stroja.Add(radnje_stroja);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            
+
 
             ViewBag.id_stroja = new SelectList(db.strojevi, "id", "naziv", radnje_stroja.id_stroja);
             ViewBag.tip_radnje_stroja = new SelectList(db.tip_radnje_stroja, "id", "naziv", radnje_stroja.tip_radnje_stroja);
             return View(radnje_stroja);
         }
+
+     
 
         // GET: radnjeStroja/Edit/5
         public ActionResult Edit(int? id)
