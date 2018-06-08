@@ -22,12 +22,16 @@ namespace SPG
         }
     
         public int id { get; set; }
+        [Required]
         public string naziv { get; set; }
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public System.DateTime datum_kupovine { get; set; }
+        [Required]
         public string trosak { get; set; }
+        [Required]
         public string vrijednost { get; set; }
+        [Required]
         public Nullable<int> id_parcele { get; set; }
     
         public virtual parcele parcele { get; set; }

@@ -17,6 +17,9 @@
         <th>
             @Html.DisplayNameFor(model => model.parcele.koordinate)
         </th>
+        <th>
+            Akcije
+        </th>
         <th></th>
     </tr>
 
@@ -29,9 +32,12 @@
             @Html.DisplayFor(modelItem => item.parcele.koordinate)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.id })
+        </td>
+        <td>
+            <button type="button" class="btn btn-basic">@Html.ActionLink("Radnja", "Create", "radnjeStroja", new { id = item.id }, null)</button>
         </td>
     </tr>
 }

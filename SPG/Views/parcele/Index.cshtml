@@ -80,22 +80,26 @@
                 <th>
                     Akcije
                 </th>
+                <th></th>
             </tr>
             @foreach (var item in farme)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.naziv)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.parcele.koordinate)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Uredi", "Edit", new { id = item.id, controller = "farme" }) |
-                        @Html.ActionLink("Detalji", "Details", new { id = item.id, controller = "farme" }) |
-                        @Html.ActionLink("Izbrisi", "Delete", new { id = item.id, controller = "farme" })
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.parcele.koordinate)
+                </td>
+                <td>
+                    @Html.ActionLink("Uredi", "Edit", new { id = item.id, controller = "farme" }) |
+                    @Html.ActionLink("Detalji", "Details", new { id = item.id, controller = "farme" }) |
+                    @Html.ActionLink("Izbrisi", "Delete", new { id = item.id, controller = "farme" })
+                </td>
+                <td>
+                    <button type="button" class="btn btn-basic">@Html.ActionLink("Dodaj životinju", "Create", "zivotinje", new { id = item.id }, null)</button>
+                </td>
+            </tr>
             }
         </table>
     </div>

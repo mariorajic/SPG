@@ -39,8 +39,19 @@ namespace SPG.Controllers
         // GET: zivotinje/Create
         public ActionResult Create()
         {
-            ViewBag.id_farme = new SelectList(db.farme, "id", "naziv");
-            return View();
+            int userId = Int32.Parse(User.Identity.Name);
+            if (Url.RequestContext.RouteData.Values["id"] != null)
+            {
+                string x = Url.RequestContext.RouteData.Values["id"].ToString();
+                int Ajdi = Int32.Parse(x);
+                var idZivotinje = db.farme.Where(p => p.parcele.id_korisnika == userId && p.id == Ajdi).FirstOrDefault();
+                if (idZivotinje == null)
+                {
+                    return HttpNotFound();
+                }
+                return View();
+            }
+            return HttpNotFound();
         }
 
         // POST: zivotinje/Create
@@ -52,12 +63,14 @@ namespace SPG.Controllers
         {
             if (ModelState.IsValid)
             {
+                string x = Url.RequestContext.RouteData.Values["id"].ToString();
+                int Ajdi = Int32.Parse(x);
+                zivotinje.id_farme = Ajdi;
                 db.zivotinje.Add(zivotinje);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details","Farme", new { id = Ajdi });
             }
 
-            ViewBag.id_farme = new SelectList(db.farme, "id", "naziv", zivotinje.id_farme);
             return View(zivotinje);
         }
 

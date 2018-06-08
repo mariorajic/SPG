@@ -16,13 +16,18 @@ namespace SPG
     public partial class radnje_stroja
     {
         public int id { get; set; }
+        [Required]
         public string naziv { get; set; }
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public System.DateTime datum { get; set; }
+        [Required]
         public string trosak { get; set; }
+        [Required]
         public string profit { get; set; }
+        
         public Nullable<int> id_stroja { get; set; }
+        
         public Nullable<int> tip_radnje_stroja { get; set; }
     
         public virtual strojevi strojevi { get; set; }

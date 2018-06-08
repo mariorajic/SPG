@@ -41,6 +41,20 @@ namespace SPG.Controllers
         public ActionResult Create()
         {
             int userId = Int32.Parse(User.Identity.Name);
+            if (Url.RequestContext.RouteData.Values["id"] != null)
+            {
+
+               
+                string x = Url.RequestContext.RouteData.Values["id"].ToString();
+                int Ajdi = Int32.Parse(x);
+                var idStroja = db.strojevi.Where(p => p.parcele.id_korisnika == userId && p.id == Ajdi).FirstOrDefault();
+                if (idStroja == null)
+                {
+                    return HttpNotFound();
+                }
+            }
+
+            
             ViewBag.id_stroja = new SelectList(db.strojevi.Where(p => p.parcele.id_korisnika == userId), "id", "naziv");
             ViewBag.tip_radnje_stroja = new SelectList(db.tip_radnje_stroja, "id", "naziv");
             return View();
@@ -51,35 +65,17 @@ namespace SPG.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,naziv,datum,trosak,profit,id_stroja,tip_radnje_stroja")] radnje_stroja radnje_stroja)
+        public ActionResult Create([Bind(Include = "id,naziv,datum,trosak,profit,tip_radnje_stroja")] radnje_stroja radnje_stroja)
         {
             if (ModelState.IsValid)
             {
-                if (Url.RequestContext.RouteData.Values["id"] != null )
-                {
-                    /* Sad trenutacno neki hajvan moze ručno ukucat url /radnjeStroja/Create/7 i tako dodat radnju na stroj koji nije njegov
-                     * pa bi valjalo ako mozes to napravit.. ja sam eto dole probo al izgleda da ta varijabla idStroja nije null iako bi trebala
-                     bit */
-                    int userId = Int32.Parse(User.Identity.Name);
-                    string x = Url.RequestContext.RouteData.Values["id"].ToString();
-                    int Ajdi = Int32.Parse(x);
-                    // mislim da u ovom grmu lezi zec  
-                    var idStroja = db.strojevi.Where(p => p.parcele.id_korisnika == userId && p.id == 2).FirstOrDefault();
-                    // 
-                    if (idStroja == null)
-                    {
-                        return HttpNotFound();
-                    }
-
-                    radnje_stroja.id_stroja = Ajdi;
-                }
+                string x = Url.RequestContext.RouteData.Values["id"].ToString();
+                int Ajdi = Int32.Parse(x);
+                radnje_stroja.id_stroja = Ajdi;
                 db.radnje_stroja.Add(radnje_stroja);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            
-
-
             ViewBag.id_stroja = new SelectList(db.strojevi, "id", "naziv", radnje_stroja.id_stroja);
             ViewBag.tip_radnje_stroja = new SelectList(db.tip_radnje_stroja, "id", "naziv", radnje_stroja.tip_radnje_stroja);
             return View(radnje_stroja);
