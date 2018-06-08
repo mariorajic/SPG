@@ -26,6 +26,9 @@
         <table class="table">
             <tr>
                 <th>
+                    Naziv
+                </th>
+                <th>
                     Koordinate
                 </th>
                 <th>
@@ -43,25 +46,28 @@
             </tr>
             @foreach (var item in parcele)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.koordinate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.dimenzije)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.lokacija)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.gradovi.ime)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Uredi", "Edit", new { id = item.id }) |
-                        @Html.ActionLink("Detalji", "Details", new { id = item.id }) |
-                        @Html.ActionLink("Izbrisi", "Delete", new { id = item.id })
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.koordinate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dimenzije)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.lokacija)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.gradovi.ime)
+                </td>
+                <td>
+                    @Html.ActionLink("Uredi", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Detalji", "Details", new { id = item.id }) |
+                    @Html.ActionLink("Izbrisi", "Delete", new { id = item.id })
+                </td>
+            </tr>
             }
         </table>
     </div>
@@ -75,7 +81,7 @@
                     Naziv
                 </th>
                 <th>
-                    Koordinate
+                    Parcela
                 </th>
                 <th>
                     Akcije
@@ -89,7 +95,7 @@
                     @Html.DisplayFor(modelItem => item.naziv)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.parcele.koordinate)
+                    @Html.DisplayFor(modelItem => item.parcele.naziv)
                 </td>
                 <td>
                     @Html.ActionLink("Uredi", "Edit", new { id = item.id, controller = "farme" }) |
@@ -113,6 +119,9 @@
                     Naziv
                 </th>
                 <th>
+                    Parcela
+                </th>
+                <th>
                     Dimenzije
                 </th>
                 <th>
@@ -122,36 +131,33 @@
                     Vrsta tla
                 </th>
                 <th>
-                    Koordinate
-                </th>
-                <th>
                     Akcije
                 </th>
             </tr>
             @foreach (var item in oranice)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.naziv)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.dimenzije)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.stanje_tla1.stanje)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.vrste_tla.vrsta)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.parcele.koordinate)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Uredi", "Edit", new { id = item.id, controller = "oranice" }) |
-                        @Html.ActionLink("Detalji", "Details", new { id = item.id, controller = "oranice" }) |
-                        @Html.ActionLink("Izbrisi", "Delete", new { id = item.id, controller = "oranice" })
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.parcele.naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dimenzije)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.stanje_tla1.stanje)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.vrste_tla.vrsta)
+                </td>
+                <td>
+                    @Html.ActionLink("Uredi", "Edit", new { id = item.id, controller = "oranice" }) |
+                    @Html.ActionLink("Detalji", "Details", new { id = item.id, controller = "oranice" }) |
+                    @Html.ActionLink("Izbrisi", "Delete", new { id = item.id, controller = "oranice" })
+                </td>
+            </tr>
             }
         </table>
     </div>

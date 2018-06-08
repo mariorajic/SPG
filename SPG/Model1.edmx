@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="berbe">
           <Key>
             <PropertyRef Name="id" />
@@ -79,6 +79,7 @@
           <Property Name="dimenzije" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="id_grada" Type="int" Nullable="false" />
           <Property Name="lokacija" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="naziv" Type="varchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="prodaje_biljaka">
           <Key>
@@ -664,8 +665,7 @@
             <End Role="zivotinje" EntitySet="zivotinje" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -767,6 +767,7 @@
           <NavigationProperty Name="oranice" Relationship="Self.FK_oranice_parcele" FromRole="parcele" ToRole="oranice" />
           <NavigationProperty Name="strojevi" Relationship="Self.FK_strojevi_parcele" FromRole="parcele" ToRole="strojevi" />
           <NavigationProperty Name="troskovi" Relationship="Self.FK_troskovi_troskovi" FromRole="parcele" ToRole="troskovi" />
+          <Property Name="naziv" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="prodaje_biljaka">
           <Key>
@@ -1458,6 +1459,7 @@
           <EntitySetMapping Name="parcele">
             <EntityTypeMapping TypeName="Model.parcele">
               <MappingFragment StoreEntitySet="parcele">
+                <ScalarProperty Name="naziv" ColumnName="naziv" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="id_korisnika" ColumnName="id_korisnika" />
                 <ScalarProperty Name="koordinate" ColumnName="koordinate" />

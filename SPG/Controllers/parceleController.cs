@@ -20,6 +20,7 @@ namespace SPG.Controllers
             int IdUsera = Int32.Parse(User.Identity.Name);
             return IdUsera;
         }
+
         private Entities db = new Entities();
         
         // GET: parcele
@@ -63,7 +64,7 @@ namespace SPG.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,koordinate,dimenzije,id_grada,lokacija")] parcele parcele)
+        public ActionResult Create([Bind(Include = "id,koordinate,dimenzije,id_grada,lokacija,naziv")] parcele parcele)
         {
 
             parcele.id_korisnika = DobaviID();
@@ -103,7 +104,7 @@ namespace SPG.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,koordinate,dimenzije,id_grada,lokacija")] parcele parcele)
+        public ActionResult Edit([Bind(Include = "id,koordinate,dimenzije,id_grada,lokacija,naziv")] parcele parcele)
         {
             parcele.id_korisnika = DobaviID();
 

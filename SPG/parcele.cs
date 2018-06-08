@@ -29,6 +29,7 @@ namespace SPG
         public string dimenzije { get; set; }
         public int id_grada { get; set; }
         public string lokacija { get; set; }
+        public string naziv { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<farme> farme { get; set; }

@@ -9,7 +9,7 @@
 <div>
     <hr />
     <dl class="dl-horizontal">
-        <dt  class="text-capitalize">
+        <dt class="text-capitalize">
             @Html.DisplayNameFor(model => model.naziv)
         </dt>
 
@@ -17,7 +17,15 @@
             @Html.DisplayFor(model => model.naziv)
         </dd>
 
-        <dt  class="text-capitalize">
+        <dt class="text-capitalize">
+            Parcela
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.parcele.naziv)
+        </dd>
+
+        <dt class="text-capitalize">
             @Html.DisplayNameFor(model => model.dimenzije)
         </dt>
 
@@ -31,14 +39,6 @@
 
         <dd>
             @Html.DisplayFor(model => model.stanje_tla1.stanje)
-        </dd>
-
-        <dt  class="text-capitalize">
-            @Html.DisplayNameFor(model => model.parcele.koordinate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.parcele.koordinate)
         </dd>
 
         <dt>

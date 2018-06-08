@@ -43,7 +43,7 @@ namespace SPG.Controllers
         {
             int userId = Int32.Parse(User.Identity.Name);
             ViewBag.stanje_tla = new SelectList(db.stanje_tla, "id", "stanje");
-            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "koordinate");
+            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "naziv");
             ViewBag.vrsta_tla = new SelectList(db.vrste_tla, "id", "vrsta");
             return View();
         }
@@ -63,7 +63,7 @@ namespace SPG.Controllers
             }
             var userId = Int32.Parse(User.Identity.Name);
             ViewBag.stanje_tla = new SelectList(db.stanje_tla, "id", "stanje", oranice.stanje_tla);
-            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "koordinate");
+            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "naziv");
             ViewBag.vrsta_tla = new SelectList(db.vrste_tla, "id", "vrsta", oranice.vrsta_tla);
             return View(oranice);
         }
@@ -82,7 +82,7 @@ namespace SPG.Controllers
                 return HttpNotFound();
             }
             ViewBag.stanje_tla = new SelectList(db.stanje_tla, "id", "stanje", oranice.stanje_tla);
-            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "koordinate");
+            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "naziv");
             ViewBag.vrsta_tla = new SelectList(db.vrste_tla, "id", "vrsta", oranice.vrsta_tla);
             return View(oranice);
         }
@@ -102,7 +102,7 @@ namespace SPG.Controllers
             }
             var userId = Int32.Parse(User.Identity.Name);
             ViewBag.stanje_tla = new SelectList(db.stanje_tla, "id", "stanje", oranice.stanje_tla);
-            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "koordinate");
+            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "naziv");
             ViewBag.vrsta_tla = new SelectList(db.vrste_tla, "id", "vrsta", oranice.vrsta_tla);
             return View(oranice);
         }

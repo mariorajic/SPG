@@ -42,7 +42,7 @@ namespace SPG.Controllers
         public ActionResult Create()
         {
             int userId = Int32.Parse(User.Identity.Name);
-            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "koordinate");
+            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "naziv");
             return View();
         }
 
@@ -60,7 +60,7 @@ namespace SPG.Controllers
                 return RedirectToAction("Index", "parcele");
             }
             var userId = Int32.Parse(User.Identity.Name);
-            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "koordinate");
+            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "naziv");
             return View();
         }
 
@@ -77,7 +77,7 @@ namespace SPG.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "koordinate");
+            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "naziv");
             return View(farme);
         }
 
@@ -95,7 +95,7 @@ namespace SPG.Controllers
                 return RedirectToAction("Index", "parcele");
             }
             var userId = Int32.Parse(User.Identity.Name);
-            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "koordinate");
+            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "naziv");
             return View(farme);
         }
 

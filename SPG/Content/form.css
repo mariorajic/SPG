@@ -23,6 +23,7 @@
 }
 
 .pi-form button {
+    cursor: pointer;
     width: 100%;
     background: transparent;
     border: 1px solid black;
