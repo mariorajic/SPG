@@ -39,7 +39,7 @@ namespace SPG.Controllers
         // GET: mljekomati/Create
         public ActionResult Create()
         {
-            ViewBag.id_korisnika = new SelectList(db.gospodarstva, "id", "ime");
+           
             return View();
         }
 
@@ -52,6 +52,8 @@ namespace SPG.Controllers
         {
             if (ModelState.IsValid)
             {
+                int userId = Int32.Parse(User.Identity.Name);
+                mljekomati.id_korisnika = userId;
                 db.mljekomati.Add(mljekomati);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -73,7 +75,7 @@ namespace SPG.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.id_korisnika = new SelectList(db.gospodarstva, "id", "ime", mljekomati.id_korisnika);
+            
             return View(mljekomati);
         }
 
@@ -86,11 +88,12 @@ namespace SPG.Controllers
         {
             if (ModelState.IsValid)
             {
+                int userId = Int32.Parse(User.Identity.Name);
                 db.Entry(mljekomati).State = EntityState.Modified;
+                mljekomati.id_korisnika = userId;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.id_korisnika = new SelectList(db.gospodarstva, "id", "ime", mljekomati.id_korisnika);
             return View(mljekomati);
         }
 

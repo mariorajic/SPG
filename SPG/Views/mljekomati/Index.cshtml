@@ -1,25 +1,27 @@
 ﻿@model IEnumerable<SPG.mljekomati>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Mljekomat";
 }
 
-<h2>Index</h2>
+<h2>Mljekomati</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Novi mljekomat", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.lokacija)
+            Lokacija
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.kapacitet)
+            Kapacitet
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.gospodarstva.ime)
+            Gospodarstvo
         </th>
+        <th></th>
+        <th></th>
         <th></th>
     </tr>
 
@@ -35,9 +37,15 @@
             @Html.DisplayFor(modelItem => item.gospodarstva.ime)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Uredi", "Edit", new { id = item.id }) |
+            @Html.ActionLink("Detalji", "Details", new { id = item.id }) |
+            @Html.ActionLink("Izbriši", "Delete", new { id = item.id })
+        </td>
+        <td>
+            <button type="button" class="btn btn-basic">@Html.ActionLink("Punjenje", "Create", "punjenjeMljekomata", new { id = item.id }, null)</button>
+        </td>
+        <td>
+            <button type="button" class="btn btn-basic">@Html.ActionLink("Servis", "Create", "servisiMljekomata", new { id = item.id }, null)</button>
         </td>
     </tr>
 }
