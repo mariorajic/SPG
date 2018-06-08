@@ -1,24 +1,24 @@
 ﻿@model IEnumerable<SPG.servisi_mljekomata>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Servisi";
 }
 
-<h2>Index</h2>
+<h2>Servisi mljekomata</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Novi servis", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.datum)
+            Datum
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.troskovi)
+            Troškovi
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.mljekomati.lokacija)
+            Lokacija
         </th>
         <th></th>
     </tr>
@@ -35,9 +35,9 @@
             @Html.DisplayFor(modelItem => item.mljekomati.lokacija)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Uredi", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Detalji", "Details", new { id=item.id }) |
+            @Html.ActionLink("Izbriši", "Delete", new { id=item.id })
         </td>
     </tr>
 }
