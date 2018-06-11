@@ -17,7 +17,8 @@ namespace SPG.Controllers
         // GET: mljekomati
         public ActionResult Index()
         {
-            var mljekomati = db.mljekomati.Include(m => m.gospodarstva);
+            int userId = Int32.Parse(User.Identity.Name);
+            var mljekomati = db.mljekomati.Include(m => m.gospodarstva).Where(m => m.id_korisnika == userId);
             return View(mljekomati.ToList());
         }
 
@@ -29,10 +30,15 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             mljekomati mljekomati = db.mljekomati.Find(id);
-            if (mljekomati == null)
+            int userId = Int32.Parse(User.Identity.Name);
+            string x = Url.RequestContext.RouteData.Values["id"].ToString();
+            int Ajdi = Int32.Parse(x);
+            if (mljekomati == null || mljekomati.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
+            ViewData["Servisi"] = db.servisi_mljekomata.Where(f => f.id_mljekomata == Ajdi).ToList();
+            ViewData["Punjenja"] = db.punjenje_mljekomata.Where(f => f.id_mljekomata == Ajdi).ToList();
             return View(mljekomati);
         }
 
@@ -48,7 +54,7 @@ namespace SPG.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,id_korisnika,lokacija,kapacitet")] mljekomati mljekomati)
+        public ActionResult Create([Bind(Include = "id,lokacija,kapacitet")] mljekomati mljekomati)
         {
             if (ModelState.IsValid)
             {
@@ -71,7 +77,8 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             mljekomati mljekomati = db.mljekomati.Find(id);
-            if (mljekomati == null)
+            int userId = Int32.Parse(User.Identity.Name);
+            if (mljekomati == null || mljekomati.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
@@ -84,7 +91,7 @@ namespace SPG.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,id_korisnika,lokacija,kapacitet")] mljekomati mljekomati)
+        public ActionResult Edit([Bind(Include = "id,lokacija,kapacitet")] mljekomati mljekomati)
         {
             if (ModelState.IsValid)
             {
@@ -105,7 +112,8 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             mljekomati mljekomati = db.mljekomati.Find(id);
-            if (mljekomati == null)
+            int userId = Int32.Parse(User.Identity.Name);
+            if (mljekomati == null || mljekomati.id_korisnika != userId)
             {
                 return HttpNotFound();
             }

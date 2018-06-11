@@ -17,7 +17,8 @@ namespace SPG.Controllers
         // GET: servisiMljekomata
         public ActionResult Index()
         {
-            var servisi_mljekomata = db.servisi_mljekomata.Include(s => s.mljekomati);
+            int userId = Int32.Parse(User.Identity.Name);
+            var servisi_mljekomata = db.servisi_mljekomata.Include(s => s.mljekomati).Where(s => s.mljekomati.id_korisnika == userId);
             return View(servisi_mljekomata.ToList());
         }
 
@@ -28,8 +29,9 @@ namespace SPG.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            int userId = Int32.Parse(User.Identity.Name);
             servisi_mljekomata servisi_mljekomata = db.servisi_mljekomata.Find(id);
-            if (servisi_mljekomata == null)
+            if (servisi_mljekomata == null || servisi_mljekomata.mljekomati.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
@@ -39,8 +41,19 @@ namespace SPG.Controllers
         // GET: servisiMljekomata/Create
         public ActionResult Create()
         {
-            ViewBag.id_mljekomata = new SelectList(db.mljekomati, "id", "lokacija");
-            return View();
+            int userId = Int32.Parse(User.Identity.Name);
+            if (Url.RequestContext.RouteData.Values["id"] != null)
+            {
+                string x = Url.RequestContext.RouteData.Values["id"].ToString();
+                int Ajdi = Int32.Parse(x);
+                var idServisa = db.mljekomati.Where(p => p.id_korisnika == userId && p.id == Ajdi).FirstOrDefault();
+                if (idServisa == null)
+                {
+                    return HttpNotFound();
+                }
+                return View();
+            }
+            return HttpNotFound();
         }
 
         // POST: servisiMljekomata/Create
@@ -48,13 +61,16 @@ namespace SPG.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,datum,troskovi,id_mljekomata")] servisi_mljekomata servisi_mljekomata)
+        public ActionResult Create([Bind(Include = "id,datum,troskovi")] servisi_mljekomata servisi_mljekomata)
         {
             if (ModelState.IsValid)
             {
+                string x = Url.RequestContext.RouteData.Values["id"].ToString();
+                int Ajdi = Int32.Parse(x);
+                servisi_mljekomata.id_mljekomata = Ajdi;
                 db.servisi_mljekomata.Add(servisi_mljekomata);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "mljekomati");
             }
 
             ViewBag.id_mljekomata = new SelectList(db.mljekomati, "id", "lokacija", servisi_mljekomata.id_mljekomata);
@@ -69,7 +85,8 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             servisi_mljekomata servisi_mljekomata = db.servisi_mljekomata.Find(id);
-            if (servisi_mljekomata == null)
+            int userId = Int32.Parse(User.Identity.Name);
+            if (servisi_mljekomata == null || servisi_mljekomata.mljekomati.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
@@ -82,13 +99,16 @@ namespace SPG.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,datum,troskovi,id_mljekomata")] servisi_mljekomata servisi_mljekomata)
+        public ActionResult Edit([Bind(Include = "id,datum,troskovi")] servisi_mljekomata servisi_mljekomata)
         {
             if (ModelState.IsValid)
             {
+                string x = Url.RequestContext.RouteData.Values["id"].ToString();
+                int Ajdi = Int32.Parse(x);
+                servisi_mljekomata.id_mljekomata = Ajdi;
                 db.Entry(servisi_mljekomata).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "mljekomati");
             }
             ViewBag.id_mljekomata = new SelectList(db.mljekomati, "id", "lokacija", servisi_mljekomata.id_mljekomata);
             return View(servisi_mljekomata);
@@ -101,8 +121,9 @@ namespace SPG.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            int userId = Int32.Parse(User.Identity.Name);
             servisi_mljekomata servisi_mljekomata = db.servisi_mljekomata.Find(id);
-            if (servisi_mljekomata == null)
+            if (servisi_mljekomata == null || servisi_mljekomata.mljekomati.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
@@ -117,7 +138,7 @@ namespace SPG.Controllers
             servisi_mljekomata servisi_mljekomata = db.servisi_mljekomata.Find(id);
             db.servisi_mljekomata.Remove(servisi_mljekomata);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "mljekomati");
         }
 
         protected override void Dispose(bool disposing)

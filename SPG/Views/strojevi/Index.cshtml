@@ -24,7 +24,7 @@
             Vrijednost
         </th>
         <th>
-            Koordinate
+            Parcela
         </th>
         <th>
             Akcije
@@ -47,7 +47,7 @@
             @Html.DisplayFor(modelItem => item.vrijednost)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.parcele.koordinate)
+            @Html.DisplayFor(modelItem => item.parcele.naziv)
         </td>
         <td>
             @Html.ActionLink("Uredi", "Edit", new { id=item.id }) |

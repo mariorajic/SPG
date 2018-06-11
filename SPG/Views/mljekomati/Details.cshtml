@@ -1,7 +1,11 @@
 ﻿@model SPG.mljekomati
 
 @{
-    ViewBag.Title = "Detalji";
+
+ViewBag.Title = "Detalji";
+IEnumerable<servisi_mljekomata> servisi = ViewData["Servisi"] as IEnumerable<servisi_mljekomata>;
+IEnumerable<punjenje_mljekomata> punjenja = ViewData["Punjenja"] as IEnumerable<punjenje_mljekomata>;
+
 }
 
 <h2>Detalji</h2>
@@ -25,17 +29,90 @@
             @Html.DisplayFor(model => model.kapacitet)
         </dd>
 
-        <dt>
-            Vlasnik
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.gospodarstva.ime)
-        </dd>
-
     </dl>
 </div>
-<p>
+
+<h2 class="mb-5">Detalji servisa</h2>
+
+@foreach (var item in servisi)
+{
+
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Datum
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(modelItem => item.datum)
+            </dd>
+
+            <dt>
+                Troškovi
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(modelItem => item.troskovi)
+            </dd>
+            <dd>
+                @Html.ActionLink("Uredi", "Edit", "servisiMljekomata", new { id = item.id }, null) |
+                @Html.ActionLink("Detalji", "Details", "servisiMljekomata", new { id = item.id }, null) |
+                @Html.ActionLink("Izbriši", "Delete", "servisiMljekomata", new { id = item.id }, null)
+            </dd>
+        </dl>
+    </div>
+}
+
+<h2>Detalji punjenja</h2>
+
+@foreach (var item in punjenja)
+{
+    
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Datum
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(modelItem => item.datum)
+            </dd>
+
+            <dt>
+                Troškovi
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(modelItem => item.troskovi)
+            </dd>
+
+            <dt>
+                Profit
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(modelItem => item.profit)
+            </dd>
+
+            <dt>
+                Preostala količina
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(modelItem => item.preostala_kolicina)
+            </dd>
+            <dd>
+                @Html.ActionLink("Uredi", "Edit", "punjenjeMljekomata", new { id = item.id },null) |
+                @Html.ActionLink("Detalji", "Details", "punjenjeMljekomata", new { id = item.id }, null) |
+                @Html.ActionLink("Izbriši", "Delete", "punjenjeMljekomata", new { id = item.id }, null)
+            </dd>
+        </dl>
+    </div>
+}
+<hr />
+<p class="mt-4">
     @Html.ActionLink("Uredi mljekomat", "Edit", new { id = Model.id }) |
     @Html.ActionLink("Natrag na listu", "Index")
 </p>

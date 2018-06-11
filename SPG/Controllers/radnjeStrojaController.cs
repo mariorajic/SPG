@@ -43,8 +43,6 @@ namespace SPG.Controllers
             int userId = Int32.Parse(User.Identity.Name);
             if (Url.RequestContext.RouteData.Values["id"] != null)
             {
-
-               
                 string x = Url.RequestContext.RouteData.Values["id"].ToString();
                 int Ajdi = Int32.Parse(x);
                 var idStroja = db.strojevi.Where(p => p.parcele.id_korisnika == userId && p.id == Ajdi).FirstOrDefault();
@@ -52,12 +50,10 @@ namespace SPG.Controllers
                 {
                     return HttpNotFound();
                 }
+                ViewBag.tip_radnje_stroja = new SelectList(db.tip_radnje_stroja, "id", "naziv");
+                return View();
             }
-
-            
-            ViewBag.id_stroja = new SelectList(db.strojevi.Where(p => p.parcele.id_korisnika == userId), "id", "naziv");
-            ViewBag.tip_radnje_stroja = new SelectList(db.tip_radnje_stroja, "id", "naziv");
-            return View();
+            return HttpNotFound();
         }
 
         // POST: radnjeStroja/Create
@@ -76,7 +72,6 @@ namespace SPG.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.id_stroja = new SelectList(db.strojevi, "id", "naziv", radnje_stroja.id_stroja);
             ViewBag.tip_radnje_stroja = new SelectList(db.tip_radnje_stroja, "id", "naziv", radnje_stroja.tip_radnje_stroja);
             return View(radnje_stroja);
         }

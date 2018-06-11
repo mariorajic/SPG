@@ -11,10 +11,13 @@ namespace SPG
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class servisi_mljekomata
     {
         public int id { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
         public System.DateTime datum { get; set; }
         public int troskovi { get; set; }
         public Nullable<int> id_mljekomata { get; set; }

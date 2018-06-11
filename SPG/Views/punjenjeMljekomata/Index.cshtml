@@ -23,9 +23,6 @@
         <th>
             Preostala količina
         </th>
-        <th>
-            Lokacija
-        </th>
         <th></th>
     </tr>
 
@@ -42,9 +39,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.preostala_kolicina)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.mljekomati.lokacija)
         </td>
         <td>
             @Html.ActionLink("Uredi", "Edit", new { id=item.id }) |
