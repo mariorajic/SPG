@@ -102,15 +102,13 @@ namespace SPG.Controllers
         public ActionResult Edit([Bind(Include = "id,datum,troskovi,profit,preostala_kolicina")] punjenje_mljekomata punjenje_mljekomata)
         {
             if (ModelState.IsValid)
-            {
-                string x = Url.RequestContext.RouteData.Values["id"].ToString();
-                int Ajdi = Int32.Parse(x);
-                punjenje_mljekomata.id_mljekomata = Ajdi;                
+            {              
                 db.Entry(punjenje_mljekomata).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index", "mljekomati");
 
             }
+            ViewBag.id_mljekomata = new SelectList(db.mljekomati, "id", "lokacija", punjenje_mljekomata.id_mljekomata);
             return View(punjenje_mljekomata);
         }
 

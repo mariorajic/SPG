@@ -10,6 +10,7 @@ using SPG;
 
 namespace SPG.Controllers
 {
+    [Authorize]
     public class farmeController : Controller
     {
         private Entities db = new Entities();
@@ -31,10 +32,13 @@ namespace SPG.Controllers
             }
             farme farme = db.farme.Find(id);
             var userId = Int32.Parse(User.Identity.Name);
+            string x = Url.RequestContext.RouteData.Values["id"].ToString();
+            int Ajdi = Int32.Parse(x);
             if (farme == null || farme.parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
+            ViewData["Zivotinje"] = db.zivotinje.Where(f => f.id_farme == Ajdi).ToList();
             return View(farme);
         }
 

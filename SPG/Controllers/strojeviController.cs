@@ -36,10 +36,13 @@ namespace SPG.Controllers
             }
             strojevi strojevi = db.strojevi.Find(id);
             var userId = DobaviID();
+            string x = Url.RequestContext.RouteData.Values["id"].ToString();
+            int Ajdi = Int32.Parse(x);
             if (strojevi == null || strojevi.parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
+            ViewData["Radnje"] = db.radnje_stroja.Where(f => f.id_stroja == Ajdi).ToList();
             return View(strojevi);
         }
 
@@ -47,7 +50,7 @@ namespace SPG.Controllers
         public ActionResult Create()
         {
             int userId = DobaviID();
-            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "koordinate");
+            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "naziv");
             return View();
         }
 
@@ -65,7 +68,7 @@ namespace SPG.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.id_parcele = new SelectList(db.parcele, "id", "koordinate", strojevi.id_parcele);
+            ViewBag.id_parcele = new SelectList(db.parcele, "id", "naziv", strojevi.id_parcele);
             return View(strojevi);
         }
 
@@ -82,7 +85,7 @@ namespace SPG.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "koordinate", strojevi.id_parcele);
+            ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "naziv", strojevi.id_parcele);
             return View(strojevi);
         }
 
@@ -99,7 +102,7 @@ namespace SPG.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.id_parcele = new SelectList(db.parcele, "id", "koordinate", strojevi.id_parcele);
+            ViewBag.id_parcele = new SelectList(db.parcele, "id", "naziv", strojevi.id_parcele);
             return View(strojevi);
         }
 

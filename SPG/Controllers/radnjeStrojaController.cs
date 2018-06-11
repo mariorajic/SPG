@@ -18,7 +18,8 @@ namespace SPG.Controllers
         // GET: radnjeStroja
         public ActionResult Index()
         {
-            var radnje_stroja = db.radnje_stroja.Include(r => r.strojevi).Include(r => r.tip_radnje_stroja1);
+            int userId = Int32.Parse(User.Identity.Name);
+            var radnje_stroja = db.radnje_stroja.Include(r => r.strojevi).Include(r => r.tip_radnje_stroja1).Where(r => r.strojevi.parcele.id_korisnika == userId);
             return View(radnje_stroja.ToList());
         }
 
@@ -30,7 +31,8 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             radnje_stroja radnje_stroja = db.radnje_stroja.Find(id);
-            if (radnje_stroja == null)
+            int userId = Int32.Parse(User.Identity.Name);
+            if (radnje_stroja == null || radnje_stroja.strojevi.parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
@@ -70,7 +72,7 @@ namespace SPG.Controllers
                 radnje_stroja.id_stroja = Ajdi;
                 db.radnje_stroja.Add(radnje_stroja);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "strojevi", new { id = Ajdi });
             }
             ViewBag.tip_radnje_stroja = new SelectList(db.tip_radnje_stroja, "id", "naziv", radnje_stroja.tip_radnje_stroja);
             return View(radnje_stroja);
@@ -86,11 +88,13 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             radnje_stroja radnje_stroja = db.radnje_stroja.Find(id);
-            if (radnje_stroja == null)
+
+            int userId = Int32.Parse(User.Identity.Name);
+            if (radnje_stroja == null || radnje_stroja.strojevi.parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
-            ViewBag.id_stroja = new SelectList(db.strojevi, "id", "naziv", radnje_stroja.id_stroja);
+            ViewBag.id_stroja = new SelectList(db.strojevi.Where(p => p.parcele.id_korisnika == userId), "id", "naziv", radnje_stroja.id_stroja);
             ViewBag.tip_radnje_stroja = new SelectList(db.tip_radnje_stroja, "id", "naziv", radnje_stroja.tip_radnje_stroja);
             return View(radnje_stroja);
         }
@@ -104,11 +108,15 @@ namespace SPG.Controllers
         {
             if (ModelState.IsValid)
             {
+                string x = Url.RequestContext.RouteData.Values["id"].ToString();
+                int Ajdi = Int32.Parse(x);
                 db.Entry(radnje_stroja).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "strojevi", new { id = Ajdi });
             }
-            ViewBag.id_stroja = new SelectList(db.strojevi, "id", "naziv", radnje_stroja.id_stroja);
+        
+            int userId = Int32.Parse(User.Identity.Name);
+            ViewBag.id_stroja = new SelectList(db.strojevi.Where(p => p.parcele.id_korisnika == userId), "id", "naziv", radnje_stroja.id_stroja);
             ViewBag.tip_radnje_stroja = new SelectList(db.tip_radnje_stroja, "id", "naziv", radnje_stroja.tip_radnje_stroja);
             return View(radnje_stroja);
         }
@@ -136,7 +144,7 @@ namespace SPG.Controllers
             radnje_stroja radnje_stroja = db.radnje_stroja.Find(id);
             db.radnje_stroja.Remove(radnje_stroja);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "strojevi");
         }
 
         protected override void Dispose(bool disposing)

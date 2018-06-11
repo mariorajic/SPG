@@ -29,7 +29,8 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             zivotinje zivotinje = db.zivotinje.Find(id);
-            if (zivotinje == null)
+            var userId = Int32.Parse(User.Identity.Name);
+            if (zivotinje == null || zivotinje.farme.parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
@@ -82,11 +83,12 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             zivotinje zivotinje = db.zivotinje.Find(id);
-            if (zivotinje == null)
+            var userId = Int32.Parse(User.Identity.Name);
+            if (zivotinje == null || zivotinje.farme.parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
-            ViewBag.id_farme = new SelectList(db.farme, "id", "naziv", zivotinje.id_farme);
+            ViewBag.id_farme = new SelectList(db.farme.Where(p => p.parcele.id_korisnika == userId), "id", "naziv", zivotinje.id_farme);
             return View(zivotinje);
         }
 
@@ -99,11 +101,14 @@ namespace SPG.Controllers
         {
             if (ModelState.IsValid)
             {
+                string x = Url.RequestContext.RouteData.Values["id"].ToString();
+                int Ajdi = Int32.Parse(x);
                 db.Entry(zivotinje).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Farme", new { id = Ajdi });
             }
-            ViewBag.id_farme = new SelectList(db.farme, "id", "naziv", zivotinje.id_farme);
+            var userId = Int32.Parse(User.Identity.Name);
+            ViewBag.id_farme = new SelectList(db.farme.Where(p => p.parcele.id_korisnika == userId), "id", "naziv", zivotinje.id_farme);
             return View(zivotinje);
         }
 
@@ -115,7 +120,8 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             zivotinje zivotinje = db.zivotinje.Find(id);
-            if (zivotinje == null)
+            var userId = Int32.Parse(User.Identity.Name);
+            if (zivotinje == null || zivotinje.farme.parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
@@ -130,7 +136,9 @@ namespace SPG.Controllers
             zivotinje zivotinje = db.zivotinje.Find(id);
             db.zivotinje.Remove(zivotinje);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            string x = Url.RequestContext.RouteData.Values["id"].ToString();
+            int Ajdi = Int32.Parse(x);
+            return RedirectToAction("Details", "Farme", new { id = Ajdi });
         }
 
         protected override void Dispose(bool disposing)
