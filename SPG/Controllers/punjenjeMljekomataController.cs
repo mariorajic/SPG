@@ -65,9 +65,12 @@ namespace SPG.Controllers
         {
             if (ModelState.IsValid)
             {
+                string x = Url.RequestContext.RouteData.Values["id"].ToString();
+                int Ajdi = Int32.Parse(x);
+                punjenje_mljekomata.id_mljekomata = Ajdi;
                 db.punjenje_mljekomata.Add(punjenje_mljekomata);
                 db.SaveChanges();
-                return RedirectToAction("Index", "mljekomati");
+                return RedirectToAction("Details", "mljekomati", new { id = punjenje_mljekomata.id_mljekomata });
             }
 
             ViewBag.id_mljekomata = new SelectList(db.mljekomati, "id", "lokacija", punjenje_mljekomata.id_mljekomata);
@@ -131,9 +134,10 @@ namespace SPG.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             punjenje_mljekomata punjenje_mljekomata = db.punjenje_mljekomata.Find(id);
+            var id_mljekomata = punjenje_mljekomata.id_mljekomata;
             db.punjenje_mljekomata.Remove(punjenje_mljekomata);
             db.SaveChanges();
-            return RedirectToAction("Index", "mljekomati");
+            return RedirectToAction("Details", "mljekomati", new { id = id_mljekomata });
         }
 
         protected override void Dispose(bool disposing)

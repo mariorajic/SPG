@@ -70,7 +70,7 @@ namespace SPG.Controllers
                 servisi_mljekomata.id_mljekomata = Ajdi;
                 db.servisi_mljekomata.Add(servisi_mljekomata);
                 db.SaveChanges();
-                return RedirectToAction("Index", "mljekomati");
+                return RedirectToAction("Details", "mljekomati", new { id = servisi_mljekomata.id_mljekomata });
             }
 
             ViewBag.id_mljekomata = new SelectList(db.mljekomati, "id", "lokacija", servisi_mljekomata.id_mljekomata);
@@ -134,9 +134,10 @@ namespace SPG.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             servisi_mljekomata servisi_mljekomata = db.servisi_mljekomata.Find(id);
+            var id_mljekomata = servisi_mljekomata.id_mljekomata;
             db.servisi_mljekomata.Remove(servisi_mljekomata);
             db.SaveChanges();
-            return RedirectToAction("Index", "mljekomati");
+            return RedirectToAction("Details", "mljekomati", new { id = id_mljekomata });
         }
 
         protected override void Dispose(bool disposing)

@@ -142,9 +142,10 @@ namespace SPG.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             radnje_stroja radnje_stroja = db.radnje_stroja.Find(id);
+            var id_stroja = radnje_stroja.id_stroja;
             db.radnje_stroja.Remove(radnje_stroja);
             db.SaveChanges();
-            return RedirectToAction("Index", "strojevi");
+            return RedirectToAction("Details", "strojevi", new { id = id_stroja });
         }
 
         protected override void Dispose(bool disposing)

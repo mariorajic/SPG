@@ -39,7 +39,7 @@ namespace SPG.Controllers
         // GET: berbe/Create
         public ActionResult Create()
         {
-            ViewBag.id_sadnje = new SelectList(db.sadnje, "id", "kolicina");
+            ViewBag.id_sadnje = new SelectList(db.sadnje, "id", "id");
             ViewBag.sezona = new SelectList(db.sezone, "id", "sezona");
             return View();
         }
@@ -55,10 +55,10 @@ namespace SPG.Controllers
             {
                 db.berbe.Add(berbe);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "oranice", new { id = db.sadnje.Find(berbe.id_sadnje).id_oranice });
             }
 
-            ViewBag.id_sadnje = new SelectList(db.sadnje, "id", "kolicina", berbe.id_sadnje);
+            ViewBag.id_sadnje = new SelectList(db.sadnje, "id", "id", berbe.id_sadnje);
             ViewBag.sezona = new SelectList(db.sezone, "id", "sezona", berbe.sezona);
             return View(berbe);
         }
@@ -91,7 +91,7 @@ namespace SPG.Controllers
             {
                 db.Entry(berbe).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "oranice", new { id = db.sadnje.Find(berbe.id_sadnje).id_oranice });
             }
             ViewBag.id_sadnje = new SelectList(db.sadnje, "id", "kolicina", berbe.id_sadnje);
             ViewBag.sezona = new SelectList(db.sezone, "id", "sezona", berbe.sezona);
@@ -119,9 +119,10 @@ namespace SPG.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             berbe berbe = db.berbe.Find(id);
+            var id_sadnje = berbe.id_sadnje;
             db.berbe.Remove(berbe);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "oranice", new { id = db.sadnje.Find(id_sadnje).id_oranice });
         }
 
         protected override void Dispose(bool disposing)

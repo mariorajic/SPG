@@ -54,9 +54,12 @@ namespace SPG.Controllers
         {
             if (ModelState.IsValid)
             {
+                string x = Url.RequestContext.RouteData.Values["id"].ToString();
+                int Ajdi = Int32.Parse(x);
+                sadnje.id_oranice = Ajdi;
                 db.sadnje.Add(sadnje);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "oranice", new { id = sadnje.id_oranice });
             }
 
             ViewBag.biljka = new SelectList(db.biljke, "id", "naziv", sadnje.biljka);
@@ -92,9 +95,12 @@ namespace SPG.Controllers
         {
             if (ModelState.IsValid)
             {
+                string x = Url.RequestContext.RouteData.Values["id"].ToString();
+                int Ajdi = Int32.Parse(x);
+                sadnje.id_oranice = Ajdi;
                 db.Entry(sadnje).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "oranica", new { id = sadnje.id_oranice });
             }
             ViewBag.biljka = new SelectList(db.biljke, "id", "naziv", sadnje.biljka);
             ViewBag.id_oranice = new SelectList(db.oranice, "id", "naziv", sadnje.id_oranice);
@@ -123,9 +129,10 @@ namespace SPG.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             sadnje sadnje = db.sadnje.Find(id);
+            var id_oranice = sadnje.id_oranice;
             db.sadnje.Remove(sadnje);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "oranica", new { id = id_oranice });
         }
 
         protected override void Dispose(bool disposing)

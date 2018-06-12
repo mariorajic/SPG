@@ -35,6 +35,8 @@ namespace SPG.Controllers
             {
                 return HttpNotFound();
             }
+            ViewData["Sadnje"] = db.sadnje.Where(f => f.id_oranice == oranice.id).ToList();
+            ViewData["Berbe"] = db.berbe.Where(f => f.sadnje.id_oranice == oranice.id).ToList();
             return View(oranice);
         }
 
@@ -154,6 +156,7 @@ namespace SPG.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             oranice oranice = db.oranice.Find(id);
+            var id_parcele = oranice.id_parcele;
             try
             {
                 db.oranice.Remove(oranice);
@@ -164,7 +167,7 @@ namespace SPG.Controllers
                 return View("Error");
             }
 
-            return RedirectToAction("Details", "parcele", new { id = oranice.id_parcele });
+            return RedirectToAction("Details", "parcele", new { id = id_parcele });
         }
 
         protected override void Dispose(bool disposing)
