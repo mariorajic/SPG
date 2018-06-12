@@ -152,9 +152,16 @@ namespace SPG.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             farme farme = db.farme.Find(id);
-            db.farme.Remove(farme);
-            db.SaveChanges();
-            return RedirectToAction("Index", "parcele");
+            try {
+                db.farme.Remove(farme);
+                db.SaveChanges();
+            }
+            catch
+            {
+                return View("Error");
+            }
+
+            return RedirectToAction("Details", "parcele", new { id = farme.id_parcele });
         }
 
         protected override void Dispose(bool disposing)

@@ -154,9 +154,17 @@ namespace SPG.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             oranice oranice = db.oranice.Find(id);
-            db.oranice.Remove(oranice);
-            db.SaveChanges();
-            return RedirectToAction("Index", "parcele");
+            try
+            {
+                db.oranice.Remove(oranice);
+                db.SaveChanges();
+            }
+            catch
+            {
+                return View("Error");
+            }
+
+            return RedirectToAction("Details", "parcele", new { id = oranice.id_parcele });
         }
 
         protected override void Dispose(bool disposing)
