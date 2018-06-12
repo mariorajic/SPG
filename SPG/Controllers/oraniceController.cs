@@ -45,6 +45,18 @@ namespace SPG.Controllers
             ViewBag.stanje_tla = new SelectList(db.stanje_tla, "id", "stanje");
             ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "naziv");
             ViewBag.vrsta_tla = new SelectList(db.vrste_tla, "id", "vrsta");
+
+            if (Url.RequestContext.RouteData.Values["id"] != null)
+            {
+                string id = Url.RequestContext.RouteData.Values["id"].ToString();
+
+                parcele parcela = db.parcele.Find(Int32.Parse(id));
+                if (parcela == null || parcela.id_korisnika != userId)
+                {
+                    return HttpNotFound();
+                }
+            }
+
             return View();
         }
 
@@ -55,11 +67,24 @@ namespace SPG.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,id_parcele,naziv,dimenzije,stanje_tla,vrsta_tla")] oranice oranice)
         {
+            var id = Url.RequestContext.RouteData.Values["id"];
+
+            if (id != null)
+            {
+                string x = Url.RequestContext.RouteData.Values["id"].ToString();
+                oranice.id_parcele = Int32.Parse(x);
+            }
             if (ModelState.IsValid)
             {
                 db.oranice.Add(oranice);
                 db.SaveChanges();
-                return RedirectToAction("Index", "parcele");
+                if (id != null)
+                {
+                    return RedirectToAction("Details", "parcele", new { id = Int32.Parse(id.ToString()) });
+                } else
+                {
+                    return RedirectToAction("Index", "parcele");
+                }
             }
             var userId = Int32.Parse(User.Identity.Name);
             ViewBag.stanje_tla = new SelectList(db.stanje_tla, "id", "stanje", oranice.stanje_tla);
@@ -98,7 +123,7 @@ namespace SPG.Controllers
             {
                 db.Entry(oranice).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", "parcele");
+                return RedirectToAction("Details", "parcele", new { id = oranice.id_parcele });
             }
             var userId = Int32.Parse(User.Identity.Name);
             ViewBag.stanje_tla = new SelectList(db.stanje_tla, "id", "stanje", oranice.stanje_tla);

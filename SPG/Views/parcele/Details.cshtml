@@ -1,57 +1,168 @@
 ﻿@model SPG.parcele
-
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalji";
+    IEnumerable<farme> farme = ViewData["Farme"] as IEnumerable<farme>;
+    IEnumerable<oranice> oranice = ViewData["Oranice"] as IEnumerable<oranice>;
 }
 
 <h2>Detalji o parceli</h2>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt class="text-capitalize">
-            @Html.DisplayNameFor(model => model.naziv)
-        </dt>
+<div class="row">
+    <div class="d-flex flex-column col-4 justify-content-start>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt class="text-capitalize">
+                @Html.DisplayNameFor(model => model.naziv)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.naziv)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.naziv)
+            </dd>
 
-        <dt class="text-capitalize">
-            @Html.DisplayNameFor(model => model.koordinate)
-        </dt>
+            <dt class="text-capitalize">
+                @Html.DisplayNameFor(model => model.koordinate)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.koordinate)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.koordinate)
+            </dd>
 
-        <dt class="text-capitalize">
-            @Html.DisplayNameFor(model => model.dimenzije)
-        </dt>
+            <dt class="text-capitalize">
+                @Html.DisplayNameFor(model => model.dimenzije)
+            </dt>
 
-        <dd class="text-capitalize">
-            @Html.DisplayFor(model => model.dimenzije)
-        </dd>
+            <dd class="text-capitalize">
+                @Html.DisplayFor(model => model.dimenzije)
+            </dd>
 
-        <dt>
-            Grad
-        </dt>
+            <dt>
+                Grad
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.gradovi.ime)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.gradovi.ime)
+            </dd>
 
-        <dt class="text-capitalize">
-            @Html.DisplayNameFor(model => model.lokacija)
-        </dt>
+            <dt class="text-capitalize">
+                @Html.DisplayNameFor(model => model.lokacija)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.lokacija)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.lokacija)
+            </dd>
 
-    </dl>
+        </dl>
+   
+    <p>
+        @Html.ActionLink("Uredi", "Edit", new { id = Model.id }) |
+        @Html.ActionLink("Nazad na listu", "Index")
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Uredi", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Nazad na listu", "Index")
-</p>
+
+<div class="d-flex flex-column col-8">
+    <div>
+        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-farme-tab" data-toggle="pill" href="#pills-farme" role="tab" aria-controls="pills-farme" aria-selected="true">Farme</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="pills-oranice-tab" data-toggle="pill" href="#pills-oranice" role="tab" aria-controls="pills-oranice" aria-selected="false">Oranice</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-farme" role="tabpanel" aria-labelledby="pills-farme-tab">
+            <p>
+                @Html.ActionLink("Nova farma", "Create", new { controller = "farme", id = Model.id })
+            </p>
+            <table class="table">
+                <tr>
+                    <th>
+                        Naziv
+                    </th>
+                    <th>
+                        Parcela
+                    </th>
+                    <th>
+                        Akcije
+                    </th>
+                    <th></th>
+                </tr>
+                @foreach (var item in farme)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.naziv)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.parcele.naziv)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Uredi", "Edit", new { id = item.id, controller = "farme" }) |
+                            @Html.ActionLink("Detalji", "Details", new { id = item.id, controller = "farme" }) |
+                            @Html.ActionLink("Izbrisi", "Delete", new { id = item.id, controller = "farme" })
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-basic">@Html.ActionLink("Dodaj životinju", "Create", "zivotinje", new { id = item.id }, null)</button>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+
+        <div class="tab-pane fade show" id="pills-oranice" role="tabpanel" aria-labelledby="pills-oranice-tab">
+            <p>
+                @Html.ActionLink("Nova oranica", "Create", new { controller = "oranice", id = Model.id })
+            </p>
+            <table class="table">
+                <tr>
+                    <th>
+                        Naziv
+                    </th>
+                    <th>
+                        Parcela
+                    </th>
+                    <th>
+                        Dimenzije
+                    </th>
+                    <th>
+                        Stanje tla
+                    </th>
+                    <th>
+                        Vrsta tla
+                    </th>
+                    <th>
+                        Akcije
+                    </th>
+                </tr>
+                @foreach (var item in oranice)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.naziv)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.parcele.naziv)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.dimenzije)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.stanje_tla1.stanje)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.vrste_tla.vrsta)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Uredi", "Edit", new { id = item.id, controller = "oranice" }) |
+                            @Html.ActionLink("Detalji", "Details", new { id = item.id, controller = "oranice" }) |
+                            @Html.ActionLink("Izbrisi", "Delete", new { id = item.id, controller = "oranice" })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+</div>

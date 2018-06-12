@@ -31,7 +31,7 @@ namespace SPG.Controllers
                 .Where(p => p.id_korisnika == userId);
             ViewData["Parcele"] = parcele.ToList();
             ViewData["Farme"] = db.farme.Where(f => f.parcele.id_korisnika == userId).ToList();
-            ViewData["Oranice"] = db.oranice.Where(f => f.parcele.id_korisnika == userId).ToList(); ;
+            ViewData["Oranice"] = db.oranice.Where(f => f.parcele.id_korisnika == userId).ToList();
 
             return View();
         }
@@ -49,6 +49,8 @@ namespace SPG.Controllers
             {
                 return HttpNotFound();
             }
+            ViewData["Farme"] = db.farme.Where(f => f.parcele.id == id).ToList();
+            ViewData["Oranice"] = db.oranice.Where(o => o.parcele.id == id).ToList();
             return View(parcele);
         }
 
@@ -104,17 +106,16 @@ namespace SPG.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,koordinate,dimenzije,id_grada,lokacija,naziv")] parcele parcele)
+        public ActionResult Edit([Bind(Include = "id,id_korisnika,koordinate,dimenzije,id_grada,lokacija,naziv")] parcele parcele)
         {
-            parcele.id_korisnika = DobaviID();
-
+            
             if (ModelState.IsValid)
             {
                 db.Entry(parcele).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.id_korisnika = new SelectList(db.gospodarstva, "id", "ime", parcele.id_korisnika);
+            
             ViewBag.id_grada = new SelectList(db.gradovi, "id", "ime", parcele.id_grada);
             return View(parcele);
         }
@@ -146,11 +147,10 @@ namespace SPG.Controllers
                 db.parcele.Remove(parcele);
                 db.SaveChanges();
             }
-            catch (Exception e)
+            catch
             {
                 return View("Error");
             }
-
 
             return RedirectToAction("Index");
         }

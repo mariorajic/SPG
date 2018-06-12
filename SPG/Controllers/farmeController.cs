@@ -45,8 +45,21 @@ namespace SPG.Controllers
         // GET: farme/Create
         public ActionResult Create()
         {
+            
             int userId = Int32.Parse(User.Identity.Name);
             ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "naziv");
+
+            if (Url.RequestContext.RouteData.Values["id"] != null)
+            {
+                string id = Url.RequestContext.RouteData.Values["id"].ToString();
+            
+                parcele parcela = db.parcele.Find(Int32.Parse(id));
+                if (parcela == null || parcela.id_korisnika != userId)
+                {
+                    return HttpNotFound();
+                }
+            }
+
             return View();
         }
 
@@ -57,11 +70,25 @@ namespace SPG.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,id_parcele,naziv")] farme farme)
         {
+            var id = Url.RequestContext.RouteData.Values["id"];
+
+            if (id != null)
+            {
+                string x = Url.RequestContext.RouteData.Values["id"].ToString();
+                farme.id_parcele = Int32.Parse(x);
+            }
             if (ModelState.IsValid)
             {
                 db.farme.Add(farme);
                 db.SaveChanges();
-                return RedirectToAction("Index", "parcele");
+                if (id != null)
+                {
+                    return RedirectToAction("Details", "parcele", new { id = Int32.Parse(id.ToString()) });
+                }
+                else
+                {
+                    return RedirectToAction("Index", "parcele");
+                }
             }
             var userId = Int32.Parse(User.Identity.Name);
             ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "naziv");
@@ -96,7 +123,7 @@ namespace SPG.Controllers
             {
                 db.Entry(farme).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", "parcele");
+                return RedirectToAction("Details", "parcele", new { id = farme.id_parcele});
             }
             var userId = Int32.Parse(User.Identity.Name);
             ViewBag.id_parcele = new SelectList(db.parcele.Where(p => p.id_korisnika == userId), "id", "naziv");
