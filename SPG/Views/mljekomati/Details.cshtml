@@ -10,109 +10,126 @@ IEnumerable<punjenje_mljekomata> punjenja = ViewData["Punjenja"] as IEnumerable<
 
 <h2>Detalji</h2>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Lokacija
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.lokacija)
-        </dd>
-
-        <dt>
-            Kapacitet
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.kapacitet)
-        </dd>
-
-    </dl>
-</div>
-
-<h2 class="mb-5">Detalji servisa</h2>
-
-@foreach (var item in servisi)
-{
-
-    <div>
+<div class="row">
+    <div class="d-flex flex-column col-4 justify-content-start>
         <hr />
         <dl class="dl-horizontal">
             <dt>
-                Datum
+                Lokacija
             </dt>
 
             <dd>
-                @Html.DisplayFor(modelItem => item.datum)
+                @Html.DisplayFor(model => model.lokacija)
             </dd>
 
             <dt>
-                Troškovi
+                Kapacitet
             </dt>
 
             <dd>
-                @Html.DisplayFor(modelItem => item.troskovi)
+                @Html.DisplayFor(model => model.kapacitet)
             </dd>
-            <dd>
-                @Html.ActionLink("Uredi", "Edit", "servisiMljekomata", new { id = item.id }, null) |
-                @Html.ActionLink("Detalji", "Details", "servisiMljekomata", new { id = item.id }, null) |
-                @Html.ActionLink("Izbriši", "Delete", "servisiMljekomata", new { id = item.id }, null)
-            </dd>
+
         </dl>
-    </div>
-}
 
-<h2>Detalji punjenja</h2>
-
-@foreach (var item in punjenja)
-{
-    
-    <div>
         <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                Datum
-            </dt>
+        <p class="mt-4">
+            @Html.ActionLink("Uredi mljekomat", "Edit", new { id = Model.id }) |
+            @Html.ActionLink("Natrag na listu", "Index")
+        </p>
 
-            <dd>
-                @Html.DisplayFor(modelItem => item.datum)
-            </dd>
-
-            <dt>
-                Troškovi
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(modelItem => item.troskovi)
-            </dd>
-
-            <dt>
-                Profit
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(modelItem => item.profit)
-            </dd>
-
-            <dt>
-                Preostala količina
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(modelItem => item.preostala_kolicina)
-            </dd>
-            <dd>
-                @Html.ActionLink("Uredi", "Edit", "punjenjeMljekomata", new { id = item.id },null) |
-                @Html.ActionLink("Detalji", "Details", "punjenjeMljekomata", new { id = item.id }, null) |
-                @Html.ActionLink("Izbriši", "Delete", "punjenjeMljekomata", new { id = item.id }, null)
-            </dd>
-        </dl>
     </div>
-}
-<hr />
-<p class="mt-4">
-    @Html.ActionLink("Uredi mljekomat", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Natrag na listu", "Index")
-</p>
+
+    <div class="d-flex flex-column col-8">
+        <div>
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-punjenja-tab" data-toggle="pill" href="#pills-punjenja" role="tab" aria-controls="pills-home" aria-selected="true">Punjenja</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-servisi-tab" data-toggle="pill" href="#pills-servisi" role="tab" aria-controls="pills-profile" aria-selected="false">Servisi</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-punjenja" role="tabpanel" aria-labelledby="pills-punjenja-tab">
+                <button type="button" class="btn btn-basic">@Html.ActionLink("Novo punjenje", "Create", "punjenjeMljekomata", new { id = Model.id }, null)</button>
+                <table class="table">
+                    <tr>
+                        <th>
+                            Datum
+                        </th>
+                        <th>
+                            Troškovi
+                        </th>
+                        <th>
+                            Profit
+                        </th>
+                        <th>
+                            Preostala količina
+                        </th>
+                        <th>
+                            Akcije
+                        </th>
+                    </tr>
+                    @foreach (var item in punjenja)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.datum)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.troskovi)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.profit)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.preostala_kolicina)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Uredi", "Edit", new { controller = "punjenjeMljekomata", id = item.id }) |
+                                @Html.ActionLink("Detalji", "Details", new { controller = "punjenjeMljekomata", id = item.id }) |
+                                @Html.ActionLink("Izbrisi", "Delete", new { controller = "punjenjeMljekomata", id = item.id })
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+
+            <div class="tab-pane fade show" id="pills-servisi" role="tabpanel" aria-labelledby="pills-servisi-tab">
+                <button type="button" class="btn btn-basic">@Html.ActionLink("Novi servis", "Create", "servisiMljekomata", new { id = Model.id}, null)</button>
+                <table class="table">
+                    <tr>
+                        <th>
+                            Datum
+                        </th>
+                        <th>
+                            Troškovi
+                        </th>
+                        <th>
+                            Akcije
+                        </th>
+                    </tr>
+                    @foreach (var item in servisi)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.datum)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.troskovi)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Uredi", "Edit", new { controller="servisiMljekomata", id = item.id }) |
+                                @Html.ActionLink("Detalji", "Details", new { controller = "servisiMljekomata", id = item.id }) |
+                                @Html.ActionLink("Izbrisi", "Delete", new { controller = "servisiMljekomata", id = item.id })
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+
+        </div>

@@ -99,13 +99,11 @@ namespace SPG.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,datum,troskovi")] servisi_mljekomata servisi_mljekomata)
+        public ActionResult Edit([Bind(Include = "id,id_mljekomata,datum,troskovi")] servisi_mljekomata servisi_mljekomata)
         {
             if (ModelState.IsValid)
             {
-                string x = Url.RequestContext.RouteData.Values["id"].ToString();
-                int Ajdi = Int32.Parse(x);
-                servisi_mljekomata.id_mljekomata = Ajdi;
+                
                 db.Entry(servisi_mljekomata).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index", "mljekomati");

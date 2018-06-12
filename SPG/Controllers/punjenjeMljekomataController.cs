@@ -65,9 +65,6 @@ namespace SPG.Controllers
         {
             if (ModelState.IsValid)
             {
-                string x = Url.RequestContext.RouteData.Values["id"].ToString();
-                int Ajdi = Int32.Parse(x);
-                punjenje_mljekomata.id_mljekomata = Ajdi;
                 db.punjenje_mljekomata.Add(punjenje_mljekomata);
                 db.SaveChanges();
                 return RedirectToAction("Index", "mljekomati");
@@ -99,7 +96,7 @@ namespace SPG.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,datum,troskovi,profit,preostala_kolicina")] punjenje_mljekomata punjenje_mljekomata)
+        public ActionResult Edit([Bind(Include = "id,id_mljekomata,datum,troskovi,profit,preostala_kolicina")] punjenje_mljekomata punjenje_mljekomata)
         {
             if (ModelState.IsValid)
             {              
