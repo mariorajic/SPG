@@ -8,58 +8,8 @@ IEnumerable<radnje_stroja> radnje = ViewData["Radnje"] as IEnumerable<radnje_str
 
 <h2>Detalji o stroju</h2>
 
-<div>
-
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            Naziv
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.naziv)
-        </dd>
-
-        <dt>
-            Datum kupovine
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.datum_kupovine)
-        </dd>
-
-        <dt>
-            Trošak
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.trosak)
-        </dd>
-
-        <dt>
-            Vrijednost
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.vrijednost)
-        </dd>
-
-        <dt>
-            Parcela
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.parcele.naziv)
-        </dd>
-
-    </dl>
-</div>
-
-<h2 class="mb-5">Detalji radnja stroja</h2>
-
-@foreach (var item in radnje)
-{
-    <div>
+<div class="row">
+    <div class="d-flex flex-column col-4 justify-content-start>
         <hr />
         <dl class="dl-horizontal">
             <dt>
@@ -67,58 +17,102 @@ IEnumerable<radnje_stroja> radnje = ViewData["Radnje"] as IEnumerable<radnje_str
             </dt>
 
             <dd>
-                @Html.DisplayFor(modelItem => item.naziv)
+                @Html.DisplayFor(model => model.naziv)
             </dd>
 
             <dt>
-                Datum
+                Datum kupovine
             </dt>
 
             <dd>
-                @Html.DisplayFor(modelItem => item.datum)
+                @Html.DisplayFor(model => model.datum_kupovine)
             </dd>
 
             <dt>
-               Trošak
+                Trošak
             </dt>
 
             <dd>
-                @Html.DisplayFor(modelItem => item.trosak)
+                @Html.DisplayFor(model => model.trosak)
             </dd>
 
             <dt>
-                Profit
+                Vrijednost
             </dt>
 
             <dd>
-                @Html.DisplayFor(modelItem => item.profit)
+                @Html.DisplayFor(model => model.vrijednost)
             </dd>
 
-            <dt>
-                Stroj
-            </dt>
 
-            <dd>
-                @Html.DisplayFor(modelItem => item.strojevi.naziv)
-            </dd>
-
-            <dt>
-               Tip radnje stroja
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(modelItem => item.tip_radnje_stroja1.naziv)
-            </dd>
-            <dd>
-                @Html.ActionLink("Uredi", "Edit", "radnjeStroja", new { id = item.id }, null) |
-                @Html.ActionLink("Detalji", "Details", "radnjeStroja", new { id = item.id }, null) |
-                @Html.ActionLink("Izbriši", "Delete", "radnjeStroja", new { id = item.id }, null)
-            </dd>
         </dl>
+
+        <hr />
+        <p class="mt-4">
+            @Html.ActionLink("Uredi stroj", "Edit", new { id = Model.id }) |
+            @Html.ActionLink("Natrag na listu", "Index")
+        </p>
+
     </div>
-}
-<hr />
-<p class="mt-4">
-    @Html.ActionLink("Uredi stroj", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Nazad na listu", "Index")
-</p>
+
+    <div class="d-flex flex-column col-8">
+
+        <h2>Radnje stroja</h2>
+
+
+        <div class="tab-content" id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-punjenja" role="tabpanel" aria-labelledby="pills-punjenja-tab">
+                <button type="button" class="btn btn-basic">@Html.ActionLink("Nova radnja", "Create", "radnjeStroja", new { id = Model.id }, null)</button>
+                <table class="table">
+                    <tr>
+                        <th>
+                            Naziv
+                        </th>
+                        <th>
+                            Datum
+                        </th>
+                        <th>
+                            Trošak
+                        </th>
+                        <th>
+                            Profit
+                        </th>
+                        <th>
+                            Tip radnje
+                        </th>
+                        <th>
+                            Akcije
+                        </th>
+                    </tr>
+                    @foreach (var item in radnje)
+                    {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.naziv)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.datum)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.trosak)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.profit)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.tip_radnje_stroja1.naziv)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Uredi", "Edit", new { controller = "radnjeStroja", id = item.id }) |
+                            @Html.ActionLink("Detalji", "Details", new { controller = "radnjeStroja", id = item.id }) |
+                            @Html.ActionLink("Izbrisi", "Delete", new { controller = "radnjeStroja", id = item.id })
+                        </td>
+                    </tr>
+                    }
+                </table>
+            </div>
+
+
+        </div>
+
+    </div>

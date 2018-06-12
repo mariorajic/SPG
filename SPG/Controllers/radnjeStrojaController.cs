@@ -112,7 +112,7 @@ namespace SPG.Controllers
                 int Ajdi = Int32.Parse(x);
                 db.Entry(radnje_stroja).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Details", "strojevi", new { id = Ajdi });
+                return RedirectToAction("Details", "strojevi", new { id = radnje_stroja.id_stroja });
             }
         
             int userId = Int32.Parse(User.Identity.Name);

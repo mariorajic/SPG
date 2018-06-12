@@ -106,7 +106,7 @@ namespace SPG.Controllers
                 
                 db.Entry(servisi_mljekomata).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", "mljekomati");
+                return RedirectToAction("Details", "mljekomati", new { id = servisi_mljekomata.id_mljekomata });
             }
             ViewBag.id_mljekomata = new SelectList(db.mljekomati, "id", "lokacija", servisi_mljekomata.id_mljekomata);
             return View(servisi_mljekomata);

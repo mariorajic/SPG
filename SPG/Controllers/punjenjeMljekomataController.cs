@@ -102,7 +102,7 @@ namespace SPG.Controllers
             {              
                 db.Entry(punjenje_mljekomata).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", "mljekomati");
+                return RedirectToAction("Details", "mljekomati", new { id = punjenje_mljekomata.id_mljekomata });
 
             }
             ViewBag.id_mljekomata = new SelectList(db.mljekomati, "id", "lokacija", punjenje_mljekomata.id_mljekomata);
