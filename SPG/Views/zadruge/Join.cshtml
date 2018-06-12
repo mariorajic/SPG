@@ -1,16 +1,16 @@
 ﻿@model SPG.zadruge
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Join";
 }
 
-<h2>Izbrisi</h2>
+<h2>Pridruzivanje</h2>
 
-<h3>Jeste li sigurni da zelite izbrisati ovu zadrugu?</h3>
+<h3>Jeste li sigurni da se zelite pridruziti ovoj zadruzi? Izaci cete iz prethodne zadruge!</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
-        <dt class="text-capitalize">
+        <dt>
             @Html.DisplayNameFor(model => model.ime)
         </dt>
 
@@ -20,11 +20,12 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
-
+        <input type="hidden" value="@Html.DisplayFor(model => model.id)" name="id_zadruge"/>
         <div class="form-actions no-color">
-            <input type="submit" value="Izbrisi" class="btn btn-default" /> |
+            <input type="submit" value="Pridruzi" class="btn btn-default" />
             @Html.ActionLink("Nazad na listu", "Index")
         </div>
     }

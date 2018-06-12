@@ -4,23 +4,20 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Detalji o zadruzi</h2>
 
 <div>
-    <h4>zadruge</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
+        <dt class="text-capitalize">
             @Html.DisplayNameFor(model => model.ime)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.ime)
         </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Nazad na listu", "Index")
 </p>

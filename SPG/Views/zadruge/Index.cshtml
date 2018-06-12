@@ -2,30 +2,51 @@
 
 @{
     ViewBag.Title = "Index";
+    gospodarstva korisnik = ViewData["Korisnik"] as gospodarstva;
 }
 
-<h2>Index</h2>
+<h2>Zadruge</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<button class="btn btn-default">
+    @Html.ActionLink("Napravi zadrugu", "Create")
+</button>
+
+<div>
+    Clan ste zadruge : @korisnik.zadruge.ime
+</div>
+<br />
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.ime)
         </th>
+        <th>Akcije</th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
+        <td class="text-capitalize">
             @Html.DisplayFor(modelItem => item.ime)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @if (item.id == korisnik.id_zadruge)
+            {
+                @Html.ActionLink("Uredi", "Edit", new { id = item.id });
+            }
+            
+            @if (item.id == korisnik.id_zadruge)
+            {
+                @Html.ActionLink("Izbrisi", "Delete", new { id = item.id });
+            }
+        </td>
+        <td>
+            <button class="btn btn-default">
+                @Html.ActionLink("Clanovi", "Details", new { id = item.id })
+            </button>
+            <button class="btn btn-default">
+                @Html.ActionLink("Pridruzi se zadruzi", "Join", new { id = item.id })
+            </button>
         </td>
     </tr>
 }

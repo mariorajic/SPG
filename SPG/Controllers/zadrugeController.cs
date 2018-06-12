@@ -10,6 +10,7 @@ using SPG;
 
 namespace SPG.Controllers
 {
+    [Authorize]
     public class zadrugeController : Controller
     {
         private Entities db = new Entities();
@@ -17,6 +18,10 @@ namespace SPG.Controllers
         // GET: zadruge
         public ActionResult Index()
         {
+            int idUsera = Int32.Parse(User.Identity.Name);
+
+            ViewData["Korisnik"] = db.gospodarstva.Find(idUsera);
+
             return View(db.zadruge.ToList());
         }
 
@@ -33,6 +38,33 @@ namespace SPG.Controllers
                 return HttpNotFound();
             }
             return View(zadruge);
+        }
+
+        // GET: zadruge/Join/id
+        public ActionResult Join(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            zadruge zadruge = db.zadruge.Find(id);
+            if (zadruge == null)
+            {
+                return HttpNotFound();
+            }
+            return View(zadruge);
+        }
+
+        // POST: zadruge/Join
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Join()
+        {
+            int idUsera = Int32.Parse(User.Identity.Name);
+            gospodarstva gospodarstvo = db.gospodarstva.Find(idUsera);
+            gospodarstvo.id_zadruge = Int32.Parse(Request["id_zadruge"]);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // GET: zadruge/Create
