@@ -141,8 +141,17 @@ namespace SPG.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             parcele parcele = db.parcele.Find(id);
-            db.parcele.Remove(parcele);
-            db.SaveChanges();
+            try
+            {
+                db.parcele.Remove(parcele);
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return View("Error");
+            }
+
+
             return RedirectToAction("Index");
         }
 
