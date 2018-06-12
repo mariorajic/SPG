@@ -53,6 +53,9 @@ namespace SPG.Controllers
         {
             if (ModelState.IsValid)
             {
+                string x = Url.RequestContext.RouteData.Values["id"].ToString();
+                int Ajdi = Int32.Parse(x);
+                berbe.id_sadnje = Ajdi;
                 db.berbe.Add(berbe);
                 db.SaveChanges();
                 return RedirectToAction("Details", "oranice", new { id = db.sadnje.Find(berbe.id_sadnje).id_oranice });
