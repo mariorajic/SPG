@@ -55,6 +55,7 @@
         <AssociationConnector Association="Model.FK_radnje_stroja_tip_radnje" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_sadnje_sezone" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_sirovine_zivotinje" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_prodaje_biljaka_oranice" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

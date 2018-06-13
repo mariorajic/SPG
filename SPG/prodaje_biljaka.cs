@@ -18,7 +18,9 @@ namespace SPG
         public Nullable<int> id_biljke { get; set; }
         public string kolicina { get; set; }
         public string profit { get; set; }
+        public Nullable<int> id_oranice { get; set; }
     
         public virtual biljke biljke { get; set; }
+        public virtual oranice oranice { get; set; }
     }
 }
