@@ -17,7 +17,7 @@ namespace SPG.Controllers
         // GET: prodajeBiljaka
         public ActionResult Index()
         {
-            var prodaje_biljaka = db.prodaje_biljaka.Include(p => p.biljke);
+            var prodaje_biljaka = db.prodaje_biljaka.Include(p => p.berbe);
             return View(prodaje_biljaka.ToList());
         }
 
@@ -39,8 +39,11 @@ namespace SPG.Controllers
         // GET: prodajeBiljaka/Create
         public ActionResult Create()
         {
-            ViewBag.id_biljke = new SelectList(db.biljke, "id", "naziv");
-            return View();
+            if (Url.RequestContext.RouteData.Values["id"] != null)
+            {
+                return View();
+            }
+            return HttpNotFound();
         }
 
         // POST: prodajeBiljaka/Create
@@ -52,12 +55,14 @@ namespace SPG.Controllers
         {
             if (ModelState.IsValid)
             {
+                string x = Url.RequestContext.RouteData.Values["id"].ToString();
+                int Ajdi = Int32.Parse(x);
+                prodaje_biljaka.id_berbe = Ajdi;
                 db.prodaje_biljaka.Add(prodaje_biljaka);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "oranice", new { id = db.berbe.Find(prodaje_biljaka.id_berbe).sadnje.id_oranice });
             }
 
-            ViewBag.id_biljke = new SelectList(db.biljke, "id", "naziv", prodaje_biljaka.id_biljke);
             return View(prodaje_biljaka);
         }
 
@@ -73,7 +78,6 @@ namespace SPG.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.id_biljke = new SelectList(db.biljke, "id", "naziv", prodaje_biljaka.id_biljke);
             return View(prodaje_biljaka);
         }
 
@@ -82,15 +86,14 @@ namespace SPG.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,id_biljke,kolicina,profit")] prodaje_biljaka prodaje_biljaka)
+        public ActionResult Edit([Bind(Include = "id,id_berbe,kolicina,profit")] prodaje_biljaka prodaje_biljaka)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(prodaje_biljaka).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "oranice", new { id = db.berbe.Find(prodaje_biljaka.id_berbe).sadnje.id_oranice });
             }
-            ViewBag.id_biljke = new SelectList(db.biljke, "id", "naziv", prodaje_biljaka.id_biljke);
             return View(prodaje_biljaka);
         }
 
@@ -115,9 +118,10 @@ namespace SPG.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             prodaje_biljaka prodaje_biljaka = db.prodaje_biljaka.Find(id);
+            var id_oranice = db.berbe.Find(prodaje_biljaka.id_berbe).sadnje.id_oranice;
             db.prodaje_biljaka.Remove(prodaje_biljaka);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "oranice", new { id = id_oranice });
         }
 
         protected override void Dispose(bool disposing)

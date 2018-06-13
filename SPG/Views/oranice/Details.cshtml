@@ -174,7 +174,7 @@
                                 @Html.ActionLink("Izbrisi", "Delete", new { id = item.id, controller = "berbe" })
                             </td>
                             <td>
-                                <button type="button" class="btn btn-basic">@Html.ActionLink("Dodaj prodaju", "Create", "prodajeBiljaka", new { id = item.id }, null)</button>
+                                <button type="button" class="btn btn-basic">@Html.ActionLink("Dodaj prodaju", "Create", "prodajeBiljaka", new { id = item.id}, null)</button>
                             </td>
                         </tr>
                     }
@@ -201,7 +201,7 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.biljke.naziv)
+                                @Html.DisplayFor(modelItem => item.berbe.sadnje.biljke.naziv)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.kolicina)
