@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Uredi</h2>
+<h2>Uredi berbu</h2>
 
 
 @using (Html.BeginForm())
@@ -19,7 +19,7 @@
 
 
     <div class="form-group">
-        @Html.LabelFor(model => model.datum, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.datum, "Datum", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.datum, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.datum, "", new { @class = "text-danger" })
@@ -27,7 +27,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.kolicina, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.kolicina, "Količina", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.kolicina, new { htmlAttributes = new { @class = "form-control" } })
             @Html.ValidationMessageFor(model => model.kolicina, "", new { @class = "text-danger" })
@@ -35,7 +35,7 @@
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.sezona, "sezona", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.sezona, "Sezona", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
             @Html.DropDownList("sezona", null, htmlAttributes: new { @class = "form-control" })
             @Html.ValidationMessageFor(model => model.sezona, "", new { @class = "text-danger" })
@@ -49,10 +49,6 @@
     </div>
 </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -95,12 +95,10 @@ namespace SPG.Controllers
         {
             if (ModelState.IsValid)
             {
-                string x = Url.RequestContext.RouteData.Values["id"].ToString();
-                int Ajdi = Int32.Parse(x);
-                sadnje.id_oranice = Ajdi;
+                
                 db.Entry(sadnje).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Details", "oranica", new { id = sadnje.id_oranice });
+                return RedirectToAction("Details", "oranice", new { id = sadnje.id_oranice });
             }
             ViewBag.biljka = new SelectList(db.biljke, "id", "naziv", sadnje.biljka);
             ViewBag.id_oranice = new SelectList(db.oranice, "id", "naziv", sadnje.id_oranice);

@@ -12,7 +12,9 @@
 </button>
 
 <div>
-    Clan ste zadruge : @korisnik.zadruge.ime
+    @if (korisnik.id_zadruge != null) {
+    <p class="mb-0">Clan ste zadruge: @Html.Raw(korisnik.zadruge.ime)</p>
+    }
 </div>
 <br />
 <table class="table">

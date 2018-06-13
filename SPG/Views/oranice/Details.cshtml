@@ -10,7 +10,7 @@
 <h2>Detalji o oranici</h2>
 
 <div class="row">
-    <div class="d-flex flex-column col-4 justify-content-start>
+    <div class="d-flex flex-column col-4 justify-content-start">
         <hr />
         <dl class="dl-horizontal">
             <dt class="text-capitalize">
@@ -124,7 +124,7 @@
                             <td>
                                 @Html.ActionLink("Uredi", "Edit", new { id = item.id, controller = "sadnje" }) |
                                 @Html.ActionLink("Detalji", "Details", new { id = item.id, controller = "sadnje" }) |
-                                @Html.ActionLink("Izbrisi", "Delete", new { id = item.id, controller = "sadnje" })
+                                @Html.ActionLink("Izbriši", "Delete", new { id = item.id, controller = "sadnje" })
                             </td>
                             <td>
                                 <button type="button" class="btn btn-basic">@Html.ActionLink("Dodaj berbu", "Create", "berbe", new { id = item.id }, null)</button>
@@ -171,7 +171,7 @@
                             <td>
                                 @Html.ActionLink("Uredi", "Edit", new { id = item.id, controller = "berbe" }) |
                                 @Html.ActionLink("Detalji", "Details", new { id = item.id, controller = "berbe" }) |
-                                @Html.ActionLink("Izbrisi", "Delete", new { id = item.id, controller = "berbe" })
+                                @Html.ActionLink("Izbriši", "Delete", new { id = item.id, controller = "berbe" })
                             </td>
                             <td>
                                 <button type="button" class="btn btn-basic">@Html.ActionLink("Dodaj prodaju", "Create", "prodajeBiljaka", new { id = item.id}, null)</button>
@@ -212,12 +212,13 @@
                             <td>
                                 @Html.ActionLink("Uredi", "Edit", new { id = item.id, controller = "prodajeBiljaka" }) |
                                 @Html.ActionLink("Detalji", "Details", new { id = item.id, controller = "prodajeBiljaka" }) |
-                                @Html.ActionLink("Izbrisi", "Delete", new { id = item.id, controller = "prodajeBiljaka" })
+                                @Html.ActionLink("Izbriši", "Delete", new { id = item.id, controller = "prodajeBiljaka" })
                             </td>
                         </tr>
                     }
                 </table>
             </div>
-
-
         </div>
+    </div>
+
+   </div>

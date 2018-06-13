@@ -105,7 +105,7 @@ IEnumerable<radnje_stroja> radnje = ViewData["Radnje"] as IEnumerable<radnje_str
                         <td>
                             @Html.ActionLink("Uredi", "Edit", new { controller = "radnjeStroja", id = item.id }) |
                             @Html.ActionLink("Detalji", "Details", new { controller = "radnjeStroja", id = item.id }) |
-                            @Html.ActionLink("Izbrisi", "Delete", new { controller = "radnjeStroja", id = item.id })
+                            @Html.ActionLink("Izbriši", "Delete", new { controller = "radnjeStroja", id = item.id })
                         </td>
                     </tr>
                     }
