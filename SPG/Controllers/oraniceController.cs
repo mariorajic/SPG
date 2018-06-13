@@ -37,6 +37,7 @@ namespace SPG.Controllers
             }
             ViewData["Sadnje"] = db.sadnje.Where(f => f.id_oranice == oranice.id).ToList();
             ViewData["Berbe"] = db.berbe.Where(f => f.sadnje.id_oranice == oranice.id).ToList();
+            ViewData["Prodaje"] = db.prodaje_biljaka.Where(f => f.biljke.id == oranice.sadnje.berbe.biljke.id).ToList();
             return View(oranice);
         }
 

@@ -4,6 +4,7 @@
     ViewBag.Title = "Details";
     IEnumerable<berbe> berbe = ViewData["Berbe"] as IEnumerable<berbe>;
     IEnumerable<sadnje> sadnje = ViewData["Sadnje"] as IEnumerable<sadnje>;
+    IEnumerable<prodaje_biljaka> prodaje = ViewData["Prodaje"] as IEnumerable<prodaje_biljaka>;
 }
 
 <h2>Detalji o oranici</h2>
@@ -69,6 +70,9 @@
                 <li class="nav-item">
                     <a class="nav-link" id="pills-berbe-tab" data-toggle="pill" href="#pills-berbe" role="tab" aria-controls="pills-berbe" aria-selected="false">Berbe</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="pills-prodaje-tab" data-toggle="pill" href="#pills-prodaje" role="tab" aria-controls="pills-prodaje" aria-selected="false">Prodaje</a>
+                </li>
             </ul>
         </div>
 
@@ -101,31 +105,31 @@
                     </tr>
                     @foreach (var item in sadnje)
                     {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.biljke.naziv)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.datum)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.kolicina)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.troskovi)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.sezone.sezona)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Uredi", "Edit", new { id = item.id, controller = "sadnje" }) |
-                            @Html.ActionLink("Detalji", "Details", new { id = item.id, controller = "sadnje" }) |
-                            @Html.ActionLink("Izbrisi", "Delete", new { id = item.id, controller = "sadnje" })
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-basic">@Html.ActionLink("Dodaj berbu", "Create", "berbe", new { id = item.id }, null)</button>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.biljke.naziv)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.datum)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.kolicina)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.troskovi)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.sezone.sezona)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Uredi", "Edit", new { id = item.id, controller = "sadnje" }) |
+                                @Html.ActionLink("Detalji", "Details", new { id = item.id, controller = "sadnje" }) |
+                                @Html.ActionLink("Izbrisi", "Delete", new { id = item.id, controller = "sadnje" })
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-basic">@Html.ActionLink("Dodaj berbu", "Create", "berbe", new { id = item.id }, null)</button>
+                            </td>
+                        </tr>
                     }
                 </table>
             </div>
@@ -169,10 +173,51 @@
                                 @Html.ActionLink("Detalji", "Details", new { id = item.id, controller = "berbe" }) |
                                 @Html.ActionLink("Izbrisi", "Delete", new { id = item.id, controller = "berbe" })
                             </td>
+                            <td>
+                                <button type="button" class="btn btn-basic">@Html.ActionLink("Dodaj prodaju", "Create", "prodajeBiljaka", new { id = item.id }, null)</button>
+                            </td>
                         </tr>
                     }
                 </table>
             </div>
-            
 
-    </div>
+            <div class="tab-pane fade show" id="pills-prodaje" role="tabpanel" aria-labelledby="pills-prodaje-tab">
+                <table class="table">
+                    <tr>
+                        <th>
+                            Biljka
+                        </th>
+                        <th>
+                            Količina
+                        </th>
+                        <th>
+                            Profit
+                        </th>
+                        <th>
+                            Akcije
+                        </th>
+                    </tr>
+                    @foreach (var item in prodaje)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.biljke.naziv)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.kolicina)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.profit)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Uredi", "Edit", new { id = item.id, controller = "prodajeBiljaka" }) |
+                                @Html.ActionLink("Detalji", "Details", new { id = item.id, controller = "prodajeBiljaka" }) |
+                                @Html.ActionLink("Izbrisi", "Delete", new { id = item.id, controller = "prodajeBiljaka" })
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+
+
+        </div>
