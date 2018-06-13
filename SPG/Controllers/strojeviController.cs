@@ -14,6 +14,8 @@ namespace SPG.Controllers
     public class strojeviController : Controller
     {
         private Entities db = new Entities();
+
+
         public int DobaviID()
         {
             int IdUsera = Int32.Parse(User.Identity.Name);

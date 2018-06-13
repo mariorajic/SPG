@@ -7,12 +7,14 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SPG;
+using Rotativa;
 
 namespace SPG.Controllers
 {
     public class mljekomatiController : Controller
     {
         private Entities db = new Entities();
+
 
         // GET: mljekomati
         public ActionResult Index()
