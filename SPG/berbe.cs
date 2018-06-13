@@ -11,19 +11,24 @@ namespace SPG
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class berbe
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public berbe()
+        {
+            this.prodaje_biljaka = new HashSet<prodaje_biljaka>();
+        }
+    
         public int id { get; set; }
         public Nullable<int> id_sadnje { get; set; }
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [DataType(DataType.Date)]
         public System.DateTime datum { get; set; }
         public string kolicina { get; set; }
         public Nullable<int> sezona { get; set; }
     
         public virtual sadnje sadnje { get; set; }
         public virtual sezone sezone { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<prodaje_biljaka> prodaje_biljaka { get; set; }
     }
 }

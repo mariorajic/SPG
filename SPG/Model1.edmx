@@ -86,10 +86,9 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_biljke" Type="int" />
           <Property Name="kolicina" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="profit" Type="varchar" MaxLength="250" Nullable="false" />
-          <Property Name="id_oranice" Type="int" />
+          <Property Name="id_berbe" Type="int" />
         </EntityType>
         <EntityType Name="prodaje_sirovina">
           <Key>
@@ -177,6 +176,13 @@
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="stanje" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="status_zivotinje">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="strojevi">
           <Key>
@@ -359,27 +365,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_prodaje_biljaka_biljke">
-          <End Role="biljke" Type="Self.biljke" Multiplicity="0..1" />
+        <Association Name="FK_prodaje_biljaka_berbe">
+          <End Role="berbe" Type="Self.berbe" Multiplicity="0..1" />
           <End Role="prodaje_biljaka" Type="Self.prodaje_biljaka" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="biljke">
+            <Principal Role="berbe">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="prodaje_biljaka">
-              <PropertyRef Name="id_biljke" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_prodaje_biljaka_oranice">
-          <End Role="oranice" Type="Self.oranice" Multiplicity="0..1" />
-          <End Role="prodaje_biljaka" Type="Self.prodaje_biljaka" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="oranice">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="prodaje_biljaka">
-              <PropertyRef Name="id_oranice" />
+              <PropertyRef Name="id_berbe" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -570,6 +564,7 @@
           <EntitySet Name="sezone" EntityType="Self.sezone" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sirovine" EntityType="Self.sirovine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="stanje_tla" EntityType="Self.stanje_tla" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="status_zivotinje" EntityType="Self.status_zivotinje" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="strojevi" EntityType="Self.strojevi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tip_radnje_oranice" EntityType="Self.tip_radnje_oranice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tip_radnje_stroja" EntityType="Self.tip_radnje_stroja" Schema="dbo" store:Type="Tables" />
@@ -617,12 +612,8 @@
             <End Role="gradovi" EntitySet="gradovi" />
             <End Role="parcele" EntitySet="parcele" />
           </AssociationSet>
-          <AssociationSet Name="FK_prodaje_biljaka_biljke" Association="Self.FK_prodaje_biljaka_biljke">
-            <End Role="biljke" EntitySet="biljke" />
-            <End Role="prodaje_biljaka" EntitySet="prodaje_biljaka" />
-          </AssociationSet>
-          <AssociationSet Name="FK_prodaje_biljaka_oranice" Association="Self.FK_prodaje_biljaka_oranice">
-            <End Role="oranice" EntitySet="oranice" />
+          <AssociationSet Name="FK_prodaje_biljaka_berbe" Association="Self.FK_prodaje_biljaka_berbe">
+            <End Role="berbe" EntitySet="berbe" />
             <End Role="prodaje_biljaka" EntitySet="prodaje_biljaka" />
           </AssociationSet>
           <AssociationSet Name="FK_prodaje_sirovina_sirovine" Association="Self.FK_prodaje_sirovina_sirovine">
@@ -697,6 +688,7 @@
           <Property Name="sezona" Type="Int32" />
           <NavigationProperty Name="sadnje" Relationship="Self.FK_berbe_sadnje" FromRole="berbe" ToRole="sadnje" />
           <NavigationProperty Name="sezone" Relationship="Self.FK_berbe_sezone" FromRole="berbe" ToRole="sezone" />
+          <NavigationProperty Name="prodaje_biljaka" Relationship="Model.FK_prodaje_biljaka_berbe" FromRole="berbe" ToRole="prodaje_biljaka" />
         </EntityType>
         <EntityType Name="biljke">
           <Key>
@@ -704,7 +696,6 @@
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="naziv" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="prodaje_biljaka" Relationship="Self.FK_prodaje_biljaka_biljke" FromRole="biljke" ToRole="prodaje_biljaka" />
           <NavigationProperty Name="sadnje" Relationship="Self.FK_sadnje_biljke" FromRole="biljke" ToRole="sadnje" />
         </EntityType>
         <EntityType Name="farme">
@@ -767,7 +758,6 @@
           <NavigationProperty Name="vrste_tla" Relationship="Self.FK_oranice_vrste_tla" FromRole="oranice" ToRole="vrste_tla" />
           <NavigationProperty Name="radnje_oranica" Relationship="Self.FK_radnje_oranica_oranice" FromRole="oranice" ToRole="radnje_oranica" />
           <NavigationProperty Name="sadnje" Relationship="Self.FK_sadnje_oranice" FromRole="oranice" ToRole="sadnje" />
-          <NavigationProperty Name="prodaje_biljaka" Relationship="Model.FK_prodaje_biljaka_oranice" FromRole="oranice" ToRole="prodaje_biljaka" />
         </EntityType>
         <EntityType Name="parcele">
           <Key>
@@ -792,12 +782,10 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_biljke" Type="Int32" />
           <Property Name="kolicina" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="profit" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="biljke" Relationship="Self.FK_prodaje_biljaka_biljke" FromRole="prodaje_biljaka" ToRole="biljke" />
-          <Property Name="id_oranice" Type="Int32" />
-          <NavigationProperty Name="oranice" Relationship="Model.FK_prodaje_biljaka_oranice" FromRole="prodaje_biljaka" ToRole="oranice" />
+          <Property Name="id_berbe" Type="Int32" />
+          <NavigationProperty Name="berbe" Relationship="Model.FK_prodaje_biljaka_berbe" FromRole="prodaje_biljaka" ToRole="berbe" />
         </EntityType>
         <EntityType Name="prodaje_sirovina">
           <Key>
@@ -993,18 +981,6 @@
             </Principal>
             <Dependent Role="berbe">
               <PropertyRef Name="sezona" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_prodaje_biljaka_biljke">
-          <End Role="biljke" Type="Self.biljke" Multiplicity="0..1" />
-          <End Role="prodaje_biljaka" Type="Self.prodaje_biljaka" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="biljke">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="prodaje_biljaka">
-              <PropertyRef Name="id_biljke" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1306,10 +1282,6 @@
             <End Role="sezone" EntitySet="sezone" />
             <End Role="berbe" EntitySet="berbe" />
           </AssociationSet>
-          <AssociationSet Name="FK_prodaje_biljaka_biljke" Association="Self.FK_prodaje_biljaka_biljke">
-            <End Role="biljke" EntitySet="biljke" />
-            <End Role="prodaje_biljaka" EntitySet="prodaje_biljaka" />
-          </AssociationSet>
           <AssociationSet Name="FK_sadnje_biljke" Association="Self.FK_sadnje_biljke">
             <End Role="biljke" EntitySet="biljke" />
             <End Role="sadnje" EntitySet="sadnje" />
@@ -1398,23 +1370,31 @@
             <End Role="zivotinje" EntitySet="zivotinje" />
             <End Role="sirovine" EntitySet="sirovine" />
           </AssociationSet>
-          <AssociationSet Name="FK_prodaje_biljaka_oranice" Association="Model.FK_prodaje_biljaka_oranice">
-            <End Role="oranice" EntitySet="oranice" />
+          <AssociationSet Name="FK_prodaje_biljaka_berbe" Association="Model.FK_prodaje_biljaka_berbe">
+            <End Role="berbe" EntitySet="berbe" />
             <End Role="prodaje_biljaka" EntitySet="prodaje_biljaka" />
           </AssociationSet>
+          <EntitySet Name="status_zivotinje" EntityType="Model.status_zivotinje" />
         </EntityContainer>
-        <Association Name="FK_prodaje_biljaka_oranice">
-          <End Type="Model.oranice" Role="oranice" Multiplicity="0..1" />
+        <Association Name="FK_prodaje_biljaka_berbe">
+          <End Type="Model.berbe" Role="berbe" Multiplicity="0..1" />
           <End Type="Model.prodaje_biljaka" Role="prodaje_biljaka" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="oranice">
+            <Principal Role="berbe">
               <PropertyRef Name="id" />
             </Principal>
             <Dependent Role="prodaje_biljaka">
-              <PropertyRef Name="id_oranice" />
+              <PropertyRef Name="id_berbe" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="status_zivotinje">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1508,9 +1488,8 @@
           <EntitySetMapping Name="prodaje_biljaka">
             <EntityTypeMapping TypeName="Model.prodaje_biljaka">
               <MappingFragment StoreEntitySet="prodaje_biljaka">
-                <ScalarProperty Name="id_oranice" ColumnName="id_oranice" />
+                <ScalarProperty Name="id_berbe" ColumnName="id_berbe" />
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_biljke" ColumnName="id_biljke" />
                 <ScalarProperty Name="kolicina" ColumnName="kolicina" />
                 <ScalarProperty Name="profit" ColumnName="profit" />
               </MappingFragment>
@@ -1677,6 +1656,14 @@
                 <ScalarProperty Name="kolicina" ColumnName="kolicina" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="uzrok_smrti" ColumnName="uzrok_smrti" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="status_zivotinje">
+            <EntityTypeMapping TypeName="Model.status_zivotinje">
+              <MappingFragment StoreEntitySet="status_zivotinje">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

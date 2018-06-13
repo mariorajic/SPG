@@ -50,5 +50,6 @@ namespace SPG
         public virtual DbSet<vrste_tla> vrste_tla { get; set; }
         public virtual DbSet<zadruge> zadruge { get; set; }
         public virtual DbSet<zivotinje> zivotinje { get; set; }
+        public virtual DbSet<status_zivotinje> status_zivotinje { get; set; }
     }
 }

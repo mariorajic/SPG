@@ -17,15 +17,12 @@ namespace SPG
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public biljke()
         {
-            this.prodaje_biljaka = new HashSet<prodaje_biljaka>();
             this.sadnje = new HashSet<sadnje>();
         }
     
         public int id { get; set; }
         public string naziv { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<prodaje_biljaka> prodaje_biljaka { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<sadnje> sadnje { get; set; }
     }

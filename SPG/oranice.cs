@@ -19,7 +19,6 @@ namespace SPG
         {
             this.radnje_oranica = new HashSet<radnje_oranica>();
             this.sadnje = new HashSet<sadnje>();
-            this.prodaje_biljaka = new HashSet<prodaje_biljaka>();
         }
     
         public int id { get; set; }
@@ -36,7 +35,5 @@ namespace SPG
         public virtual ICollection<radnje_oranica> radnje_oranica { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<sadnje> sadnje { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<prodaje_biljaka> prodaje_biljaka { get; set; }
     }
 }

@@ -12,13 +12,9 @@ namespace SPG
     using System;
     using System.Collections.Generic;
     
-    public partial class prodaje_biljaka
+    public partial class status_zivotinje
     {
         public int id { get; set; }
-        public string kolicina { get; set; }
-        public string profit { get; set; }
-        public Nullable<int> id_berbe { get; set; }
-    
-        public virtual berbe berbe { get; set; }
+        public string status { get; set; }
     }
 }
