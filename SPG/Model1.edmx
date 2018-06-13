@@ -111,15 +111,6 @@
           <Property Name="profit" Type="int" Nullable="false" />
           <Property Name="preostala_kolicina" Type="varchar" MaxLength="250" />
         </EntityType>
-        <EntityType Name="radnje_oranica">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="id_tip_radnje" Type="int" />
-          <Property Name="datum" Type="date" Nullable="false" />
-          <Property Name="id_oranice" Type="int" />
-        </EntityType>
         <EntityType Name="radnje_stroja">
           <Key>
             <PropertyRef Name="id" />
@@ -177,13 +168,6 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="stanje" Type="varchar" MaxLength="250" Nullable="false" />
         </EntityType>
-        <EntityType Name="status_zivotinje">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" Nullable="false" />
-          <Property Name="status" Type="varchar" MaxLength="250" />
-        </EntityType>
         <EntityType Name="strojevi">
           <Key>
             <PropertyRef Name="id" />
@@ -194,13 +178,6 @@
           <Property Name="trosak" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="vrijednost" Type="varchar" MaxLength="250" Nullable="false" />
           <Property Name="id_parcele" Type="int" />
-        </EntityType>
-        <EntityType Name="tip_radnje_oranice">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="naziv" Type="varchar" MaxLength="250" Nullable="false" />
         </EntityType>
         <EntityType Name="tip_radnje_stroja">
           <Key>
@@ -401,30 +378,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_radnje_oranica_oranice">
-          <End Role="oranice" Type="Self.oranice" Multiplicity="0..1" />
-          <End Role="radnje_oranica" Type="Self.radnje_oranica" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="oranice">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="radnje_oranica">
-              <PropertyRef Name="id_oranice" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_radnje_oranica_tip_radnje_oranice">
-          <End Role="tip_radnje_oranice" Type="Self.tip_radnje_oranice" Multiplicity="0..1" />
-          <End Role="radnje_oranica" Type="Self.radnje_oranica" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tip_radnje_oranice">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="radnje_oranica">
-              <PropertyRef Name="id_tip_radnje" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_radnje_stroja_strojevi">
           <End Role="strojevi" Type="Self.strojevi" Multiplicity="0..1" />
           <End Role="radnje_stroja" Type="Self.radnje_stroja" Multiplicity="*" />
@@ -557,16 +510,13 @@
           <EntitySet Name="prodaje_biljaka" EntityType="Self.prodaje_biljaka" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="prodaje_sirovina" EntityType="Self.prodaje_sirovina" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="punjenje_mljekomata" EntityType="Self.punjenje_mljekomata" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="radnje_oranica" EntityType="Self.radnje_oranica" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="radnje_stroja" EntityType="Self.radnje_stroja" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sadnje" EntityType="Self.sadnje" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="servisi_mljekomata" EntityType="Self.servisi_mljekomata" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sezone" EntityType="Self.sezone" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sirovine" EntityType="Self.sirovine" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="stanje_tla" EntityType="Self.stanje_tla" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="status_zivotinje" EntityType="Self.status_zivotinje" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="strojevi" EntityType="Self.strojevi" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tip_radnje_oranice" EntityType="Self.tip_radnje_oranice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tip_radnje_stroja" EntityType="Self.tip_radnje_stroja" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="troskovi" EntityType="Self.troskovi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="vrste_tla" EntityType="Self.vrste_tla" Schema="dbo" store:Type="Tables" />
@@ -623,14 +573,6 @@
           <AssociationSet Name="FK_punjenje_mljekomata_mljekomati" Association="Self.FK_punjenje_mljekomata_mljekomati">
             <End Role="mljekomati" EntitySet="mljekomati" />
             <End Role="punjenje_mljekomata" EntitySet="punjenje_mljekomata" />
-          </AssociationSet>
-          <AssociationSet Name="FK_radnje_oranica_oranice" Association="Self.FK_radnje_oranica_oranice">
-            <End Role="oranice" EntitySet="oranice" />
-            <End Role="radnje_oranica" EntitySet="radnje_oranica" />
-          </AssociationSet>
-          <AssociationSet Name="FK_radnje_oranica_tip_radnje_oranice" Association="Self.FK_radnje_oranica_tip_radnje_oranice">
-            <End Role="tip_radnje_oranice" EntitySet="tip_radnje_oranice" />
-            <End Role="radnje_oranica" EntitySet="radnje_oranica" />
           </AssociationSet>
           <AssociationSet Name="FK_radnje_stroja_strojevi" Association="Self.FK_radnje_stroja_strojevi">
             <End Role="strojevi" EntitySet="strojevi" />
@@ -756,7 +698,6 @@
           <NavigationProperty Name="stanje_tla1" Relationship="Self.FK_oranice_oranice" FromRole="oranice" ToRole="stanje_tla" />
           <NavigationProperty Name="parcele" Relationship="Self.FK_oranice_parcele" FromRole="oranice" ToRole="parcele" />
           <NavigationProperty Name="vrste_tla" Relationship="Self.FK_oranice_vrste_tla" FromRole="oranice" ToRole="vrste_tla" />
-          <NavigationProperty Name="radnje_oranica" Relationship="Self.FK_radnje_oranica_oranice" FromRole="oranice" ToRole="radnje_oranica" />
           <NavigationProperty Name="sadnje" Relationship="Self.FK_sadnje_oranice" FromRole="oranice" ToRole="sadnje" />
         </EntityType>
         <EntityType Name="parcele">
@@ -809,17 +750,6 @@
           <Property Name="profit" Type="Int32" Nullable="false" />
           <Property Name="preostala_kolicina" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="mljekomati" Relationship="Self.FK_punjenje_mljekomata_mljekomati" FromRole="punjenje_mljekomata" ToRole="mljekomati" />
-        </EntityType>
-        <EntityType Name="radnje_oranica">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_tip_radnje" Type="Int32" />
-          <Property Name="datum" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="id_oranice" Type="Int32" />
-          <NavigationProperty Name="oranice" Relationship="Self.FK_radnje_oranica_oranice" FromRole="radnje_oranica" ToRole="oranice" />
-          <NavigationProperty Name="tip_radnje_oranice" Relationship="Self.FK_radnje_oranica_tip_radnje_oranice" FromRole="radnje_oranica" ToRole="tip_radnje_oranice" />
         </EntityType>
         <EntityType Name="radnje_stroja">
           <Key>
@@ -902,14 +832,6 @@
           <Property Name="id_parcele" Type="Int32" />
           <NavigationProperty Name="parcele" Relationship="Self.FK_strojevi_parcele" FromRole="strojevi" ToRole="parcele" />
           <NavigationProperty Name="radnje_stroja" Relationship="Self.FK_radnje_stroja_strojevi" FromRole="strojevi" ToRole="radnje_stroja" />
-        </EntityType>
-        <EntityType Name="tip_radnje_oranice">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="naziv" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="radnje_oranica" Relationship="Self.FK_radnje_oranica_tip_radnje_oranice" FromRole="tip_radnje_oranice" ToRole="radnje_oranica" />
         </EntityType>
         <EntityType Name="tip_radnje_stroja">
           <Key>
@@ -1128,18 +1050,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_radnje_oranica_oranice">
-          <End Role="oranice" Type="Self.oranice" Multiplicity="0..1" />
-          <End Role="radnje_oranica" Type="Self.radnje_oranica" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="oranice">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="radnje_oranica">
-              <PropertyRef Name="id_oranice" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_sadnje_oranice">
           <End Role="oranice" Type="Self.oranice" Multiplicity="0..1" />
           <End Role="sadnje" Type="Self.sadnje" Multiplicity="*" />
@@ -1185,18 +1095,6 @@
             </Principal>
             <Dependent Role="prodaje_sirovina">
               <PropertyRef Name="id_sirovine" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_radnje_oranica_tip_radnje_oranice">
-          <End Role="tip_radnje_oranice" Type="Self.tip_radnje_oranice" Multiplicity="0..1" />
-          <End Role="radnje_oranica" Type="Self.radnje_oranica" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tip_radnje_oranice">
-              <PropertyRef Name="id" />
-            </Principal>
-            <Dependent Role="radnje_oranica">
-              <PropertyRef Name="id_tip_radnje" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1260,7 +1158,6 @@
           <EntitySet Name="prodaje_biljaka" EntityType="Self.prodaje_biljaka" />
           <EntitySet Name="prodaje_sirovina" EntityType="Self.prodaje_sirovina" />
           <EntitySet Name="punjenje_mljekomata" EntityType="Self.punjenje_mljekomata" />
-          <EntitySet Name="radnje_oranica" EntityType="Self.radnje_oranica" />
           <EntitySet Name="radnje_stroja" EntityType="Self.radnje_stroja" />
           <EntitySet Name="sadnje" EntityType="Self.sadnje" />
           <EntitySet Name="servisi_mljekomata" EntityType="Self.servisi_mljekomata" />
@@ -1268,7 +1165,6 @@
           <EntitySet Name="sirovine" EntityType="Self.sirovine" />
           <EntitySet Name="stanje_tla" EntityType="Self.stanje_tla" />
           <EntitySet Name="strojevi" EntityType="Self.strojevi" />
-          <EntitySet Name="tip_radnje_oranice" EntityType="Self.tip_radnje_oranice" />
           <EntitySet Name="tip_radnje_stroja" EntityType="Self.tip_radnje_stroja" />
           <EntitySet Name="troskovi" EntityType="Self.troskovi" />
           <EntitySet Name="vrste_tla" EntityType="Self.vrste_tla" />
@@ -1330,10 +1226,6 @@
             <End Role="vrste_tla" EntitySet="vrste_tla" />
             <End Role="oranice" EntitySet="oranice" />
           </AssociationSet>
-          <AssociationSet Name="FK_radnje_oranica_oranice" Association="Self.FK_radnje_oranica_oranice">
-            <End Role="oranice" EntitySet="oranice" />
-            <End Role="radnje_oranica" EntitySet="radnje_oranica" />
-          </AssociationSet>
           <AssociationSet Name="FK_sadnje_oranice" Association="Self.FK_sadnje_oranice">
             <End Role="oranice" EntitySet="oranice" />
             <End Role="sadnje" EntitySet="sadnje" />
@@ -1349,10 +1241,6 @@
           <AssociationSet Name="FK_prodaje_sirovina_sirovine" Association="Self.FK_prodaje_sirovina_sirovine">
             <End Role="sirovine" EntitySet="sirovine" />
             <End Role="prodaje_sirovina" EntitySet="prodaje_sirovina" />
-          </AssociationSet>
-          <AssociationSet Name="FK_radnje_oranica_tip_radnje_oranice" Association="Self.FK_radnje_oranica_tip_radnje_oranice">
-            <End Role="tip_radnje_oranice" EntitySet="tip_radnje_oranice" />
-            <End Role="radnje_oranica" EntitySet="radnje_oranica" />
           </AssociationSet>
           <AssociationSet Name="FK_radnje_stroja_strojevi" Association="Self.FK_radnje_stroja_strojevi">
             <End Role="strojevi" EntitySet="strojevi" />
@@ -1374,7 +1262,6 @@
             <End Role="berbe" EntitySet="berbe" />
             <End Role="prodaje_biljaka" EntitySet="prodaje_biljaka" />
           </AssociationSet>
-          <EntitySet Name="status_zivotinje" EntityType="Model.status_zivotinje" />
         </EntityContainer>
         <Association Name="FK_prodaje_biljaka_berbe">
           <End Type="Model.berbe" Role="berbe" Multiplicity="0..1" />
@@ -1388,13 +1275,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="status_zivotinje">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
-          <Property Name="status" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1518,16 +1398,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="radnje_oranica">
-            <EntityTypeMapping TypeName="Model.radnje_oranica">
-              <MappingFragment StoreEntitySet="radnje_oranica">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="id_tip_radnje" ColumnName="id_tip_radnje" />
-                <ScalarProperty Name="datum" ColumnName="datum" />
-                <ScalarProperty Name="id_oranice" ColumnName="id_oranice" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="radnje_stroja">
             <EntityTypeMapping TypeName="Model.radnje_stroja">
               <MappingFragment StoreEntitySet="radnje_stroja">
@@ -1603,14 +1473,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tip_radnje_oranice">
-            <EntityTypeMapping TypeName="Model.tip_radnje_oranice">
-              <MappingFragment StoreEntitySet="tip_radnje_oranice">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="naziv" ColumnName="naziv" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tip_radnje_stroja">
             <EntityTypeMapping TypeName="Model.tip_radnje_stroja">
               <MappingFragment StoreEntitySet="tip_radnje_stroja">
@@ -1656,14 +1518,6 @@
                 <ScalarProperty Name="kolicina" ColumnName="kolicina" />
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="uzrok_smrti" ColumnName="uzrok_smrti" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="status_zivotinje">
-            <EntityTypeMapping TypeName="Model.status_zivotinje">
-              <MappingFragment StoreEntitySet="status_zivotinje">
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

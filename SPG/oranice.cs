@@ -17,7 +17,6 @@ namespace SPG
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public oranice()
         {
-            this.radnje_oranica = new HashSet<radnje_oranica>();
             this.sadnje = new HashSet<sadnje>();
         }
     
@@ -31,8 +30,6 @@ namespace SPG
         public virtual stanje_tla stanje_tla1 { get; set; }
         public virtual parcele parcele { get; set; }
         public virtual vrste_tla vrste_tla { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<radnje_oranica> radnje_oranica { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<sadnje> sadnje { get; set; }
     }
