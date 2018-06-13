@@ -54,7 +54,7 @@
         <div class="tab-content" id="pills-tabContent">
             <div class="tab-pane fade show active" id="pills-zivotinje" role="tabpanel" aria-labelledby="pills-zivotinje-tab">
                 <button class="btn btn-basic">
-                    @Html.ActionLink("Nova zivotinja", "Create", new { controller = "zivotinje", id = Model.id })
+                    @Html.ActionLink("Nova životinja", "Create", new { controller = "zivotinje", id = Model.id })
                 </button>
                 <table class="table">
                     <tr>
@@ -92,7 +92,7 @@
                         <td>
                             @Html.ActionLink("Uredi", "Edit", new { controller = "zivotinje", id = item.id }) |
                             @Html.ActionLink("Detalji", "Details", new { controller = "zivotinje", id = item.id }) |
-                            @Html.ActionLink("Izbrisi", "Delete", new { controller = "zivotinje", id = item.id })
+                            @Html.ActionLink("Izbriši", "Delete", new { controller = "zivotinje", id = item.id })
                         </td>
                         <td>
                             <button type="button" class="btn btn-basic">@Html.ActionLink("Dodaj sirovinu", "Create", "sirovine", new { id = item.id }, null)</button>
@@ -139,7 +139,7 @@
                         <td>
                             @Html.ActionLink("Uredi", "Edit", new { controller = "sirovine", id = item.id }) |
                             @Html.ActionLink("Detalji", "Details", new { controller = "sirovine", id = item.id }) |
-                            @Html.ActionLink("Izbrisi", "Delete", new { controller = "sirovine", id = item.id })
+                            @Html.ActionLink("Izbriši", "Delete", new { controller = "sirovine", id = item.id })
                         </td>
                         <td>
                             <button type="button" class="btn btn-basic">@Html.ActionLink("Prodaj sirovinu", "Create", "prodajeSirovina", new { id = item.id }, null)</button>
@@ -186,7 +186,7 @@
                         <td>
                             @Html.ActionLink("Uredi", "Edit", new { controller = "prodajeSirovina", id = item.id }) |
                             @Html.ActionLink("Detalji", "Details", new { controller = "prodajeSirovina", id = item.id }) |
-                            @Html.ActionLink("Izbrisi", "Delete", new { controller = "prodajeSirovina", id = item.id })
+                            @Html.ActionLink("Izbriši", "Delete", new { controller = "prodajeSirovina", id = item.id })
                         </td>
                     </tr>
                     }

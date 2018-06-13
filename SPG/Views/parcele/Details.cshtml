@@ -101,10 +101,7 @@
                             <td>
                                 @Html.ActionLink("Uredi", "Edit", new { id = item.id, controller = "farme" }) |
                                 @Html.ActionLink("Detalji", "Details", new { id = item.id, controller = "farme" }) |
-                                @Html.ActionLink("Izbrisi", "Delete", new { id = item.id, controller = "farme" })
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-basic">@Html.ActionLink("Dodaj životinju", "Create", "zivotinje", new { id = item.id }, null)</button>
+                                @Html.ActionLink("Izbriši", "Delete", new { id = item.id, controller = "farme" })
                             </td>
                         </tr>
                     }
@@ -157,7 +154,7 @@
                         <td>
                             @Html.ActionLink("Uredi", "Edit", new { id = item.id, controller = "oranice" }) |
                             @Html.ActionLink("Detalji", "Details", new { id = item.id, controller = "oranice" }) |
-                            @Html.ActionLink("Izbrisi", "Delete", new { id = item.id, controller = "oranice" })
+                            @Html.ActionLink("Izbriši", "Delete", new { id = item.id, controller = "oranice" })
                         </td>
                     </tr>
                 }

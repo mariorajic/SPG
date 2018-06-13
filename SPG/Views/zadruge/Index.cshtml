@@ -13,7 +13,7 @@
 
 <div>
     @if (korisnik.id_zadruge != null) {
-    <p class="mb-0">Clan ste zadruge: @Html.Raw(korisnik.zadruge.ime)</p>
+    <p class="mb-0">Član ste zadruge: @Html.Raw(korisnik.zadruge.ime)</p>
     }
 </div>
 <br />
@@ -36,18 +36,18 @@
             {
                 @Html.ActionLink("Uredi", "Edit", new { id = item.id });
             }
-            
+            |
             @if (item.id == korisnik.id_zadruge)
             {
-                @Html.ActionLink("Izbrisi", "Delete", new { id = item.id });
+                @Html.ActionLink("Izbriši", "Delete", new { id = item.id });
             }
         </td>
         <td>
             <button class="btn btn-default">
-                @Html.ActionLink("Clanovi", "Details", new { id = item.id })
+                @Html.ActionLink("Članovi", "Details", new { id = item.id })
             </button>
             <button class="btn btn-default">
-                @Html.ActionLink("Pridruzi se zadruzi", "Join", new { id = item.id })
+                @Html.ActionLink("Pridruži se zadruzi", "Join", new { id = item.id })
             </button>
         </td>
     </tr>
