@@ -179,7 +179,6 @@
     <Compile Include="Controllers\sirovineController.cs" />
     <Compile Include="Controllers\stanjeTlaController.cs" />
     <Compile Include="Controllers\strojeviController.cs" />
-    <Compile Include="Controllers\tipRadnjeOraniceController.cs" />
     <Compile Include="Controllers\tipRadnjeStrojaController.cs" />
     <Compile Include="Controllers\troskoviController.cs" />
     <Compile Include="Controllers\vrsteTlaController.cs" />
@@ -231,9 +230,6 @@
     <Compile Include="punjenje_mljekomata.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="radnje_oranica.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="radnje_stroja.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -252,13 +248,7 @@
     <Compile Include="stanje_tla.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="status_zivotinje.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="strojevi.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tip_radnje_oranice.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="tip_radnje_stroja.cs">
@@ -448,11 +438,6 @@
     <Content Include="Views\stanjeTla\Details.cshtml" />
     <Content Include="Views\stanjeTla\Edit.cshtml" />
     <Content Include="Views\stanjeTla\Index.cshtml" />
-    <Content Include="Views\tipRadnjeOranice\Create.cshtml" />
-    <Content Include="Views\tipRadnjeOranice\Delete.cshtml" />
-    <Content Include="Views\tipRadnjeOranice\Details.cshtml" />
-    <Content Include="Views\tipRadnjeOranice\Edit.cshtml" />
-    <Content Include="Views\tipRadnjeOranice\Index.cshtml" />
     <Content Include="Views\sadnje\Create.cshtml" />
     <Content Include="Views\sadnje\Delete.cshtml" />
     <Content Include="Views\sadnje\Details.cshtml" />

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1d92c9b6fb47468cbf26da5a5ac1e77a" Name="Diagram1" ZoomLevel="111">
+      <Diagram DiagramId="1d92c9b6fb47468cbf26da5a5ac1e77a" Name="Diagram1" ZoomLevel="83">
         <EntityTypeShape EntityType="Model.berbe" Width="1.5" PointX="18" PointY="8.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.biljke" Width="1.5" PointX="13.5" PointY="11.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.farme" Width="1.5" PointX="7.5" PointY="4.75" IsExpanded="true" />
@@ -16,7 +16,6 @@
         <EntityTypeShape EntityType="Model.prodaje_biljaka" Width="1.5" PointX="15.75" PointY="12.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.prodaje_sirovina" Width="1.5" PointX="14.25" PointY="4.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.punjenje_mljekomata" Width="1.5" PointX="7.5" PointY="10.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.radnje_oranica" Width="1.5" PointX="12.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.radnje_stroja" Width="1.5" PointX="9.75" PointY="16.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.sadnje" Width="1.5" PointX="15.75" PointY="8.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.servisi_mljekomata" Width="1.5" PointX="7.5" PointY="13.375" IsExpanded="true" />
@@ -24,7 +23,6 @@
         <EntityTypeShape EntityType="Model.sirovine" Width="1.5" PointX="12" PointY="4.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.stanje_tla" Width="1.5" PointX="8.25" PointY="7.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.strojevi" Width="1.5" PointX="7.5" PointY="16.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.tip_radnje_oranice" Width="1.5" PointX="10.5" PointY="13" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.tip_radnje_stroja" Width="1.5" PointX="7.5" PointY="23.25" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.troskovi" Width="1.5" PointX="7.5" PointY="20" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.vrste_tla" Width="1.5" PointX="8.25" PointY="1.25" IsExpanded="true" />
@@ -48,18 +46,15 @@
         <AssociationConnector Association="Model.FK_oranice_oranice" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_oranice_parcele" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_oranice_vrste_tla" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_radnje_oranica_oranice" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_sadnje_oranice" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_strojevi_parcele" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_troskovi_troskovi" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_prodaje_sirovina_sirovine" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_radnje_oranica_tip_radnje_oranice" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_radnje_stroja_strojevi" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_radnje_stroja_tip_radnje" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_sadnje_sezone" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_sirovine_zivotinje" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_prodaje_biljaka_berbe" />
-        <EntityTypeShape EntityType="Model.status_zivotinje" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
