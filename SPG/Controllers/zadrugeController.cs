@@ -37,6 +37,7 @@ namespace SPG.Controllers
             {
                 return HttpNotFound();
             }
+            ViewData["Clanovi"] = db.gospodarstva.Where(g => g.zadruge.id == id).ToList();
             return View(zadruge);
         }
 

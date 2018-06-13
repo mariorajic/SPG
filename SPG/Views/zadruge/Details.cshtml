@@ -2,22 +2,66 @@
 
 @{
     ViewBag.Title = "Details";
+    IEnumerable<gospodarstva> clanovi = ViewData["Clanovi"] as IEnumerable<gospodarstva>;
 }
 
 <h2>Detalji o zadruzi</h2>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt class="text-capitalize">
-            @Html.DisplayNameFor(model => model.ime)
-        </dt>
+<div class="row">
+    <div class="d-flex flex-column col-4 justify-content-start">
+        <hr />
+        <dl class="dl-horizontal">
+            <dt class="text-capitalize">
+                @Html.DisplayNameFor(model => model.ime)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.ime)
-        </dd>
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.ime)
+            </dd>
+        </dl>
+        <p>
+            @Html.ActionLink("Nazad na listu", "Index")
+        </p>
+        <button class="btn btn-default">
+            @Html.ActionLink("Pridruzi se zadruzi", "Join", new { id = Model.id })
+        </button>
+    </div>
+    <div class="d-flex flex-column col-8">
+        <h4>Članovi zadruge</h4>
+        <table class="table">
+            <tr>
+                <th>
+                    Ime
+                </th>
+                <th>
+                    Prezime
+                </th>
+                <th>
+                    Kontakt
+                </th>
+                <th>
+                    Email
+                </th>
+            </tr>
+
+            @foreach (var item in clanovi)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.prezime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.kontakt)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.email)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Nazad na listu", "Index")
-</p>
+
