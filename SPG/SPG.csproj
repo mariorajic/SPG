@@ -252,6 +252,9 @@
     <Compile Include="stanje_tla.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="status_zivotinje.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="strojevi.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

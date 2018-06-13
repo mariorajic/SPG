@@ -31,8 +31,11 @@
         <EntityTypeShape EntityType="Model.zadruge" Width="1.5" PointX="0.75" PointY="12" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.zivotinje" Width="1.5" PointX="9.75" PointY="4.375" IsExpanded="true" />
         <AssociationConnector Association="Model.FK_berbe_sadnje" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_berbe_sezone" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_prodaje_biljaka_biljke" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_berbe_sezone" ManuallyRouted="true" >
+          <ConnectorPoint PointX="15" PointY="15.545187174479167" />
+          <ConnectorPoint PointX="18.75" PointY="15.545187174479167" />
+          <ConnectorPoint PointX="18.75" PointY="11.182190755208334" />
+        </AssociationConnector>
         <AssociationConnector Association="Model.FK_sadnje_biljke" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_farme_parcele" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_zivotinje_farme" ManuallyRouted="false" />
@@ -55,7 +58,8 @@
         <AssociationConnector Association="Model.FK_radnje_stroja_tip_radnje" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_sadnje_sezone" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_sirovine_zivotinje" ManuallyRouted="false" />
-        <AssociationConnector Association="Model.FK_prodaje_biljaka_oranice" />
+        <AssociationConnector Association="Model.FK_prodaje_biljaka_berbe" />
+        <EntityTypeShape EntityType="Model.status_zivotinje" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

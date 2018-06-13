@@ -36,7 +36,6 @@ namespace SPG
         public virtual DbSet<prodaje_biljaka> prodaje_biljaka { get; set; }
         public virtual DbSet<prodaje_sirovina> prodaje_sirovina { get; set; }
         public virtual DbSet<punjenje_mljekomata> punjenje_mljekomata { get; set; }
-        public virtual DbSet<radnje_oranica> radnje_oranica { get; set; }
         public virtual DbSet<radnje_stroja> radnje_stroja { get; set; }
         public virtual DbSet<sadnje> sadnje { get; set; }
         public virtual DbSet<servisi_mljekomata> servisi_mljekomata { get; set; }
@@ -44,7 +43,6 @@ namespace SPG
         public virtual DbSet<sirovine> sirovine { get; set; }
         public virtual DbSet<stanje_tla> stanje_tla { get; set; }
         public virtual DbSet<strojevi> strojevi { get; set; }
-        public virtual DbSet<tip_radnje_oranice> tip_radnje_oranice { get; set; }
         public virtual DbSet<tip_radnje_stroja> tip_radnje_stroja { get; set; }
         public virtual DbSet<troskovi> troskovi { get; set; }
         public virtual DbSet<vrste_tla> vrste_tla { get; set; }
