@@ -98,8 +98,8 @@ namespace SPG.Controllers
             if (ModelState.IsValid)
             {
                 int userId = Int32.Parse(User.Identity.Name);
-                db.Entry(mljekomati).State = EntityState.Modified;
                 mljekomati.id_korisnika = userId;
+                db.Entry(mljekomati).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

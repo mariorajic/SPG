@@ -1,6 +1,7 @@
 ﻿@model SPG.gospodarstva
 
 @{
+    gospodarstva korisnik = ViewData["Korisnik"] as gospodarstva;
     ViewBag.Title = "Home Page";
 }
 
@@ -8,6 +9,57 @@
 
     <div class="col-12 col-lg-6 row flex-center flex-column">
         <img src="~/Content/img/logo.png" alt="Sustav za poljoprivredna gospodarstva">
+        <hr />
+        <div>
+            <dl class="dl-horizontal text-center">
+                <dt>
+                    Ime
+                </dt>
+
+                <dd>
+                    @korisnik.ime
+                </dd>
+
+                <dt>
+                    Prezime
+                </dt>
+
+                <dd>
+                    @korisnik.prezime
+                </dd>
+
+                <dt>
+                    Kontakt
+                </dt>
+
+                <dd>
+                    @korisnik.kontakt
+                </dd>
+
+                <dt>
+                    Email
+                </dt>
+
+                <dd>
+                    @korisnik.email
+                </dd>
+
+                @if (korisnik.id_zadruge != null)
+                {
+                    <dt>
+                        Zadruga
+                    </dt>
+
+                    <dd>
+                        @Html.Raw(korisnik.zadruge.ime)
+                    </dd>
+                }
+
+            </dl>
+        </div>
+        <p>
+            @Html.ActionLink("Uredi", "Edit", new { controller="gospodarstva", id = korisnik.id })
+        </p>
         @Html.ActionLink("Odjavi se", "Logout", "Home")
     </div>
 </div>

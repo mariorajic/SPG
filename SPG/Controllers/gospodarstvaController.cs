@@ -17,14 +17,15 @@ namespace SPG.Controllers
         // GET: gospodarstva
         public ActionResult Index()
         {
-            var gospodarstva = db.gospodarstva.Include(g => g.zadruge);
-            return View(gospodarstva.ToList());
+            /*var gospodarstva = db.gospodarstva.Include(g => g.zadruge);
+            return View(gospodarstva.ToList());*/
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: gospodarstva/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            /*if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -33,14 +34,16 @@ namespace SPG.Controllers
             {
                 return HttpNotFound();
             }
-            return View(gospodarstva);
+            return View(gospodarstva);*/
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: gospodarstva/Create
         public ActionResult Create()
         {
-            ViewBag.id_zadruge = new SelectList(db.zadruge, "id", "ime");
-            return View();
+            /*ViewBag.id_zadruge = new SelectList(db.zadruge, "id", "ime");
+            return View();*/
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: gospodarstva/Create
@@ -50,15 +53,16 @@ namespace SPG.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,ime,prezime,kontakt,id_zadruge,email,lozinka")] gospodarstva gospodarstva)
         {
-            if (ModelState.IsValid)
-            {
-                db.gospodarstva.Add(gospodarstva);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            /* if (ModelState.IsValid)
+             {
+                 db.gospodarstva.Add(gospodarstva);
+                 db.SaveChanges();
+                 return RedirectToAction("Index");
+             }
 
-            ViewBag.id_zadruge = new SelectList(db.zadruge, "id", "ime", gospodarstva.id_zadruge);
-            return View(gospodarstva);
+             ViewBag.id_zadruge = new SelectList(db.zadruge, "id", "ime", gospodarstva.id_zadruge);
+             return View(gospodarstva);*/
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: gospodarstva/Edit/5
@@ -69,7 +73,8 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             gospodarstva gospodarstva = db.gospodarstva.Find(id);
-            if (gospodarstva == null)
+            var userId = Int32.Parse(User.Identity.Name);
+            if (gospodarstva == null || gospodarstva.id != userId)
             {
                 return HttpNotFound();
             }
@@ -82,15 +87,14 @@ namespace SPG.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,ime,prezime,kontakt,id_zadruge,email,lozinka")] gospodarstva gospodarstva)
+        public ActionResult Edit([Bind(Include = "id,ime,lozinka,id_zadruge,prezime,kontakt,email")] gospodarstva gospodarstva)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(gospodarstva).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Home");
             }
-            ViewBag.id_zadruge = new SelectList(db.zadruge, "id", "ime", gospodarstva.id_zadruge);
             return View(gospodarstva);
         }
 
@@ -102,7 +106,8 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             gospodarstva gospodarstva = db.gospodarstva.Find(id);
-            if (gospodarstva == null)
+            var userId = Int32.Parse(User.Identity.Name);
+            if (gospodarstva == null || gospodarstva.id != userId)
             {
                 return HttpNotFound();
             }
@@ -115,9 +120,16 @@ namespace SPG.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             gospodarstva gospodarstva = db.gospodarstva.Find(id);
-            db.gospodarstva.Remove(gospodarstva);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            try
+            {
+                db.gospodarstva.Remove(gospodarstva);
+                db.SaveChanges();
+            }
+            catch
+            {
+                return View("Error");
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         protected override void Dispose(bool disposing)

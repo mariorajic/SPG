@@ -16,7 +16,12 @@ namespace SPG.Controllers
         [Authorize]
         public ActionResult Index()
         {
-                return View();
+
+            int idUsera = Int32.Parse(User.Identity.Name);
+
+            ViewData["Korisnik"] = db.gospodarstva.Find(idUsera);
+
+            return View();
         }
 
 
