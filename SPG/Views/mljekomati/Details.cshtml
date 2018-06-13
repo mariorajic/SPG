@@ -2,9 +2,9 @@
 
 @{
 
-ViewBag.Title = "Detalji";
-IEnumerable<servisi_mljekomata> servisi = ViewData["Servisi"] as IEnumerable<servisi_mljekomata>;
-IEnumerable<punjenje_mljekomata> punjenja = ViewData["Punjenja"] as IEnumerable<punjenje_mljekomata>;
+    ViewBag.Title = "Detalji";
+    IEnumerable<servisi_mljekomata> servisi = ViewData["Servisi"] as IEnumerable<servisi_mljekomata>;
+    IEnumerable<punjenje_mljekomata> punjenja = ViewData["Punjenja"] as IEnumerable<punjenje_mljekomata>;
 
 }
 
@@ -99,7 +99,7 @@ IEnumerable<punjenje_mljekomata> punjenja = ViewData["Punjenja"] as IEnumerable<
             </div>
 
             <div class="tab-pane fade show" id="pills-servisi" role="tabpanel" aria-labelledby="pills-servisi-tab">
-                <button type="button" class="btn btn-basic">@Html.ActionLink("Novi servis", "Create", "servisiMljekomata", new { id = Model.id}, null)</button>
+                <button type="button" class="btn btn-basic">@Html.ActionLink("Novi servis", "Create", "servisiMljekomata", new { id = Model.id }, null)</button>
                 <table class="table">
                     <tr>
                         <th>
@@ -122,7 +122,7 @@ IEnumerable<punjenje_mljekomata> punjenja = ViewData["Punjenja"] as IEnumerable<
                                 @Html.DisplayFor(modelItem => item.troskovi)
                             </td>
                             <td>
-                                @Html.ActionLink("Uredi", "Edit", new { controller="servisiMljekomata", id = item.id }) |
+                                @Html.ActionLink("Uredi", "Edit", new { controller = "servisiMljekomata", id = item.id }) |
                                 @Html.ActionLink("Detalji", "Details", new { controller = "servisiMljekomata", id = item.id }) |
                                 @Html.ActionLink("Izbrisi", "Delete", new { controller = "servisiMljekomata", id = item.id })
                             </td>
@@ -131,5 +131,5 @@ IEnumerable<punjenje_mljekomata> punjenja = ViewData["Punjenja"] as IEnumerable<
                 </table>
             </div>
         </div>
-        </div>
-        </div>
+    </div>
+</div>

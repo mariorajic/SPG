@@ -14,6 +14,12 @@ namespace SPG.Controllers
     {
         private Entities db = new Entities();
 
+        public ActionResult PrintToPdf(int? id)
+        {
+
+            return new Rotativa.ActionAsPdf("Details", new { id = id }) { FileName = "ProdajaBiljkeAsPdf.pdf" };
+        }
+
         // GET: prodajeBiljaka
         public ActionResult Index()
         {
