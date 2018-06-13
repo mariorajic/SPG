@@ -17,8 +17,9 @@ namespace SPG.Controllers
         // GET: prodajeSirovina
         public ActionResult Index()
         {
-            var prodaje_sirovina = db.prodaje_sirovina.Include(p => p.sirovine);
-            return View(prodaje_sirovina.ToList());
+            /*var prodaje_sirovina = db.prodaje_sirovina.Include(p => p.sirovine);
+            return View(prodaje_sirovina.ToList());*/
+            return RedirectToAction("Index", "parcele");
         }
 
         // GET: prodajeSirovina/Details/5
@@ -39,8 +40,11 @@ namespace SPG.Controllers
         // GET: prodajeSirovina/Create
         public ActionResult Create()
         {
-            ViewBag.id_sirovine = new SelectList(db.sirovine, "id", "naziv");
-            return View();
+            if (Url.RequestContext.RouteData.Values["id"] != null)
+            {
+                return View();
+            }
+            return HttpNotFound();
         }
 
         // POST: prodajeSirovina/Create
@@ -52,12 +56,14 @@ namespace SPG.Controllers
         {
             if (ModelState.IsValid)
             {
+                string x = Url.RequestContext.RouteData.Values["id"].ToString();
+                int Ajdi = Int32.Parse(x);
+                prodaje_sirovina.id_sirovine = Ajdi;
                 db.prodaje_sirovina.Add(prodaje_sirovina);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "farme", new { id = db.sirovine.Find(Ajdi).zivotinje.id_farme });
             }
 
-            ViewBag.id_sirovine = new SelectList(db.sirovine, "id", "naziv", prodaje_sirovina.id_sirovine);
             return View(prodaje_sirovina);
         }
 
@@ -73,7 +79,6 @@ namespace SPG.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.id_sirovine = new SelectList(db.sirovine, "id", "naziv", prodaje_sirovina.id_sirovine);
             return View(prodaje_sirovina);
         }
 
@@ -88,9 +93,8 @@ namespace SPG.Controllers
             {
                 db.Entry(prodaje_sirovina).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "farme", new { id = db.sirovine.Find(prodaje_sirovina.id_sirovine).zivotinje.id_farme });
             }
-            ViewBag.id_sirovine = new SelectList(db.sirovine, "id", "naziv", prodaje_sirovina.id_sirovine);
             return View(prodaje_sirovina);
         }
 
@@ -115,9 +119,18 @@ namespace SPG.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             prodaje_sirovina prodaje_sirovina = db.prodaje_sirovina.Find(id);
-            db.prodaje_sirovina.Remove(prodaje_sirovina);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var id_farme = db.sirovine.Find(prodaje_sirovina.id_sirovine).zivotinje.id_farme;
+            try
+            {
+                db.prodaje_sirovina.Remove(prodaje_sirovina);
+                db.SaveChanges();
+            }
+            catch
+            {
+                return View("Error");
+            }
+
+            return RedirectToAction("Details", "farme", new { id = id_farme });
         }
 
         protected override void Dispose(bool disposing)

@@ -17,8 +17,9 @@ namespace SPG.Controllers
         // GET: sirovine
         public ActionResult Index()
         {
-            var sirovine = db.sirovine.Include(s => s.zivotinje);
-            return View(sirovine.ToList());
+            /*var sirovine = db.sirovine.Include(s => s.zivotinje);
+            return View(sirovine.ToList());*/
+            return RedirectToAction("Index", "parcele");
         }
 
         // GET: sirovine/Details/5
@@ -29,7 +30,8 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             sirovine sirovine = db.sirovine.Find(id);
-            if (sirovine == null)
+            var userId = Int32.Parse(User.Identity.Name);
+            if (sirovine == null || sirovine.zivotinje.farme.parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
@@ -39,8 +41,11 @@ namespace SPG.Controllers
         // GET: sirovine/Create
         public ActionResult Create()
         {
-            ViewBag.id_zivotinje = new SelectList(db.zivotinje, "id", "vrsta");
-            return View();
+            if (Url.RequestContext.RouteData.Values["id"] != null)
+            {
+                return View();
+            }
+            return HttpNotFound();
         }
 
         // POST: sirovine/Create
@@ -52,12 +57,14 @@ namespace SPG.Controllers
         {
             if (ModelState.IsValid)
             {
+                string x = Url.RequestContext.RouteData.Values["id"].ToString();
+                int Ajdi = Int32.Parse(x);
+                sirovine.id_zivotinje = Ajdi;
                 db.sirovine.Add(sirovine);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "farme", new { id = db.zivotinje.Find(sirovine.id_zivotinje).id_farme});
             }
 
-            ViewBag.id_zivotinje = new SelectList(db.zivotinje, "id", "vrsta", sirovine.id_zivotinje);
             return View(sirovine);
         }
 
@@ -69,11 +76,12 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             sirovine sirovine = db.sirovine.Find(id);
-            if (sirovine == null)
+            var userId = Int32.Parse(User.Identity.Name);
+            if (sirovine == null || sirovine.zivotinje.farme.parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
-            ViewBag.id_zivotinje = new SelectList(db.zivotinje, "id", "vrsta", sirovine.id_zivotinje);
+           
             return View(sirovine);
         }
 
@@ -88,9 +96,8 @@ namespace SPG.Controllers
             {
                 db.Entry(sirovine).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "farme", new { id = db.zivotinje.Find(sirovine.id_zivotinje).id_farme });
             }
-            ViewBag.id_zivotinje = new SelectList(db.zivotinje, "id", "vrsta", sirovine.id_zivotinje);
             return View(sirovine);
         }
 
@@ -102,7 +109,8 @@ namespace SPG.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             sirovine sirovine = db.sirovine.Find(id);
-            if (sirovine == null)
+            var userId = Int32.Parse(User.Identity.Name);
+            if (sirovine == null || sirovine.zivotinje.farme.parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
@@ -115,9 +123,18 @@ namespace SPG.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             sirovine sirovine = db.sirovine.Find(id);
-            db.sirovine.Remove(sirovine);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            var id_farme = sirovine.zivotinje.id_farme;
+            try
+            {
+                db.sirovine.Remove(sirovine);
+                db.SaveChanges();
+            }
+            catch
+            {
+                return View("Error");
+            }
+
+            return RedirectToAction("Details", "farme", new { id = id_farme });
         }
 
         protected override void Dispose(bool disposing)

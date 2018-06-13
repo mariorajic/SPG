@@ -4,14 +4,21 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Detalji sirovine</h2>
 
 <div>
-    <h4>prodaje_sirovina</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.kolicina)
+            Naziv
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sirovine.naziv)
+        </dd>
+
+        <dt>
+            Količina
         </dt>
 
         <dd>
@@ -19,7 +26,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.datum)
+            Datum
         </dt>
 
         <dd>
@@ -27,24 +34,15 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.profit)
+            Profit
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.profit)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.sirovine.naziv)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.sirovine.naziv)
-        </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Uredi", "Edit", new { id = Model.id })
 </p>

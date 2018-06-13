@@ -73,48 +73,48 @@
 
     <div class="tab-content" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-farme" role="tabpanel" aria-labelledby="pills-farme-tab">
-            <p>
+            <button class="btn btn-basic">
                 @Html.ActionLink("Nova farma", "Create", new { controller = "farme", id = Model.id })
-            </p>
-            <table class="table">
-                <tr>
-                    <th>
-                        Naziv
-                    </th>
-                    <th>
-                        Parcela
-                    </th>
-                    <th>
-                        Akcije
-                    </th>
-                    <th></th>
-                </tr>
-                @foreach (var item in farme)
-                {
+            </button>
+                <table class="table">
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.naziv)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.parcele.naziv)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Uredi", "Edit", new { id = item.id, controller = "farme" }) |
-                            @Html.ActionLink("Detalji", "Details", new { id = item.id, controller = "farme" }) |
-                            @Html.ActionLink("Izbrisi", "Delete", new { id = item.id, controller = "farme" })
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-basic">@Html.ActionLink("Dodaj životinju", "Create", "zivotinje", new { id = item.id }, null)</button>
-                        </td>
+                        <th>
+                            Naziv
+                        </th>
+                        <th>
+                            Parcela
+                        </th>
+                        <th>
+                            Akcije
+                        </th>
+                        <th></th>
                     </tr>
-                }
-            </table>
-        </div>
+                    @foreach (var item in farme)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.naziv)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.parcele.naziv)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Uredi", "Edit", new { id = item.id, controller = "farme" }) |
+                                @Html.ActionLink("Detalji", "Details", new { id = item.id, controller = "farme" }) |
+                                @Html.ActionLink("Izbrisi", "Delete", new { id = item.id, controller = "farme" })
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-basic">@Html.ActionLink("Dodaj životinju", "Create", "zivotinje", new { id = item.id }, null)</button>
+                            </td>
+                        </tr>
+                    }
+                </table>
+</div>
 
         <div class="tab-pane fade show" id="pills-oranice" role="tabpanel" aria-labelledby="pills-oranice-tab">
-            <p>
+            <button class="btn btn-basic">
                 @Html.ActionLink("Nova oranica", "Create", new { controller = "oranice", id = Model.id })
-            </p>
+            </button>
             <table class="table">
                 <tr>
                     <th>

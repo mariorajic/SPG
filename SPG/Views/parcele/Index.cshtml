@@ -20,9 +20,9 @@
 
 <div class="tab-content" id="pills-tabContent">
     <div class="tab-pane fade show active" id="pills-parcele" role="tabpanel" aria-labelledby="pills-parcele-tab">
-        <p>
+        <button class="btn btn-basic">
             @Html.ActionLink("Nova parcela", "Create", "parcele")
-        </p>
+        </button>
         <table class="table">
             <tr>
                 <th>
@@ -72,9 +72,9 @@
         </table>
     </div>
     <div class="tab-pane fade" id="pills-farme" role="tabpanel" aria-labelledby="pills-farme-tab">
-        <p>
+        <button class="btn btn-basic">
             @Html.ActionLink("Nova farma", "Create", "farme")
-        </p>
+        </button>
         <table class="table">
             <tr>
                 <th>
@@ -86,7 +86,6 @@
                 <th>
                     Akcije
                 </th>
-                <th></th>
             </tr>
             @foreach (var item in farme)
             {
@@ -102,17 +101,14 @@
                     @Html.ActionLink("Detalji", "Details", new { id = item.id, controller = "farme" }) |
                     @Html.ActionLink("Izbrisi", "Delete", new { id = item.id, controller = "farme" })
                 </td>
-                <td>
-                    <button type="button" class="btn btn-basic">@Html.ActionLink("Dodaj životinju", "Create", "zivotinje", new { id = item.id }, null)</button>
-                </td>
             </tr>
             }
         </table>
     </div>
     <div class="tab-pane fade" id="pills-oranice" role="tabpanel" aria-labelledby="pills-oranice-tab">
-        <p>
+        <button class="btn btn-basic">
             @Html.ActionLink("Nova oranica", "Create", "oranice")
-        </p>
+        </button>
         <table class="table">
             <tr>
                 <th>

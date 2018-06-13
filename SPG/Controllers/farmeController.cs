@@ -32,13 +32,13 @@ namespace SPG.Controllers
             }
             farme farme = db.farme.Find(id);
             var userId = Int32.Parse(User.Identity.Name);
-            string x = Url.RequestContext.RouteData.Values["id"].ToString();
-            int Ajdi = Int32.Parse(x);
             if (farme == null || farme.parcele.id_korisnika != userId)
             {
                 return HttpNotFound();
             }
-            ViewData["Zivotinje"] = db.zivotinje.Where(f => f.id_farme == Ajdi).ToList();
+            ViewData["Zivotinje"] = db.zivotinje.Where(f => f.id_farme == id).ToList();
+            ViewData["Sirovine"] = db.sirovine.Where(z => z.zivotinje.id_farme == id).ToList();
+            ViewData["Prodaje"] = db.prodaje_sirovina.Where(p => p.sirovine.zivotinje.id_farme == id).ToList();
             return View(farme);
         }
 

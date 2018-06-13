@@ -17,8 +17,9 @@ namespace SPG.Controllers
         // GET: zivotinje
         public ActionResult Index()
         {
-            var zivotinje = db.zivotinje.Include(z => z.farme);
-            return View(zivotinje.ToList());
+            /*var zivotinje = db.zivotinje.Include(z => z.farme);
+            return View(zivotinje.ToList());*/
+            return RedirectToAction("Index", "parcele");
         }
 
         // GET: zivotinje/Details/5
@@ -101,11 +102,9 @@ namespace SPG.Controllers
         {
             if (ModelState.IsValid)
             {
-                string x = Url.RequestContext.RouteData.Values["id"].ToString();
-                int Ajdi = Int32.Parse(x);
                 db.Entry(zivotinje).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Details", "Farme", new { id = Ajdi });
+                return RedirectToAction("Details", "Farme", new { id = zivotinje.id_farme });
             }
             var userId = Int32.Parse(User.Identity.Name);
             ViewBag.id_farme = new SelectList(db.farme.Where(p => p.parcele.id_korisnika == userId), "id", "naziv", zivotinje.id_farme);
@@ -134,11 +133,17 @@ namespace SPG.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             zivotinje zivotinje = db.zivotinje.Find(id);
-            db.zivotinje.Remove(zivotinje);
-            db.SaveChanges();
-            string x = Url.RequestContext.RouteData.Values["id"].ToString();
-            int Ajdi = Int32.Parse(x);
-            return RedirectToAction("Details", "Farme", new { id = Ajdi });
+            var id_farme = zivotinje.id_farme;
+            try
+            {
+                db.zivotinje.Remove(zivotinje);
+                db.SaveChanges();
+            }
+            catch
+            {
+                return View("Error");
+            }
+            return RedirectToAction("Details", "Farme", new { id = id_farme });
         }
 
         protected override void Dispose(bool disposing)
