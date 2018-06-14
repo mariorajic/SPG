@@ -143,8 +143,15 @@ namespace SPG.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             zadruge zadruge = db.zadruge.Find(id);
-            db.zadruge.Remove(zadruge);
-            db.SaveChanges();
+            try
+            {
+                db.zadruge.Remove(zadruge);
+                db.SaveChanges();
+            }
+            catch
+            {
+                return View("Error");
+            }
             return RedirectToAction("Index");
         }
 

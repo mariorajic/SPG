@@ -27,7 +27,9 @@ namespace SPG
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public System.DateTime datum { get; set; }
+        [Required]
         public string kolicina { get; set; }
+        [Required]
         public string troskovi { get; set; }
         public Nullable<int> sezona { get; set; }
     

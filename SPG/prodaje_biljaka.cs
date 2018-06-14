@@ -11,11 +11,14 @@ namespace SPG
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class prodaje_biljaka
     {
         public int id { get; set; }
+        [Required]
         public string kolicina { get; set; }
+        [Required]
         public string profit { get; set; }
         public Nullable<int> id_berbe { get; set; }
     

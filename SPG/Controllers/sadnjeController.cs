@@ -128,8 +128,15 @@ namespace SPG.Controllers
         {
             sadnje sadnje = db.sadnje.Find(id);
             var id_oranice = sadnje.id_oranice;
-            db.sadnje.Remove(sadnje);
-            db.SaveChanges();
+            try
+            {
+                db.sadnje.Remove(sadnje);
+                db.SaveChanges();
+            }
+            catch
+            {
+                return View("Error");
+            }
             return RedirectToAction("Details", "oranica", new { id = id_oranice });
         }
 

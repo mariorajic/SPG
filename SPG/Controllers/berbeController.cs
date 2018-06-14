@@ -123,8 +123,15 @@ namespace SPG.Controllers
         {
             berbe berbe = db.berbe.Find(id);
             var id_sadnje = berbe.id_sadnje;
-            db.berbe.Remove(berbe);
-            db.SaveChanges();
+            try
+            {
+                db.berbe.Remove(berbe);
+                db.SaveChanges();
+            }
+            catch
+            {
+                return View("Error");
+            }
             return RedirectToAction("Details", "oranice", new { id = db.sadnje.Find(id_sadnje).id_oranice });
         }
 

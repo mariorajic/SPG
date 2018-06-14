@@ -19,6 +19,7 @@ namespace SPG
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public System.DateTime datum { get; set; }
+        [Required]
         public int troskovi { get; set; }
         public Nullable<int> id_mljekomata { get; set; }
     

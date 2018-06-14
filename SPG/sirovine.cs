@@ -23,10 +23,12 @@ namespace SPG
     
         public int id { get; set; }
         public int id_zivotinje { get; set; }
+        [Required]
         public string naziv { get; set; }
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public System.DateTime datum { get; set; }
+        [Required]
         public int kolicina { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

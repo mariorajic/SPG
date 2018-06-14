@@ -168,7 +168,7 @@ namespace SPG.Controllers
                 return View("Error");
             }
 
-            return RedirectToAction("Details", "parcele", new { id = id_parcele });
+            return RedirectToAction("Index", "mljekomati");
         }
 
         protected override void Dispose(bool disposing)

@@ -130,8 +130,15 @@ namespace SPG.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             strojevi strojevi = db.strojevi.Find(id);
-            db.strojevi.Remove(strojevi);
-            db.SaveChanges();
+            try
+            {
+                db.strojevi.Remove(strojevi);
+                db.SaveChanges();
+            }
+            catch
+            {
+                return View("Error");
+            }
             return RedirectToAction("Index");
         }
 

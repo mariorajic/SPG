@@ -17,10 +17,12 @@ namespace SPG
     {
         public int id { get; set; }
         public int id_sirovine { get; set; }
+        [Required]
         public int kolicina { get; set; }
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Date)]
         public System.DateTime datum { get; set; }
+        [Required]
         public string profit { get; set; }
     
         public virtual sirovine sirovine { get; set; }

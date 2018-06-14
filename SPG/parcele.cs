@@ -11,7 +11,8 @@ namespace SPG
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class parcele
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -25,10 +26,14 @@ namespace SPG
     
         public int id { get; set; }
         public int id_korisnika { get; set; }
+        [Required]
         public string koordinate { get; set; }
+        [Required]
         public string dimenzije { get; set; }
         public int id_grada { get; set; }
+        [Required]
         public string lokacija { get; set; }
+        [Required]
         public string naziv { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

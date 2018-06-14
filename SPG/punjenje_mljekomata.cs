@@ -21,7 +21,9 @@ namespace SPG
         [DataType(DataType.Date)]
         public System.DateTime datum { get; set; }
         public Nullable<int> troskovi { get; set; }
+        [Required]
         public int profit { get; set; }
+        [Required]
         public string preostala_kolicina { get; set; }
     
         public virtual mljekomati mljekomati { get; set; }

@@ -51,6 +51,8 @@ namespace SPG.Controllers
                 {
                     return HttpNotFound();
                 }
+                string[] status = { "Živa", "Mrtva"};
+                ViewBag.status = new SelectList(status, "Živa");
                 return View();
             }
             return HttpNotFound();
@@ -72,7 +74,8 @@ namespace SPG.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Details","Farme", new { id = Ajdi });
             }
-
+            string[] status = { "Živa", "Mrtva" };
+            ViewBag.status = new SelectList(status, "Živa");
             return View(zivotinje);
         }
 

@@ -128,8 +128,15 @@ namespace SPG.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             mljekomati mljekomati = db.mljekomati.Find(id);
-            db.mljekomati.Remove(mljekomati);
-            db.SaveChanges();
+            try
+            {
+                db.mljekomati.Remove(mljekomati);
+                db.SaveChanges();
+            }
+            catch
+            {
+                return View("Error");
+            }
             return RedirectToAction("Index");
         }
 
